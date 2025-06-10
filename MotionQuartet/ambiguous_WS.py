@@ -46,13 +46,13 @@ Conditions = np.hstack(([0], Conditions, [0]))
 Durations = np.zeros(int(len(Conditions)))
 
 # if integer TR we can set percise timing 
-if isinstance(TR, int):
+if TR == 2:
     DurElem = np.array([int(20/TR), int(16/TR), int(80/TR)])  # fix = 20s; flickerQuartet = 16s, AmbiguousQuartet = 80s
     # NOTE: Fixation at the beginning and at the end lasts both for 10 triggers.
 
 # if float TR, we have to enforce number of TR rather than time 
-elif isinstance(TR, float):
-    DurElem = np.array([20, 16, 80]) # fix 10 TR; flickerQuartet = 8 TR; AmbiguousQuartet = 40 TR
+elif TR != 2:
+    DurElem = np.array([10, 8, 40]) # fix 10 TR; flickerQuartet = 8 TR; AmbiguousQuartet = 40 TR
 
 for ind in range(0, len(DurElem)):
     Durations[Conditions == ind] = DurElem[ind]

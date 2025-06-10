@@ -67,17 +67,17 @@ if dlg.OK == False: core.quit()  # user pressed cancel
 
 # %% BLOCK DURATIONS [Triggers]
 # set durations of conditions and baseline
-if isinstance(TR, int):
+if TR == 2:
     MotionDur = int(np.ceil(10 / TR))     # Vertical or Horizontal motion 10 sec 
     BaseDur = int(16 / TR)        # 4 sqares flickering 16 sec
     Fixation = int(20 / TR)      # Fixation (beginning and end) 20 sec
     print(MotionDur)
 # NOTE: Fixation at the beginning and at the end lasts both for 10 triggers.
 
-if isinstance(TR, float):
-    MotionDur = 10 # Vertical or Horizontal motion 5TR
-    BaseDur = 16 # 4 sqares flickering8TR
-    Fixation = 20 # Fixation (beginning and end) 10 TR
+if TR != 2:
+    MotionDur = 5 # Vertical or Horizontal motion 5TR
+    BaseDur = 8 # 4 sqares flickering8TR
+    Fixation = 10 # Fixation (beginning and end) 10 TR
 
 
 Durations = np.ones(len(Conditions), dtype=int)*MotionDur

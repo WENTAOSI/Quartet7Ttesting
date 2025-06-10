@@ -168,11 +168,11 @@ if TR == 1 or TR == 2: # ALL number is even
 
 if isinstance(TR, float):
     num_trials = 10
-    total_time = 30*TR
-    report = 6*TR
-    precue = 10*TR
-    delay = 10*TR
-    switch = 4*TR
+    total_time = 15*TR
+    report = 3*TR
+    precue = 5*TR
+    delay = 5*TR
+    switch = 2*TR
 
 # Create a balanced list of QuartetOrder values
 quartet_orders = ["quartetPart1, quartetPart2"] * (num_trials // 2) + \
