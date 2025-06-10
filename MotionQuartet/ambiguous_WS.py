@@ -52,7 +52,7 @@ if isinstance(TR, int):
 
 # if float TR, we have to enforce number of TR rather than time 
 elif isinstance(TR, float):
-    DurElem = np.array([20, 16, 20]) # fix 10 TR; flickerQuartet = 8 TR; AmbiguousQuartet = 40 TR
+    DurElem = np.array([20, 16, 80]) # fix 10 TR; flickerQuartet = 8 TR; AmbiguousQuartet = 40 TR
 
 for ind in range(0, len(DurElem)):
     Durations[Conditions == ind] = DurElem[ind]
