@@ -255,8 +255,8 @@ if expInfo["display"] == 'dbic':
     positions = [apply_global_offset((-3.5, 4), global_offset), apply_global_offset((-2, 4), global_offset),\
                  apply_global_offset((2, 4), global_offset), apply_global_offset((3.5, 4), global_offset)]  # Anchored positions 1, 2, 3, 4
 elif expInfo["display"] == 'Vanderbilt7T':
-    positions = [apply_global_offset((6, 3), global_offset), apply_global_offset((6, 1.5), global_offset),\
-                 apply_global_offset((6, -1.5), global_offset), apply_global_offset((6, -3), global_offset)]  # Anchored positions 1, 2, 3, 4
+    positions = [apply_global_offset((-3.5, 4), global_offset), apply_global_offset((-1.25, 4.5), global_offset),\
+                 apply_global_offset((1.25, 4.5), global_offset), apply_global_offset((3.5, 4), global_offset)]  # Anchored positions 1, 2, 3, 4
 
 
 # Generate circle objects at the specified positions
