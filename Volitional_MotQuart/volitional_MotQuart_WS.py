@@ -29,7 +29,7 @@ TRIGGERKEY = 'quoteleft'
 TR = 2     # sec in int if whole number  or float  
 
 # set global offset
-global_offset = (1,1)
+global_offset = (0,0)
  
 def apply_global_offset(base_pos=(0,0), global_offset=global_offset):
     return (base_pos[0] + global_offset[0], base_pos[1] + global_offset[1])
