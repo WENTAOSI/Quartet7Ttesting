@@ -30,6 +30,22 @@ TR=2 # 2 sec TR
 TRIGGER_KEY='quoteleft' # psychopy accepts "quoteleft" as "`" 
 period = 10 #sec of each period 
 
+# set global offset
+global_offset = (0,0)
+ 
+def apply_global_offset(base_pos=(0,0), global_offset=global_offset):
+    return (base_pos[0] + global_offset[0], base_pos[1] + global_offset[1])
+'''
+          ↑ +Y
+          |
+ (-,+ )   |   (+,+)
+          |
+←--------(0,0)--------→ +X
+          |
+ (-,-)    |   (+,-)
+          |
+          ↓ -Y
+'''
 ###############################################################
 
 #%% GENERAL PARAMETERS """
@@ -60,7 +76,7 @@ expName = 'locMt_MQ'  # set experiment name here
 expInfo = {
     'run': '1',
     'participant': 'test',
-    'display': ['dbic','Vanderbilt7T']
+    'display': ['Vanderbilt7T', 'dbic']
     }
 
 # Create GUI at the beginning of exp to get more expInfo
@@ -130,11 +146,8 @@ elif expInfo['display'] == 'Vanderbilt7T':
     PixW = 1024  # cm
     PixH = 768 # cm
     
-
 moni = monitors.Monitor('testMonitor', width=widthMon, distance=distanceMon)
 moni.setSizePix([PixW, PixH])
-
-
 
 # log monitor info
 logFile.write('MonitorDistance=' + str(distanceMon) + 'cm' + '\n')
@@ -302,7 +315,7 @@ logFile.write('fieldSizeRadius=' + str(FieldSizeRadius) + '\n')
 # initialise moving dot stimuli
 dotPatch = visual.ElementArrayStim(
     myWin,
-    fieldPos=(0.0, 0.0),
+    fieldPos=apply_global_offset((0.0, 0.0)),
     autoLog=False,
     elementTex=None,
     name='dotPatch',
@@ -320,8 +333,9 @@ dotFix = visual.Circle(
     myWin,
     autoLog=False,
     name='dotFix',
-    units='pix',
-    radius=5,
+    units='deg',
+    radius=0.05,
+    pos=apply_global_offset((0, 0)),
     fillColor=[1.0, 0.0, 0.0],
     lineColor=[1.0, 0.0, 0.0],
     )
@@ -330,8 +344,9 @@ dotFixSurround = visual.Circle(
     myWin,
     autoLog=False,
     name='dotFix',
-    units='pix',
-    radius=10,
+    units='deg',
+    radius=0.1,
+    pos=apply_global_offset((0, 0)),
     fillColor=[0.5, 0.5, 0.0],
     lineColor=[0.0, 0.0, 0.0],
     )
@@ -342,7 +357,7 @@ controlText = visual.TextStim(
     colorSpace='rgb',
     color=[1.0, 1.0, 1.0],
     height=0.5,
-    pos=(0.0, -4.0),
+    pos=apply_global_offset((0.0, -4.0)),
     autoLog=False,
     )
 
@@ -352,6 +367,7 @@ triggerText = visual.TextStim(
     colorSpace='rgb',
     color=[1.0, 1.0, 1.0],
     height=0.5,
+    pos=apply_global_offset((0, 0)),
     text='Experiment will start soon. Waiting for scanner'
     )
 
@@ -360,6 +376,7 @@ instruct_text = visual.TextStim(
     colorSpace='rgb',
     color=[1.0, 1.0, 1.0],
     height=0.5,
+    pos=apply_global_offset((0, 0)),
     text='Please Fixate at the CENTER \n\
         Press 1 Immediately If Fixation Changes Color \n\
              Now Press 1 to CONTINUE'
@@ -492,7 +509,7 @@ while runExp:
             loopDotLife = dotLife
             # set opacaities
             dotPatch.opacities = 1
-            dotPatch.fieldPos = [0.0, 0.0]
+            dotPatch.fieldPos = apply_global_offset((0.0, 0.0))
             logging.data('CondCenter' + '\n')
         # left motion
         elif conditions[i] == 2:

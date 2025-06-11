@@ -34,8 +34,25 @@ TRIGGERKEY = 'quoteleft'
 TR = 2     # sec in int if whole number  or float 
 # specify vertical or horizontal switch buttom 
 vertical_buttom = "1"
-horizontal_buttom = "6"
-ITI_buttom = "2"
+horizontal_buttom = "2"
+ITI_buttom = "4"
+
+# set global offset
+global_offset = (0,0)
+ 
+def apply_global_offset(base_pos=(0,0), global_offset=global_offset):
+    return (base_pos[0] + global_offset[0], base_pos[1] + global_offset[1])
+'''
+          ↑ +Y
+          |
+ (-,+ )   |   (+,+)
+          |
+←--------(0,0)--------→ +X
+          |
+ (-,-)    |   (+,-)
+          |
+          ↓ -Y
+'''
 ###############################################################################
 # %% BLOCKS
 # set number of repetitions for each condition
@@ -57,8 +74,8 @@ expName = 'Phys_MotQuart'  # set experiment name here
 expInfo = {
     'run': '1',
     'participant': 'test',
-    'Eyelink':['True','False'],
-    'display': ['dbic','Vanderbilt7T'],
+    'Eyelink':['False','True'],
+    'display': ['Vanderbilt7T', 'dbic'],
     'aspect_ratio': '1.12'
     }
 # Create GUI at the beginning of exp to get more expInfo
@@ -212,15 +229,16 @@ message = visual.TextStim(myWin,
 dotFix = visual.Circle(myWin,
                        autoLog=False,
                        name='dotFix',
-                       units='pix',
-                       radius=10,
+                       units='deg',
+                       radius=.1,
+                       pos=apply_global_offset((0,0), global_offset),
                        fillColor='red',
                        lineColor='red'
                        )
 
 # Keep the dot the same with lower resolution e.g. vanderbilt 7T screen
-if expInfo['display'] == 'Vanderbilt7T':
-    dotFix.radius = int(10/(1920/1024))
+#if expInfo['display'] == 'Vanderbilt7T':
+#    dotFix.radius = int(10/(1920/1024))
 
 Square = visual.GratingStim(myWin,
                             autoLog=False,
@@ -232,8 +250,15 @@ Square = visual.GratingStim(myWin,
                             )
 
 # Four Circles
-circle_size = 1  # width of each circle
-positions = [(-3.5, 4), (-2, 4), (2, 4), (3.5, 4)]  # Anchored positions 1, 2, 3, 4
+circle_size = 1  # diameter of each circle
+if expInfo["display"] == 'dbic':
+    positions = [apply_global_offset((-3.5, 4), global_offset), apply_global_offset((-2, 4), global_offset),\
+                 apply_global_offset((2, 4), global_offset), apply_global_offset((3.5, 4), global_offset)]  # Anchored positions 1, 2, 3, 4
+elif expInfo["display"] == 'Vanderbilt7T':
+    positions = [apply_global_offset((6, 3), global_offset), apply_global_offset((6, 1.5), global_offset),\
+                 apply_global_offset((6, -1.5), global_offset), apply_global_offset((6, -3), global_offset)]  # Anchored positions 1, 2, 3, 4
+
+
 # Generate circle objects at the specified positions
 circles = []
 for pos in positions:
@@ -284,6 +309,7 @@ triggerText = visual.TextStim(
     win=myWin,
     color='white',
     height=0.5,
+    pos=apply_global_offset(base_pos=(0,0), global_offset=global_offset),
     text='Experiment will start soon. Waiting for scanner'
     )
 
@@ -291,22 +317,24 @@ instructText = visual.TextStim(
     win=myWin, 
     color='white',
     height=0.5,
-    text=f'Press {vertical_buttom} immediately when you perceive VERTICAL\n\
-        Press {horizontal_buttom} immediately when you perceive HORIZONTAL\n\
+    pos=apply_global_offset(base_pos=(0,0), global_offset=global_offset),
+    text=f'Press {vertical_buttom} when you perceive VERTICAL\n\
+        Press {horizontal_buttom} when you perceive HORIZONTAL\n\
             PRESS on the keys to practice'
     )
 instruct_ITI = visual.TextStim(
     win=myWin,
     color='white',
     height=0.5,
-    pos=(0,-3.5),
-    text=f'Press {ITI_buttom} immediately when you perceive Four Squares FLASHING\n\
+    pos=apply_global_offset(base_pos=(0,-3.5),global_offset=global_offset),
+    text=f'Press {ITI_buttom} when you perceive Four Squares FLASHING\n\
         Press the Key to Practice'
     )
 anykeyText = visual.TextStim(
     win=myWin, 
     color='white',
     height=0.5,
+    pos=apply_global_offset(base_pos=(0,0), global_offset=global_offset),
     text='Good Job!\n\
         Press on any key to continue'
     )    
@@ -339,9 +367,9 @@ VertiTimeCycle = cycle(TravelTimeArray)  # iterate through the TravelTimeArray
 def HMotion_update(Hori, Verti):
     x = next(HoriTimeCycle)  # pick next element when cycling TravelTimeArray
     mHori = np.cos((2*np.pi)*x)*Hori
-    Square.setPos((mHori, Verti))  # square northeast
+    Square.setPos(apply_global_offset((mHori, Verti), global_offset))  # square northeast
     Square.draw()
-    Square.setPos((-mHori, -Verti))  # square southwest
+    Square.setPos(apply_global_offset((-mHori, -Verti), global_offset))  # square southwest
     Square.draw()
     dotFix.draw()
     myWin.flip()
@@ -350,9 +378,9 @@ def HMotion_update(Hori, Verti):
 def VMotion_update(Hori, Verti):
     x = next(VertiTimeCycle)
     mVerti = np.cos((2*np.pi)*x)*Verti
-    Square.setPos((-Hori, mVerti))  # square northwest
+    Square.setPos(apply_global_offset((-Hori, mVerti), global_offset))  # square northwest
     Square.draw()
-    Square.setPos((Hori, -mVerti))  # square southeast
+    Square.setPos(apply_global_offset((Hori, -mVerti), global_offset))  # square southeast
     Square.draw()
     dotFix.draw()
     myWin.flip()
@@ -362,13 +390,13 @@ def flickerSl(Hori, Verti, instruct):
     NumSquareFrames = int(round(SquareDur/frameDur))
     NumBlankFrames = 2*int(round(BlankDur/frameDur)) + NumSquareFrames
     for frameN in range(NumSquareFrames):
-        Square.setPos((-Hori, Verti))
+        Square.setPos(apply_global_offset((-Hori, Verti), global_offset))
         Square.draw()
-        Square.setPos((Hori, -Verti))
+        Square.setPos(apply_global_offset((Hori, -Verti), global_offset))
         Square.draw()
-        Square.setPos((Hori, Verti))
+        Square.setPos(apply_global_offset((Hori, Verti), global_offset))
         Square.draw()
-        Square.setPos((-Hori, -Verti))
+        Square.setPos(apply_global_offset((-Hori, -Verti), global_offset))
         Square.draw()
         dotFix.draw()
         
@@ -388,29 +416,6 @@ def flickerSl(Hori, Verti, instruct):
                 circle.draw()
             Fs[int(ITI_buttom)-1].draw()
             
-        myWin.flip()
-
-def flickerSl7Tinstruct(Hori, Verti, instruct):
-    NumSquareFrames = int(round(SquareDur/frameDur))
-    NumBlankFrames = 2*int(round(BlankDur/frameDur)) + NumSquareFrames
-    for frameN in range(NumSquareFrames):
-        Square.setPos((-Hori, Verti))
-        Square.draw()
-        Square.setPos((Hori, -Verti))
-        Square.draw()
-        Square.setPos((Hori, Verti))
-        Square.draw()
-        Square.setPos((-Hori, -Verti))
-        Square.draw()
-        dotFix.draw()
-        
-        if instruct:
-            instruct_ITI.draw()
-        myWin.flip()   
-    for frameN in range(NumBlankFrames):
-        dotFix.draw()
-        if instruct:
-            instruct_ITI.draw() 
         myWin.flip()
         
 def buttom_instruct(win,vertical_buttom, horizontal_buttom, ITI_buttom):
@@ -456,30 +461,6 @@ def buttom_instruct(win,vertical_buttom, horizontal_buttom, ITI_buttom):
     # Display instruction for flashing four dots
     while not event.getKeys(keyList=[ITI_buttom]):
         flickerSl(HoriDist, VertiDist, instruct=True) # this includes the instruction text
-
-def buttom_instruct7T(win, vertical_buttom, horizontal_buttom, ITI_buttom):
-    instructText.draw()
-    win.flip()
-
-    keys_pressed = set()
-
-    # Wait until both buttons are pressed, in any order
-    while not (vertical_buttom in keys_pressed and horizontal_buttom in keys_pressed):
-        keys = event.getKeys()
-        keys_pressed.update(keys)
-        if 'escape' in keys:
-            win.close()
-            core.quit()
-        core.wait(0.01)  # Add this to avoid hogging CPU and missing keypresses
-
-    # Flicker loop with ITI
-    while True:
-        if ITI_buttom in event.getKeys():
-            break
-
-        win.callOnFlip(instruct_ITI.draw)
-        flickerSl7Tinstruct(HoriDist, VertiDist, instruct=True)
-        win.flip()
 
 # %% EYELINK SETUP
 
@@ -763,13 +744,12 @@ core.wait(1)
 
 # Only shows instruction when run==1
 if expInfo['run'] == '1':
-    if expInfo['display'] == 'dbic':
-        buttom_instruct(myWin,vertical_buttom, horizontal_buttom, ITI_buttom)
-        anykeyText.draw()
-        myWin.flip()
-        event.waitKeys(timeStamped=False)
-    elif expInfo['display'] == 'Vanderbilt7T':
-        buttom_instruct7T(myWin,vertical_buttom, horizontal_buttom, ITI_buttom)
+
+    buttom_instruct(myWin,vertical_buttom, horizontal_buttom, ITI_buttom)
+    anykeyText.draw()
+    myWin.flip()
+    event.waitKeys(timeStamped=False)
+
     
 # wait for scanner trigger
 triggerText.draw()
@@ -849,45 +829,6 @@ while trigCount < totalTrigger:    # 616
                                                  KeyPressedNew))
                     logging.data(msg='Key4 pressed')
                     
-                elif key in ['5', 'num_5']:
-                    t = clock.getTime()
-                    KeyPressed = '5'
-                    KeyPressedNew = np.array([KeyPressed, t])
-                    KeyPressedArray = np.vstack((KeyPressedArray,
-                                                 KeyPressedNew))
-                    logging.data(msg='Key5 pressed')
-                
-                elif key in ['6', 'num_6']:
-                    t = clock.getTime()
-                    KeyPressed = '6'
-                    KeyPressedNew = np.array([KeyPressed, t])
-                    KeyPressedArray = np.vstack((KeyPressedArray,
-                                                 KeyPressedNew))
-                    logging.data(msg='Key6 pressed')
-                    
-                elif key in ['7', 'num_7']:
-                    t = clock.getTime()
-                    KeyPressed = '7'
-                    KeyPressedNew = np.array([KeyPressed, t])
-                    KeyPressedArray = np.vstack((KeyPressedArray,
-                                                 KeyPressedNew))
-                    logging.data(msg='Key7 pressed')
-                
-                elif key in ['8', 'num_8']:
-                    t = clock.getTime()
-                    KeyPressed = '8'
-                    KeyPressedNew = np.array([KeyPressed, t])
-                    KeyPressedArray = np.vstack((KeyPressedArray,
-                                                 KeyPressedNew))
-                    logging.data(msg='Key8 pressed')
-                    
-                elif key in ['9', 'num_9']:
-                    t = clock.getTime()
-                    KeyPressed = '9'
-                    KeyPressedNew = np.array([KeyPressed, t])
-                    KeyPressedArray = np.vstack((KeyPressedArray,
-                                                 KeyPressedNew))
-                    logging.data(msg='Key9 pressed')
                 
                 elif key == TRIGGERKEY:
                     t = clock.getTime()

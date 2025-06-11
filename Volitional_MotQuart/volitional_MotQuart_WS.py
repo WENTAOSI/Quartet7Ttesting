@@ -27,6 +27,23 @@ TRIGGERKEY = 'quoteleft'
 # BLOCK DURATIONS [in TR]
 # set durations of conditions and baseline
 TR = 2     # sec in int if whole number  or float  
+
+# set global offset
+global_offset = (1,1)
+ 
+def apply_global_offset(base_pos=(0,0), global_offset=global_offset):
+    return (base_pos[0] + global_offset[0], base_pos[1] + global_offset[1])
+'''
+          ↑ +Y
+          |
+ (-,+ )   |   (+,+)
+          |
+←--------(0,0)--------→ +X
+          |
+ (-,-)    |   (+,-)
+          |
+          ↓ -Y
+'''
 ###############################################################################
 
 # Store info about experiment and experimental run
@@ -34,8 +51,8 @@ expName = 'Volitional_MotQuart'  # set experiment name here
 expInfo = {
     'run': '1',
     'participant': 'test',
-    'Eyelink':['True','False'],
-    'display': ['dbic','Vanderbilt7T'],
+    'Eyelink':['False','True'],
+    'display': ['Vanderbilt7T', 'dbic'],
     'aspect_ratio': '1.12'
     }
 
@@ -48,7 +65,7 @@ circle_dva = 6  # Diameter in dva
 circle_radius = circle_dva / 2  # Radius in dva
 
 # Define aspect ratio (Width / Height)
-aspect_ratio = 1.12
+aspect_ratio = float(expInfo['aspect_ratio'])
 aspect_ratio = 1/aspect_ratio  # Example: 2 means Width is twice the height
 
 # Calculate the maximum width 
@@ -249,6 +266,7 @@ dotFix = visual.Circle(myWin,
                        name='dotFix',
                        units='deg',
                        radius=0.1,
+                       pos=apply_global_offset((0,0), global_offset),
                        fillColor='red',
                        lineColor='red'
                        )
@@ -263,7 +281,12 @@ Square = visual.GratingStim(myWin,
                             )
 # Four Circles
 circle_size = 1  # width of each circle
-positions = [(-3.5, 4), (-2, 4), (2, 4), (3.5, 4)]  # Anchored positions 1, 2, 3, 4
+if expInfo["display"] == 'dbic':
+    positions = [apply_global_offset((-3.5, 4), global_offset), apply_global_offset((-2, 4), global_offset),\
+                 apply_global_offset((2, 4), global_offset), apply_global_offset((3.5, 4), global_offset)]  # Anchored positions 1, 2, 3, 4
+elif expInfo["display"] == 'Vanderbilt7T':
+    positions = [apply_global_offset((6, 3), global_offset), apply_global_offset((6, 1.5), global_offset),\
+                 apply_global_offset((6, -1.5), global_offset), apply_global_offset((6, -3), global_offset)]  # Anchored positions 1, 2, 3, 4
 
 # Generate circle objects at the specified positions
 circles = []
@@ -310,7 +333,7 @@ blue_Square = visual.GratingStim(myWin,
                             units='deg',
                             size=(SquareSize*1.5, SquareSize*1.5),
                             color='blue',
-                            pos=(0,4)
+                            pos=apply_global_offset((0,4), global_offset)
                             )
 blue_Square.name = "BLUE"
 
@@ -321,7 +344,7 @@ red_Square = visual.GratingStim(myWin,
                             units='deg',
                             size=(SquareSize*1.5, SquareSize*1.5),
                             color='red',
-                            pos=(0,4)
+                            pos=apply_global_offset((0,4), global_offset)
                             )
 red_Square.name = "RED"
 
@@ -329,6 +352,7 @@ triggerText = visual.TextStim(
     win=myWin,
     color='white',
     height=0.5,
+    pos=apply_global_offset(base_pos=(0,0), global_offset=global_offset),
     text='Experiment will start soon. Waiting for scanner'
     )
 
@@ -337,14 +361,7 @@ anykeyText = visual.TextStim(
     color='white',
     height=0.5,
     text='Press any key to continue',
-    pos=(0, -1)
-    )
-
-reportText = visual.TextStim(
-    win=myWin,
-    color='white',
-    height=0.5,
-    text='Press 1 if perceived VERTICAL; Press 2 if perceived HORIZONTAL'
+    pos=apply_global_offset(base_pos=(0,-2), global_offset=global_offset)
     )
 
 confirm_report_V = visual.TextStim(
@@ -352,7 +369,7 @@ confirm_report_V = visual.TextStim(
     color='white',
     height=0.5,
     text='You have pressed VERTICAL',
-    pos=(0,-4)
+    pos=apply_global_offset(base_pos=(0,-4), global_offset=global_offset)
     )
 
 confirm_report_H = visual.TextStim(
@@ -360,13 +377,14 @@ confirm_report_H = visual.TextStim(
     color='white',
     height=0.5,
     text='You have pressed HORIZONTAL',
-    pos=(0,-4)
+    pos=apply_global_offset(base_pos=(0,-4), global_offset=global_offset)
     )
 
 endText = visual.TextStim(
     win=myWin,
     color="white",
     height=0.5,
+    pos=apply_global_offset(base_pos=(0,0), global_offset=global_offset),
     text="Please rest until further instructions"
     )
 
@@ -395,6 +413,7 @@ mapping_instruct_v = visual.TextStim(
     win=myWin,
     color='white',
     height=0.5,
+    pos=apply_global_offset(base_pos=(0,0), global_offset=global_offset),
     text=(f'In this run, be prepared to see VERTICAL motion\n'
         f'after {color_mapping["vertical"].name} onset')
     )
@@ -403,6 +422,7 @@ mapping_instruct_h = visual.TextStim(
     win=myWin,
     color="white",
     height=0.5,
+    pos=apply_global_offset(base_pos=(0,0), global_offset=global_offset),
     text=(f'In this run, be prepared to see HORIZONTAL motion\n'
         f'after {color_mapping["horizontal"].name} onset')
     )
@@ -436,30 +456,30 @@ logging.setDefaultClock(clock)
 # %% FUNCTIONS
 # create necessary functions for quartet
 def quartetPart1(Hori, Verti):
-    Square.setPos((-Hori, Verti))
+    Square.setPos(apply_global_offset((-Hori, Verti), global_offset))
     Square.draw()
-    Square.setPos((Hori, -Verti))
+    Square.setPos(apply_global_offset((Hori, -Verti), global_offset))
     Square.draw()
     dotFix.draw()
 
 def quartetPart2(Hori, Verti):
-    Square.setPos((Hori, Verti))
+    Square.setPos(apply_global_offset((Hori, Verti), global_offset))
     Square.draw()
-    Square.setPos((-Hori, -Verti))
+    Square.setPos(apply_global_offset((-Hori, -Verti), global_offset))
     Square.draw()
     dotFix.draw()
 
 def quartetIntermedian(Hori, Verti, V_or_H):
     if V_or_H == "vertical":
-        Square.setPos((0, Verti))
+        Square.setPos(apply_global_offset((0, Verti), global_offset))
         Square.draw()
-        Square.setPos((0, -Verti))
+        Square.setPos(apply_global_offset((0, -Verti), global_offset))
         Square.draw()
         dotFix.draw()
     elif V_or_H == "horizontal":
-        Square.setPos((Hori, 0))
+        Square.setPos(apply_global_offset((Hori, 0), global_offset))
         Square.draw()
-        Square.setPos((-Hori, 0))
+        Square.setPos(apply_global_offset((-Hori, 0), global_offset))
         Square.draw()
         dotFix.draw()
 
@@ -475,18 +495,18 @@ def HMotion_update(Hori, Verti, sequence, progress=0):
     mHori = progress * Hori  # Move from center to maximum Hori
     
     if sequence == "quartetPart1, quartetPart2":
-        Square.setPos((mHori, Verti))  # Square northwest
+        Square.setPos(apply_global_offset((mHori, Verti), global_offset))  # Square northwest
         Square.draw()
-        Square.setPos((-mHori, -Verti))  # Square southeast
+        Square.setPos(apply_global_offset((-mHori, -Verti), global_offset))  # Square southeast
         Square.draw()
         dotFix.draw()
         myWin.flip()
         return mHori
     
     elif sequence == "quartetPart2, quartetPart1":
-        Square.setPos((-mHori, Verti))  # Square northeast
+        Square.setPos(apply_global_offset((-mHori, Verti), global_offset))  # Square northeast
         Square.draw()
-        Square.setPos((mHori, -Verti))  # Square southwest
+        Square.setPos(apply_global_offset((mHori, -Verti), global_offset))  # Square southwest
         Square.draw()
         dotFix.draw()
         myWin.flip()
@@ -503,18 +523,18 @@ def VMotion_update(Hori, Verti, sequence, progress=0):
     mVerti = progress * Verti  # Move from center to maximum Verti
     
     if sequence == "quartetPart2, quartetPart1":
-        Square.setPos((-Hori, mVerti))  # Square northeast
+        Square.setPos(apply_global_offset((-Hori, mVerti), global_offset))  # Square northeast
         Square.draw()
-        Square.setPos((Hori, -mVerti))  # Square southwest
+        Square.setPos(apply_global_offset((Hori, -mVerti), global_offset))  # Square southwest
         Square.draw()
         dotFix.draw()
         myWin.flip()
         return mVerti
     
     elif sequence == "quartetPart1, quartetPart2":
-        Square.setPos((Hori, mVerti))  # Square northwest
+        Square.setPos(apply_global_offset((Hori, mVerti), global_offset))  # Square northwest
         Square.draw()
-        Square.setPos((-Hori, -mVerti))  # Square southeast
+        Square.setPos(apply_global_offset((-Hori, -mVerti), global_offset))  # Square southeast
         Square.draw()
         dotFix.draw()
         myWin.flip()
