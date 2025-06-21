@@ -26,7 +26,7 @@ from EyeLinkCoreGraphicsPsychoPy import EyeLinkCoreGraphicsPsychoPy
 TRIGGERKEY = 'quoteleft'
 # BLOCK DURATIONS [in TR]
 # set durations of conditions and baseline
-TR = 2     # sec in int if whole number  or float  
+TR = 4.217     # sec in int if whole number  or float  
 
 # set global offset
 global_offset = (0,0)
@@ -174,17 +174,25 @@ with open(os.path.join("Volitional_MotQuart","catch_trials_distribution.pkl"), "
 
 current_run_catch_trials = catch_trials_distribution[int(expInfo['run']) - 1]
 
+num_trials = 10
+
 # Initialize parameters 
 if TR == 1 or TR == 2: # ALL number is even 
-    num_trials = 10
     total_time = 30
     report = 6
     precue = 10
     delay = 10
     switch = 4
 
-if isinstance(TR, float):
-    num_trials = 10
+elif TR == 4.217:
+    total_time = 8*TR
+    report = 2*TR
+    precue = 2*TR
+    delay = 3*TR
+    switch = 1*TR
+
+
+elif isinstance(TR, float) and TR != 4.217:
     total_time = 15*TR
     report = 3*TR
     precue = 5*TR

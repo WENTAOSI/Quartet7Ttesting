@@ -30,7 +30,7 @@ from EyeLinkCoreGraphicsPsychoPy import EyeLinkCoreGraphicsPsychoPy
 TRIGGERKEY = 'quoteleft'
 # BLOCK DURATIONS [in TR]
 # set durations of conditions and baseline
-TR = 2     # sec in int if whole number  or float 
+TR = 4.217     # sec in int if whole number  or float 
 # specify vertical or horizontal switch buttom 
 vertical_buttom = "1"
 horizontal_buttom = "2"
@@ -67,8 +67,11 @@ if TR == 2:
     DurElem = np.array([int(20/TR), int(16/TR), int(80/TR)])  # fix = 20s; flickerQuartet = 16s, AmbiguousQuartet = 80s
     # NOTE: Fixation at the beginning and at the end lasts both for 10 triggers.
 
+elif TR == 4.217:
+    DurElem = np.array([4, 4, 24]) # fix = 4 TR; flickerQuartet = 4 TR, AmbiguousQuartet = 24 TR
+    
 # if float TR, we have to enforce number of TR rather than time 
-elif TR != 2:
+else:
     DurElem = np.array([10, 8, 40]) # fix 10 TR; flickerQuartet = 8 TR; AmbiguousQuartet = 40 TR
 
 for ind in range(0, len(DurElem)):

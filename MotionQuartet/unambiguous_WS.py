@@ -31,7 +31,7 @@ from EyeLinkCoreGraphicsPsychoPy import EyeLinkCoreGraphicsPsychoPy
 TRIGGERKEY = 'quoteleft'
 # BLOCK DURATIONS [in TR]
 # set durations of conditions and baseline
-TR = 2     # sec in int if whole number  or float 
+TR = 4.217     # sec in int if whole number  or float 
 # specify vertical or horizontal switch buttom 
 vertical_buttom = "1"
 horizontal_buttom = "2"
@@ -90,8 +90,12 @@ if TR == 2:
     Fixation = int(20 / TR)      # Fixation (beginning and end) 20 sec
     print(MotionDur)
 # NOTE: Fixation at the beginning and at the end lasts both for 10 triggers.
+if TR == 4.217:
+    MotionDur = 4
+    BaseDur = 4
+    Fixation = 4
 
-if TR != 2:
+else:
     MotionDur = 5 # Vertical or Horizontal motion 5TR
     BaseDur = 8 # 4 sqares flickering8TR
     Fixation = 10 # Fixation (beginning and end) 10 TR
