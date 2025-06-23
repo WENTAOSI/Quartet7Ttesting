@@ -38,7 +38,9 @@ horizontal_buttom = "2"
 ITI_buttom = "4"
 
 # set global offset
-global_offset = (0,0)
+ho_dva = 0
+vo_dva = 0
+global_offset = (ho_dva, -vo_dva)
  
 def apply_global_offset(base_pos=(0,0), global_offset=global_offset):
     return (base_pos[0] + global_offset[0], base_pos[1] + global_offset[1])
@@ -200,7 +202,7 @@ logFile.write('PixelHeight=' + str(PixH) + '\n')
 
 # set screen:
 myWin = visual.Window(size=(PixW, PixH),
-                      screen = 0,
+                      screen = 1,
                       winType='pyglet',  # winType : None, ‘pyglet’, ‘pygame’
                       allowGUI=False,
                       allowStencil=False,
