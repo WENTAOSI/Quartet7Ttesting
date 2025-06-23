@@ -158,9 +158,12 @@ logFile.write('PixelWidth=' + str(PixW) + '\n')
 logFile.write('PixelHeight=' + str(PixH) + '\n')
 
 # set screen:
+if expInfo['display'] == 'Vanderbilt7T':
+    screen=1
+
 myWin = visual.Window(
     size=(PixW, PixH),
-    screen=1,
+    screen=screen,
     winType='pyglet',  # winType : None, ‘pyglet’, ‘pygame’
     allowGUI=False,
     allowStencil=True,
