@@ -160,6 +160,8 @@ logFile.write('PixelHeight=' + str(PixH) + '\n')
 # set screen:
 if expInfo['display'] == 'Vanderbilt7T':
     screen=1
+elif expInfo['display'] == 'dbic':
+    screen=0
 
 myWin = visual.Window(
     size=(PixW, PixH),
