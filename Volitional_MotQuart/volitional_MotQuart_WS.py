@@ -197,14 +197,14 @@ elif TR == 4.217:
     delay = 3*TR
     switch = 1*TR
 
-
+'''
 elif isinstance(TR, float) and TR != 4.217:
     total_time = 15*TR
     report = 3*TR
     precue = 5*TR
     delay = 5*TR
     switch = 2*TR
-
+'''
 # Create a balanced list of QuartetOrder values
 quartet_orders = ["quartetPart1, quartetPart2"] * (num_trials // 2) + \
                  ["quartetPart2, quartetPart1"] * (num_trials // 2)

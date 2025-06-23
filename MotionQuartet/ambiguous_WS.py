@@ -30,7 +30,7 @@ from EyeLinkCoreGraphicsPsychoPy import EyeLinkCoreGraphicsPsychoPy
 TRIGGERKEY = 'quoteleft'
 # BLOCK DURATIONS [in TR]
 # set durations of conditions and baseline
-TR = 4.217     # sec in int if whole number  or float 
+TR = 2     # sec in int if whole number  or float 
 # specify vertical or horizontal switch buttom 
 vertical_buttom = "1"
 horizontal_buttom = "2"
@@ -56,30 +56,33 @@ def apply_global_offset(base_pos=(0,0), global_offset=global_offset):
 '''
 ###############################################################################
 # BLOCKS
+
+
+# if integer TR we can set percise timing 
+if TR == 2:
+    DurElem = np.array([int(12/TR), int(16/TR), int(96/TR)])  # fix = 12s; flickerQuartet = 16s, AmbiguousQuartet = 80s
+    NumQuartets = 3  # set number of repetitions of quartet blocks
+    # NOTE: Fixation at the beginning and at the end lasts both for 10 triggers.
+
+elif TR == 4.217:
+    DurElem = np.array([4, 4, 36]) # fix = 4 TR; flickerQuartet = 4 TR, AmbiguousQuartet = 36 TR
+    NumQuartets = 2  # set number of repetitions of quartet blocks
+# if float TR, we have to enforce number of TR rather than time 
+'''
+else:
+    DurElem = np.array([10, 8, 40]) # fix 10 TR; flickerQuartet = 8 TR; AmbiguousQuartet = 40 TR
+'''
+
+
 # fixation = 0; flicker = 1; quartet = 2
-NumQuartets = 3  # set number of repetitions of quartet blocks
+
 Conditions = np.zeros(int(NumQuartets*2))
 Conditions[::2] = np.tile([2], NumQuartets)  # every 2nd element
 Conditions[1::2] = np.random.permutation(np.tile(np.array([1]), NumQuartets))
 Conditions = np.hstack(([0], Conditions, [0]))
 Durations = np.zeros(int(len(Conditions)))
-
-# if integer TR we can set percise timing 
-if TR == 2:
-    DurElem = np.array([int(12/TR), int(16/TR), int(96/TR)])  # fix = 20s; flickerQuartet = 16s, AmbiguousQuartet = 80s
-    # NOTE: Fixation at the beginning and at the end lasts both for 10 triggers.
-
-elif TR == 4.217:
-    DurElem = np.array([4, 4, 24]) # fix = 4 TR; flickerQuartet = 4 TR, AmbiguousQuartet = 24 TR
-    
-# if float TR, we have to enforce number of TR rather than time 
-else:
-    DurElem = np.array([10, 8, 40]) # fix 10 TR; flickerQuartet = 8 TR; AmbiguousQuartet = 40 TR
-
 for ind in range(0, len(DurElem)):
     Durations[Conditions == ind] = DurElem[ind]
-
-
 # Store info about experiment and experimental run
 expName = 'Amb_MotQuart'  # set experiment name here
 expInfo = {

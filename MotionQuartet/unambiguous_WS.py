@@ -31,7 +31,7 @@ from EyeLinkCoreGraphicsPsychoPy import EyeLinkCoreGraphicsPsychoPy
 TRIGGERKEY = 'quoteleft'
 # BLOCK DURATIONS [in TR]
 # set durations of conditions and baseline
-TR = 4.217     # sec in int if whole number  or float 
+TR = 2     # sec in int if whole number  or float 
 # specify vertical or horizontal switch buttom 
 vertical_buttom = "1"
 horizontal_buttom = "2"
@@ -57,19 +57,6 @@ def apply_global_offset(base_pos=(0,0), global_offset=global_offset):
 '''
 ###############################################################################
 # %% BLOCKS
-# set number of repetitions for each condition
-# fixation = 0; horiM = 4; vertiM = 1; flickerSl = 3
-NumOf12PerBlock = 8  # number of blocks (hor + ver + flick)
-NumQuartets = 3
-Cond_elem = np.tile([1, 4], int(NumOf12PerBlock/2))
-Conditions = np.tile(Cond_elem, NumQuartets)
-pos_baseline = np.arange(NumOf12PerBlock, NumOf12PerBlock*(NumQuartets+1), NumOf12PerBlock)
-Conditions = np.insert(Conditions, pos_baseline, [3])   # Insert baseline condition
-Conditions = np.hstack(([0], Conditions, [0]))          # Add fixation condition
-Conditions = Conditions.astype(int)
-
-
-print(Conditions)
 
 # Store info about experiment and experimental run
 expName = 'Phys_MotQuart'  # set experiment name here
@@ -89,19 +76,34 @@ if dlg.OK == False: core.quit()  # user pressed cancel
 if TR == 2:
     MotionDur = int(np.ceil(10 / TR))     # Vertical or Horizontal motion 10 sec 
     BaseDur = int(16 / TR)        # 4 sqares flickering 16 sec
-    Fixation = int(12 / TR)      # Fixation (beginning and end) 20 sec
+    Fixation = 6     # Fixation (beginning and end) 12 sec
+    NumOf12PerBlock = 8 # number of blocks (hor + ver + flick)
+    NumQuartets = 3
     print(MotionDur)
 # NOTE: Fixation at the beginning and at the end lasts both for 10 triggers.
-if TR == 4.217:
+elif TR == 4.217:
     MotionDur = 4
     BaseDur = 4
     Fixation = 4
+    NumOf12PerBlock = 8 # number of blocks (hor + ver + flick)
+    NumQuartets = 2
+    
 
+'''
 else:
     MotionDur = 5 # Vertical or Horizontal motion 5TR
     BaseDur = 8 # 4 sqares flickering8TR
     Fixation = 10 # Fixation (beginning and end) 10 TR
-
+'''
+# set number of repetitions for each condition
+# fixation = 0; horiM = 4; vertiM = 1; flickerSl = 3
+Cond_elem = np.tile([1, 4], int(NumOf12PerBlock/2))
+Conditions = np.tile(Cond_elem, NumQuartets)
+print(Conditions)
+pos_baseline = np.arange(NumOf12PerBlock, NumOf12PerBlock*(NumQuartets+1), NumOf12PerBlock)
+Conditions = np.insert(Conditions, pos_baseline, [3])   # Insert baseline condition
+Conditions = np.hstack(([0], Conditions, [0]))          # Add fixation condition
+Conditions = Conditions.astype(int)
 
 Durations = np.ones(len(Conditions), dtype=int)*MotionDur
 Durations[Conditions == 3] = BaseDur
