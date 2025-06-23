@@ -57,7 +57,7 @@ def apply_global_offset(base_pos=(0,0), global_offset=global_offset):
 ###############################################################################
 # BLOCKS
 # fixation = 0; flicker = 1; quartet = 2
-NumQuartets = 6  # set number of repetitions of quartet blocks
+NumQuartets = 3  # set number of repetitions of quartet blocks
 Conditions = np.zeros(int(NumQuartets*2))
 Conditions[::2] = np.tile([2], NumQuartets)  # every 2nd element
 Conditions[1::2] = np.random.permutation(np.tile(np.array([1]), NumQuartets))
@@ -66,7 +66,7 @@ Durations = np.zeros(int(len(Conditions)))
 
 # if integer TR we can set percise timing 
 if TR == 2:
-    DurElem = np.array([int(20/TR), int(16/TR), int(80/TR)])  # fix = 20s; flickerQuartet = 16s, AmbiguousQuartet = 80s
+    DurElem = np.array([int(12/TR), int(16/TR), int(96/TR)])  # fix = 20s; flickerQuartet = 16s, AmbiguousQuartet = 80s
     # NOTE: Fixation at the beginning and at the end lasts both for 10 triggers.
 
 elif TR == 4.217:

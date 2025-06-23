@@ -60,7 +60,7 @@ def apply_global_offset(base_pos=(0,0), global_offset=global_offset):
 # set number of repetitions for each condition
 # fixation = 0; horiM = 4; vertiM = 1; flickerSl = 3
 NumOf12PerBlock = 8  # number of blocks (hor + ver + flick)
-NumQuartets = 6
+NumQuartets = 3
 Cond_elem = np.tile([1, 4], int(NumOf12PerBlock/2))
 Conditions = np.tile(Cond_elem, NumQuartets)
 pos_baseline = np.arange(NumOf12PerBlock, NumOf12PerBlock*(NumQuartets+1), NumOf12PerBlock)
@@ -89,7 +89,7 @@ if dlg.OK == False: core.quit()  # user pressed cancel
 if TR == 2:
     MotionDur = int(np.ceil(10 / TR))     # Vertical or Horizontal motion 10 sec 
     BaseDur = int(16 / TR)        # 4 sqares flickering 16 sec
-    Fixation = int(20 / TR)      # Fixation (beginning and end) 20 sec
+    Fixation = int(12 / TR)      # Fixation (beginning and end) 20 sec
     print(MotionDur)
 # NOTE: Fixation at the beginning and at the end lasts both for 10 triggers.
 if TR == 4.217:
