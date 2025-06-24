@@ -31,7 +31,7 @@ from EyeLinkCoreGraphicsPsychoPy import EyeLinkCoreGraphicsPsychoPy
 TRIGGERKEY = 'quoteleft'
 # BLOCK DURATIONS [in TR]
 # set durations of conditions and baseline
-TR = 4.217     # sec in int if whole number  or float 
+TR = 2     # sec in int if whole number  or float 4.217 or 2
 # specify vertical or horizontal switch buttom 
 vertical_buttom = "1"
 horizontal_buttom = "2"
@@ -785,7 +785,7 @@ logging.data('StartOfRun' + str(expInfo['run']))
 logging.data(msg='Scanner trigger %i' % (trigCount))
 el_tracker.sendMessage(f"EXPERIMENT_START {expInfo['expName']}")
 
-while trigCount < totalTrigger:    # 616
+while trigCount < totalTrigger:    # 
 
     logging.data('StartOfCondition'+ str(Conditions[i]))
 

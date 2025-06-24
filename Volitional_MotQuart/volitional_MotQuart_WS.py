@@ -26,7 +26,7 @@ from EyeLinkCoreGraphicsPsychoPy import EyeLinkCoreGraphicsPsychoPy
 TRIGGERKEY = 'quoteleft'
 # BLOCK DURATIONS [in TR]
 # set durations of conditions and baseline
-TR = 4.217     # sec in int if whole number  or float  
+TR = 2     # sec in int if whole number  or float  4.217 or 2
 
 # set global offset
 ho_dva = 0

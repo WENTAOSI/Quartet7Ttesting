@@ -30,7 +30,7 @@ from EyeLinkCoreGraphicsPsychoPy import EyeLinkCoreGraphicsPsychoPy
 TRIGGERKEY = 'quoteleft'
 # BLOCK DURATIONS [in TR]
 # set durations of conditions and baseline
-TR = 4.217     # sec in int if whole number  or float 
+TR = 2     # sec in int if whole number  or float 4.217 or 2
 # specify vertical or horizontal switch buttom 
 vertical_buttom = "1"
 horizontal_buttom = "2"
@@ -911,6 +911,7 @@ np.savetxt(
 os.chdir(parentDir)
 os.chdir(prtFolderName)
 ## construct protocol file for AMB
+'''
 # set key KeyPressedArray to pd.DataFrame
 KeyPressed_df = pd.DataFrame(KeyPressedArray[1:], columns=KeyPressedArray[0])
 # create timestamp as stop time for events 
@@ -952,7 +953,7 @@ KeyPressed_df['Duration'] = KeyPressed_df['Duration'].astype(float)
 KeyPressed_df['Onset'] = KeyPressed_df['Timestamp'] - KeyPressed_df['Duration']
 
 KeyPressed_df.to_csv(f"{expInfo['participant']}_amb_run{expInfo['run']}_protocol.csv", index=False)
-
+'''
 # EYETRACKER CLOSE DISPLAY AND SAVE EDF
 os.chdir(parentDir)
 el_tracker.stopRecording()
