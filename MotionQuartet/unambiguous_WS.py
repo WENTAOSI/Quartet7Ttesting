@@ -352,7 +352,7 @@ anykeyText = visual.TextStim(
     )    
 # %% TIME AND TIMING PARAMeTERS
 # parameters
-totalTrigger = np.sum(Durations)   # 308
+totalTrigger = np.sum(Durations)   # 
 print(totalTrigger)
 # get screen refresh rate
 refr_rate = myWin.getActualFrameRate()  # get screen refresh rate
@@ -776,7 +776,7 @@ event.waitKeys(keyList=[TRIGGERKEY], timeStamped=False)
 
 # Create Counters
 i = 0           # counter for blocks
-trigCount = 1   # counter triggers
+trigCount = 0   # counter triggers
 
 # reset clocks
 # clock.reset()
