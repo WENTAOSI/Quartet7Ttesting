@@ -1,0 +1,8 @@
+psychopy
+pandas
+numpy
+matplotlib
+seaborn
+scikit-learn
+markdown
+tabulate
