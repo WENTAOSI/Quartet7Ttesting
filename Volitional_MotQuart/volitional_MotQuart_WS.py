@@ -232,7 +232,7 @@ for pair in physical_pairs:
 #combined_trials = physical_pairs + list(zip(instruct_V_H, illusory_physical))
 '''
 #####################################################################################################################
-combined_trials =  ["illusory"] * num_trials
+combined_trials =  list(zip(instruct_V_H, ['illusory']*num_trials))
 
 # Shuffle the combined list to randomize positions
 random.shuffle(combined_trials)
@@ -889,7 +889,7 @@ logFile.write('StartOfRun' + str(expInfo['run']))
 el_tracker.sendMessage(f"EXPERIMENT_START {expName}")
 
 num_trial = 0
-
+print(conditions)
 # Main trial loop 
 for trial in conditions:
      
