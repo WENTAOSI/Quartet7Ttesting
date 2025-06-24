@@ -30,7 +30,7 @@ from EyeLinkCoreGraphicsPsychoPy import EyeLinkCoreGraphicsPsychoPy
 TRIGGERKEY = 'quoteleft'
 # BLOCK DURATIONS [in TR]
 # set durations of conditions and baseline
-TR = 2     # sec in int if whole number  or float 
+TR = 4.217     # sec in int if whole number  or float 
 # specify vertical or horizontal switch buttom 
 vertical_buttom = "1"
 horizontal_buttom = "2"
@@ -60,12 +60,12 @@ def apply_global_offset(base_pos=(0,0), global_offset=global_offset):
 
 # if integer TR we can set percise timing 
 if TR == 2:
-    DurElem = np.array([int(12/TR), int(16/TR), int(96/TR)])  # fix = 12s; flickerQuartet = 16s, AmbiguousQuartet = 80s
+    DurElem = np.array([int(12/TR), int(16/TR), int(96/TR)])  # fix = 12s; flickerQuartet = 16s, AmbiguousQuartet = 96s
     NumQuartets = 3  # set number of repetitions of quartet blocks
     # NOTE: Fixation at the beginning and at the end lasts both for 10 triggers.
 
 elif TR == 4.217:
-    DurElem = np.array([4, 4, 36]) # fix = 4 TR; flickerQuartet = 4 TR, AmbiguousQuartet = 36 TR
+    DurElem = np.array([4, 4, 32]) # fix = 4 TR; flickerQuartet = 4 TR, AmbiguousQuartet = 36 TR
     NumQuartets = 2  # set number of repetitions of quartet blocks
 # if float TR, we have to enforce number of TR rather than time 
 '''
@@ -83,6 +83,9 @@ Conditions = np.hstack(([0], Conditions, [0]))
 Durations = np.zeros(int(len(Conditions)))
 for ind in range(0, len(DurElem)):
     Durations[Conditions == ind] = DurElem[ind]
+
+print('Conditions:', Conditions)
+print('Durations:', Durations)
 # Store info about experiment and experimental run
 expName = 'Amb_MotQuart'  # set experiment name here
 expInfo = {
@@ -336,6 +339,7 @@ anykeyText = visual.TextStim(
 # %% TIME AND TIMING PARAMeTERS
 # parameters
 totalTrigger = np.sum(Durations)
+print('Total number of triggers:', totalTrigger)
 
 # get screen refresh rate
 refr_rate = myWin.getActualFrameRate()  # get screen refresh rate
@@ -791,7 +795,7 @@ logging.data(msg='Scanner trigger %i' % (trigCount))
 
 el_tracker.sendMessage(f"EXPERIMENT_START {expInfo['expName']}")
 
-while trigCount < totalTrigger:   # 616
+while trigCount < totalTrigger:   # 
 
     logging.data('StartOfCondition'+ str(Conditions[i]))
 
