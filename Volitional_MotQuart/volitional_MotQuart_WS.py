@@ -174,11 +174,7 @@ myWin = visual.Window(size=(PixW, PixH),
                       )
 
 # %% TRIAL DURATIONS SETUP
-# Load the pickle file containing catch trial distribution
-with open(os.path.join("Volitional_MotQuart","catch_trials_distribution.pkl"), "rb") as file:
-    catch_trials_distribution = pickle.load(file)
 
-current_run_catch_trials = catch_trials_distribution[int(expInfo['run']) - 1]
 
 num_trials = 10
 
@@ -212,6 +208,14 @@ quartet_orders = ["quartetPart1, quartetPart2"] * (num_trials // 2) + \
 # Create balanced list of tone V OR H
 instruct_V_H = ["vertical"] * (num_trials // 2) + ["horizontal"] * (num_trials // 2)
 
+#############################################################################################################
+# For the current stage all illusory trial NO catch trials are used
+'''
+# Load the pickle file containing catch trial distribution
+with open(os.path.join("Volitional_MotQuart","catch_trials_distribution.pkl"), "rb") as file:
+    catch_trials_distribution = pickle.load(file)
+
+current_run_catch_trials = catch_trials_distribution[int(expInfo['run']) - 1]
 # Handle catch trials
 physical_catch_trials = [trial for trial in current_run_catch_trials if trial in ["V", "H"]]
 
@@ -223,12 +227,15 @@ for pair in physical_pairs:
     instruct_V_H.remove(pair[0])
 
 # Create the remaining illusory trials
-illusory_physical = ["illusory"] * (num_trials - len(physical_pairs))
-combined_trials = physical_pairs + list(zip(instruct_V_H, illusory_physical))
+
+#illusory_physical = ["illusory"] * (num_trials - len(physical_pairs))
+#combined_trials = physical_pairs + list(zip(instruct_V_H, illusory_physical))
+'''
+#####################################################################################################################
+combined_trials =  ["illusory"] * num_trials
 
 # Shuffle the combined list to randomize positions
 random.shuffle(combined_trials)
-
 # Shuffle other lists
 random.shuffle(quartet_orders)
 instruct_V_H = [trial[0] for trial in combined_trials]
@@ -405,7 +412,7 @@ endText = visual.TextStim(
 # %% VOLITIONAL INSTRUCTION COLOR MAPPING 
 
 # Define the blue and red mappings as functions
-if int(expInfo['run'])<= 8:
+if int(expInfo['run'])<= 6:
     color_mapping = {
         "vertical": blue_Square,
         "horizontal": red_Square,
