@@ -911,13 +911,16 @@ np.savetxt(
 os.chdir(parentDir)
 os.chdir(prtFolderName)
 ## construct protocol file for AMB
-'''
+
 # set key KeyPressedArray to pd.DataFrame
 KeyPressed_df = pd.DataFrame(KeyPressedArray[1:], columns=KeyPressedArray[0])
 # create timestamp as stop time for events 
 KeyPressed_df['Timestamp'] = KeyPressed_df['KeyPressedt'].shift(-1)
 # define flicker block ends
-flicker_ends = [116, 212, 308, 404, 500, 596]
+if TR == 2:
+    flicker_ends = [108, 204, 300]
+elif TR == 4.217:
+    flicker_ends = [168.68, 320.492]
 # find all flickerSl rows
 flicker_indices = KeyPressed_df[KeyPressed_df['Label'] == 'flickerSl'].index
 # loop through and assign the fixed values
@@ -928,19 +931,35 @@ for i, flicker_end in zip(flicker_indices, flicker_ends):
     KeyPressed_df.at[i, 'KeyPressedt'] = flicker_start
 
 # Add fixation row at the top and bottom
-fixation_start = pd.DataFrame({
+if TR == 2:
+    fixation_start = pd.DataFrame({
     'KeyPressed': [0],
     'KeyPressedt': [0.0],
     'Label': ['fixation'],
-    'Timestamp': [20.0]
-})
+    'Timestamp': [12.0]
+    })
 
-fixation_end = pd.DataFrame({
+    fixation_end = pd.DataFrame({
     'KeyPressed': [0],
     'KeyPressedt': [596.0],
     'Label': ['fixation'],
-    'Timestamp': [616.0]
-})
+    'Timestamp': [312.0]
+    })
+
+elif TR == 4.217:
+    fixation_start = pd.DataFrame({
+        'KeyPressed': [0],
+        'KeyPressedt': [0.0],
+        'Label': ['fixation'],
+        'Timestamp': [16.868]
+    })
+
+    fixation_end = pd.DataFrame({
+    'KeyPressed': [0],
+    'KeyPressedt': [0],
+    'Label': ['fixation'],
+    'Timestamp': [337.36]
+    })
 
 # Concat start row + main dataframe + end row
 KeyPressed_df = pd.concat([fixation_start, KeyPressed_df, fixation_end], ignore_index=True)
@@ -953,7 +972,7 @@ KeyPressed_df['Duration'] = KeyPressed_df['Duration'].astype(float)
 KeyPressed_df['Onset'] = KeyPressed_df['Timestamp'] - KeyPressed_df['Duration']
 
 KeyPressed_df.to_csv(f"{expInfo['participant']}_amb_run{expInfo['run']}_protocol.csv", index=False)
-'''
+
 # EYETRACKER CLOSE DISPLAY AND SAVE EDF
 os.chdir(parentDir)
 el_tracker.stopRecording()
