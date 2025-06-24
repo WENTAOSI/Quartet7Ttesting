@@ -96,17 +96,18 @@ else:
     Fixation = 10 # Fixation (beginning and end) 10 TR
 '''
 # set number of repetitions for each condition
-# fixation = 0; horiM = 4; vertiM = 1; flickerSl = 3
-Cond_elem = np.tile([1, 4], int(NumOf12PerBlock/2))
+# fixation = 0; horiM = 2; vertiM = 1; flickerSl = 4
+Cond_elem = np.tile([1, 2], int(NumOf12PerBlock/2))
 Conditions = np.tile(Cond_elem, NumQuartets)
 print(Conditions)
 pos_baseline = np.arange(NumOf12PerBlock, NumOf12PerBlock*(NumQuartets+1), NumOf12PerBlock)
-Conditions = np.insert(Conditions, pos_baseline, [3])   # Insert baseline condition
+Conditions = np.insert(Conditions, pos_baseline, [4])   # Insert baseline condition
 Conditions = np.hstack(([0], Conditions, [0]))          # Add fixation condition
 Conditions = Conditions.astype(int)
-
+print("conditions")
+print(Conditions)
 Durations = np.ones(len(Conditions), dtype=int)*MotionDur
-Durations[Conditions == 3] = BaseDur
+Durations[Conditions == 4] = BaseDur
 Durations[Conditions == 0] = Fixation  # Dur fixation
 
 Durations = Durations.astype(int)
@@ -795,11 +796,11 @@ while trigCount < totalTrigger:    #
         if Conditions[i] == 0:
             dotFix.draw()
             myWin.flip()
-        elif Conditions[i] == 4:
+        elif Conditions[i] == 2:
             mHori = HMotion_update(HoriDist, VertiDist)
         elif Conditions[i] == 1:
             mVerti = VMotion_update(HoriDist, VertiDist)
-        elif Conditions[i] == 3:
+        elif Conditions[i] == 4:
             flickerSl(HoriDist, VertiDist, instruct=False)
 
         for key in event.getKeys():
@@ -880,6 +881,7 @@ output_csv.to_csv(f"{outFolderName}/{expInfo['participant']}_Phy_keyPressed_run{
 Timestamps = np.cumsum(Durations) 
 print("Timestamps:")
 print(Timestamps)
+
 
 # Define a mapping for conditions
 condition_labels = {
