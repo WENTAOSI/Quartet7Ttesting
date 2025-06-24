@@ -60,7 +60,7 @@ def apply_global_offset(base_pos=(0,0), global_offset=global_offset):
 
 # if integer TR we can set percise timing 
 if TR == 2:
-    DurElem = np.array([int(12/TR), int(16/TR), int(96/TR)])  # fix = 12s; flickerQuartet = 16s, AmbiguousQuartet = 96s
+    DurElem = np.array([int(12/TR), int(16/TR), int(80/TR)])  # fix = 12s; flickerQuartet = 16s, AmbiguousQuartet = 96s
     NumQuartets = 3  # set number of repetitions of quartet blocks
     # NOTE: Fixation at the beginning and at the end lasts both for 10 triggers.
 
