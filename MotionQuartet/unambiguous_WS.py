@@ -859,81 +859,68 @@ el_tracker.sendMessage("EXPERIMENT_END")
 #myWin.close()
 
 # %% SAVE DATA
-try:
-    # calculate speed [degrees per frame]
-    HoriSpeed = (HoriDist*4)/TravelTime
-    VertiSpeed = (VertiDist*4)/TravelTime
-    logFile.write('HoriSpeed=' + str(HoriSpeed) + '\n')
-    logFile.write('VertiSpeed=' + str(VertiSpeed) + '\n')
-    logFile.write('HoriDist=' + str(HoriDist) + '\n')
-    logFile.write('VertiDist=' + str(VertiDist) + '\n')
-    print('horizontalDistance: %f' % HoriDist)
-    print('verticalDistance: %f' % VertiDist)
-    print(KeyPressedArray)
-    print("Durations:")
-    print(Durations)
-    # Calculate timestamps (cumulative durations)
-    Timestamps = np.cumsum(Durations) 
-    print("Timestamps:")
-    print(Timestamps)
-    # Define a mapping for conditions
-    condition_labels = {
+
+ # calculate speed [degrees per frame]
+HoriSpeed = (HoriDist*4)/TravelTime
+VertiSpeed = (VertiDist*4)/TravelTime
+logFile.write('HoriSpeed=' + str(HoriSpeed) + '\n')
+logFile.write('VertiSpeed=' + str(VertiSpeed) + '\n')
+logFile.write('HoriDist=' + str(HoriDist) + '\n')
+logFile.write('VertiDist=' + str(VertiDist) + '\n')
+print('horizontalDistance: %f' % HoriDist)
+print('verticalDistance: %f' % VertiDist)
+print(KeyPressedArray)
+print("Durations:")
+print(Durations)
+
+output_csv =  pd.DataFrame(KeyPressedArray)
+# Save key pressed events to CSV
+output_csv.to_csv(f"{outFolderName}/{expInfo['participant']}_Phy_keyPressed_run{expInfo['run']}.csv", index=False)
+# Calculate timestamps (cumulative durations)
+Timestamps = np.cumsum(Durations) 
+print("Timestamps:")
+print(Timestamps)
+
+# Define a mapping for conditions
+condition_labels = {
         '0': 'fixation',
         vertical_buttom: 'vertiM',
         horizontal_buttom: 'horiM',
         ITI_buttom: 'flickerSl'
     }
     
-    # Map the labels to the Conditions array
-    Labels = np.array([condition_labels[str(cond)] for cond in Conditions]) # extra step to convert cond to str
-    print(f'Labels {Labels}')
-    # Initialize the base with column headers
-    protocol_array = np.array([['Conditions', 'Durations', 'Timestamp','Stim']]) 
-    print(f"protocol_array{protocol_array}")
-    # Combine all columns
-    protocol_data = np.column_stack((Conditions, Durations, Timestamps, Labels))   
-    print(f"protocol_data {protocol_data}")
-    # Stack the data below the header
-    protocol_array = np.vstack((protocol_array, protocol_data.astype(str)))  # Convert to string for uniformity
-    print(f"protocol_array {protocol_array}")
-    # Change into protocol folder
-    os.chdir(prtFolderName)
-    # save protocol first 
-    #np.save(f"{expInfo['participant']}_Phy_protocol.npy", protocol_array)
-    # convert protocal_array to pd.dataframe
-    # Convert the protocol array to a DataFrame starting from the second row for the data
-    protocol_array_df = pd.DataFrame(protocol_array[1:], columns=protocol_array[0])
-    # Set Onset time
-    # Convert 'Timestamp' and 'Durations' to numeric types.
-    protocol_array_df['Timestamp'] = protocol_array_df['Timestamp'].astype(float)
-    protocol_array_df['Durations'] = protocol_array_df['Durations'].astype(float)
-    protocol_array_df['Onset'] = protocol_array_df['Timestamp'] - protocol_array_df['Durations']
-    # Save protocol_array to CSV for visualization Only one prot across runs 
-    protocol_array_df.to_csv(f"{expInfo['participant']}_phy_protocol.csv", index=False)
-    
-    # change into output folder
-    os.chdir(parentDir)
-    os.chdir(outFolderName)
-    print(f"Changed working directory successfully to: {outFolderName}")
-    # Skip the header row and map the labels
-    labels = ['Label'] + [condition_labels.get(row[0], 'Unknown') for row in KeyPressedArray[1:]]
-    
-    # Add the labels as a new column
-    KeyPressedArray = np.column_stack((KeyPressedArray, labels))
+# Map the labels to the Conditions array
+Labels = np.array([condition_labels[str(cond)] for cond in Conditions]) # extra step to convert cond to str
+print(f'Labels {Labels}')
+# Initialize the base with column headers
+protocol_array = np.array([['Conditions', 'Durations', 'Timestamp','Stim']]) 
+print(f"protocol_array{protocol_array}")
+# Combine all columns
+protocol_data = np.column_stack((Conditions, Durations, Timestamps, Labels))   
+print(f"protocol_data {protocol_data}")
+# Stack the data below the header
+protocol_array = np.vstack((protocol_array, protocol_data.astype(str)))  # Convert to string for uniformity
+print(f"protocol_array {protocol_array}")
 
-    # Save np.array into output folder 
-    np.save(f"{expInfo['participant']}_phy_run{expInfo['run']}_key_presses.npy", KeyPressedArray)
-    # Save the array to a CSV file for visual inspection 
-    np.savetxt(
-        f"{expInfo['participant']}_phy_run{expInfo['run']}_key_presses.csv",            # File name
-        KeyPressedArray,              # Data to save
-        fmt='%s',                     # Format: string for all columns
-        delimiter=",",                # CSV delimiter
-        comments=''                   # Prevent '#' before the header
-    )
 
-except Exception as e:
-    print(f'(Key variables could not be saved due to error: {e})')
+# Change into protocol folder
+os.chdir(prtFolderName)
+ # save protocol first 
+#np.save(f"{expInfo['participant']}_Phy_protocol.npy", protocol_array)
+# convert protocal_array to pd.dataframe
+# Convert the protocol array to a DataFrame starting from the second row for the data
+protocol_array_df = pd.DataFrame(protocol_array[1:], columns=protocol_array[0])
+# Set Onset time
+# Convert 'Timestamp' and 'Durations' to numeric types.
+protocol_array_df['Timestamp'] = protocol_array_df['Timestamp'].astype(float)
+protocol_array_df['Durations'] = protocol_array_df['Durations'].astype(float)
+protocol_array_df['Onset'] = protocol_array_df['Timestamp'] - protocol_array_df['Durations']
+# Save protocol_array to CSV for visualization Only one prot across runs 
+protocol_array_df.to_csv(f"{expInfo['participant']}_phy_protocol.csv", index=False)
+print(protocol_array)
+# change into output folder
+os.chdir(parentDir)
+
 
 # EYETRACKER CLOSE DISPLAY AND SAVE EDF
 os.chdir(parentDir)

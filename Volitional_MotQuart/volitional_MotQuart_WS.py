@@ -412,7 +412,9 @@ endText = visual.TextStim(
 # %% VOLITIONAL INSTRUCTION COLOR MAPPING 
 
 # Define the blue and red mappings as functions
-if int(expInfo['run'])<= 6:
+run_number = int(''.join(filter(str.isdigit, expInfo['run'])))
+print(run_number)
+if run_number <= 8:
     color_mapping = {
         "vertical": blue_Square,
         "horizontal": red_Square,
