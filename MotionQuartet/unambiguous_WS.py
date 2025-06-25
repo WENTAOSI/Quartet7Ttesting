@@ -31,7 +31,7 @@ from EyeLinkCoreGraphicsPsychoPy import EyeLinkCoreGraphicsPsychoPy
 TRIGGERKEY = 'quoteleft'
 # BLOCK DURATIONS [in TR]
 # set durations of conditions and baseline
-TR = 2     # sec in int if whole number  or float 4.217 or 2
+#TR = 2     # sec in int if whole number  or float 4.217 or 2
 # specify vertical or horizontal switch buttom 
 vertical_buttom = "1"
 horizontal_buttom = "2"
@@ -56,21 +56,25 @@ def apply_global_offset(base_pos=(0,0), global_offset=global_offset):
           ↓ -Y
 '''
 ###############################################################################
-# %% BLOCKS
+# %% GUI
 
 # Store info about experiment and experimental run
-expName = 'Phys_MotQuart'  # set experiment name here
+expName = 'Phy_MotQuart'  # set experiment name here
 expInfo = {
     'run': '1',
     'participant': 'test',
     'Eyelink':['False','True'],
     'display': ['Vanderbilt7T', 'dbic'],
-    'aspect_ratio': '1.12'
+    'aspect_ratio': '1.12',
+    'TR': ['2','4.217']
     }
+
 # Create GUI at the beginning of exp to get more expInfo
 dlg = gui.DlgFromDict(dictionary=expInfo, title=expName)
 if dlg.OK == False: core.quit()  # user pressed cancel
 
+TR = float(expInfo['TR'])
+print(f'TR = {TR}')
 # %% BLOCK DURATIONS [Triggers]
 # set durations of conditions and baseline
 if TR == 2:

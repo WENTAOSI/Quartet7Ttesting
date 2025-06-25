@@ -24,9 +24,6 @@ from EyeLinkCoreGraphicsPsychoPy import EyeLinkCoreGraphicsPsychoPy
 
 ###############################################################################
 TRIGGERKEY = 'quoteleft'
-# BLOCK DURATIONS [in TR]
-# set durations of conditions and baseline
-TR = 2     # sec in int if whole number  or float  4.217 or 2
 
 # set global offset
 ho_dva = 0
@@ -47,7 +44,7 @@ def apply_global_offset(base_pos=(0,0), global_offset=global_offset):
           ↓ -Y
 '''
 ###############################################################################
-
+# GUI
 # Store info about experiment and experimental run
 expName = 'Volitional_MotQuart'  # set experiment name here
 expInfo = {
@@ -55,8 +52,16 @@ expInfo = {
     'participant': 'test',
     'Eyelink':['False','True'],
     'display': ['Vanderbilt7T', 'dbic'],
-    'aspect_ratio': '1.12'
+    'aspect_ratio': '1.12',
+    'TR': ['2','4.217']
     }
+
+# Create GUI at the beginning of exp to get more expInfo
+dlg = gui.DlgFromDict(dictionary=expInfo, title=expName)
+if dlg.OK == False: core.quit()  # user pressed cancel
+
+TR = float(expInfo['TR'])
+print(f'TR = {TR}')
 
 # Create GUI at the beginning of exp to get more expInfo
 dlg = gui.DlgFromDict(dictionary=expInfo, title=expName)

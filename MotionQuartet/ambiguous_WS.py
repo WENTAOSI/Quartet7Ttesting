@@ -28,9 +28,6 @@ from EyeLinkCoreGraphicsPsychoPy import EyeLinkCoreGraphicsPsychoPy
 #%% SET PARAMS
 ###############################################################################
 TRIGGERKEY = 'quoteleft'
-# BLOCK DURATIONS [in TR]
-# set durations of conditions and baseline
-TR = 2     # sec in int if whole number  or float 4.217 or 2
 # specify vertical or horizontal switch buttom 
 vertical_buttom = "1"
 horizontal_buttom = "2"
@@ -55,16 +52,32 @@ def apply_global_offset(base_pos=(0,0), global_offset=global_offset):
           ↓ -Y
 '''
 ###############################################################################
-# BLOCKS
+# GUI
+# Store info about experiment and experimental run
+expName = 'Amb_MotQuart'  # set experiment name here
+expInfo = {
+    'run': '1',
+    'participant': 'test',
+    'Eyelink':['False','True'],
+    'display': ['Vanderbilt7T', 'dbic'],
+    'aspect_ratio': '1.12',
+    'TR': ['2','4.217']
+    }
 
+# Create GUI at the beginning of exp to get more expInfo
+dlg = gui.DlgFromDict(dictionary=expInfo, title=expName)
+if dlg.OK == False: core.quit()  # user pressed cancel
+
+TR = float(expInfo['TR'])
+print(f'TR = {TR}')
 
 # if integer TR we can set percise timing 
-if TR == 2:
+if expInfo['TR'] == '2':
     DurElem = np.array([int(12/TR), int(16/TR), int(80/TR)])  # fix = 12s; flickerQuartet = 16s, AmbiguousQuartet = 96s
     NumQuartets = 3  # set number of repetitions of quartet blocks
     # NOTE: Fixation at the beginning and at the end lasts both for 10 triggers.
 
-elif TR == 4.217:
+elif expInfo['TR'] == '4.217':
     DurElem = np.array([4, 4, 32]) # fix = 4 TR; flickerQuartet = 4 TR, AmbiguousQuartet = 36 TR
     NumQuartets = 2  # set number of repetitions of quartet blocks
 # if float TR, we have to enforce number of TR rather than time 
@@ -86,19 +99,7 @@ for ind in range(0, len(DurElem)):
 
 print('Conditions:', Conditions)
 print('Durations:', Durations)
-# Store info about experiment and experimental run
-expName = 'Amb_MotQuart'  # set experiment name here
-expInfo = {
-    'run': '1',
-    'participant': 'test',
-    'Eyelink':['False','True'],
-    'display': ['Vanderbilt7T', 'dbic'],
-    'aspect_ratio': '1.12'
-    }
 
-# Create GUI at the beginning of exp to get more expInfo
-dlg = gui.DlgFromDict(dictionary=expInfo, title=expName)
-if dlg.OK == False: core.quit()  # user pressed cancel
 # Circle properties
 circle_dva = 6  # Diameter in dva
 circle_radius = circle_dva / 2  # Radius in dva
