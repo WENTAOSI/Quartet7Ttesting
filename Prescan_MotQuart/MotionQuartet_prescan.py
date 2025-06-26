@@ -5,7 +5,7 @@
 TOP-DOWN MODULATION IN ILLUSORY QUARTET MOTION
 Pre-scan Psychophysics session (Genc et al., 2011)
 
-Lastly updated: June 24 2025
+Lastly updated: June 25 2025
 """
 
 # %% IMPORT LIBRARIES
@@ -48,7 +48,7 @@ my_monitors = {
     "Beaver": {"mon_dist": 80, "size_cm": (52.3, 0), "size_px": (1920, 1080), "refresh_rate": 60, "screen": 1},
     "Scanner": {"mon_dist": 128.7, "size_cm": (42.8, 0), "size_px": (1920, 1080), "refresh_rate": 60, "screen": 1},
     "TseLab": {"mon_dist": 63, "size_cm": (47.2, 0), "size_px": (1920, 1080), "refresh_rate": 60, "screen": 1},
-    "TongLab": {"mon_dist": 40, "size_cm": (41, 0), "size_px": (1280, 768), "refresh_rate": 60, "screen": 1}
+    "TongLab": {"mon_dist": 39, "size_cm": (38, 0), "size_px": (1600, 1200), "refresh_rate": 85, "screen": 0}
 }
 
 # Create GUI
@@ -337,7 +337,7 @@ def show_text(win, text, color='white', height=0.5, pos=(0, 0)):
         pos=pos
     )
 
-triggerText = show_text(myWin, "Experiment will start soon.")
+triggerText = show_text(myWin, "Experiment will start soon. Press p to continue.")
 phase1Text = show_text(myWin, "Please keep your eyes on the red dot at all times.\n\nPress the space bar as soon as you notice\n\na change in the perceived direction.")
 pracText = show_text(myWin, "Press any key to begin the practice trials.")
 endofpracText = show_text(myWin, "Great job!\nWhen you're ready, press the space bar to begin the experiment.")
@@ -346,6 +346,7 @@ phase2Text = show_text(myWin, "Please keep your eyes on the red dot at all times
 phase3Text = show_text(myWin, "Please keep your eyes on the red dot at all times.\n\nTry to perceive the direction indicated in the instructions.\n\nReport the direction you actually perceived.")
 reportText = show_text(myWin, "?")
 norespText = show_text(myWin, "No response detected.\n\nPlease stay focused for the next trial.")
+analysisText = show_text(myWin, "Now analyzing the data ...")
 endText = show_text(myWin, "You're all set! Thank you for your participation.")
 
 # Mapping response key to label
@@ -452,6 +453,7 @@ def check_for_escape():
 # %% INSTRUCTIONS
 # ==============================================================================
 
+event.Mouse(visible=False)
 logFile.write(f"Start of Experiment {expInfo['expName']}\n")
 
 triggerText.draw()
@@ -742,6 +744,9 @@ logFile.write(f"Phase 2 Responses saved to {outFileName}.csv\n")
 
 # %% Wrap up the data ...
 # ==============================================================================
+
+analysisText.draw()
+myWin.flip()
 
 baseFileName = outFolderName + os.path.sep + '%s_%s' % (
     expInfo['participant'], expInfo['expName'])
@@ -1110,6 +1115,8 @@ endText.draw()
 myWin.flip()
 core.wait(5) # wait for 5 s
 myWin.close()
+event.Mouse(visible=False)
+
 try:
     core.quit()
 except SystemExit:
