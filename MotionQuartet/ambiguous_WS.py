@@ -61,7 +61,7 @@ expInfo = {
     'Eyelink':['False','True'],
     'display': ['Vanderbilt7T', 'dbic'],
     'aspect_ratio': '1.12',
-    'TR': ['2','4.217']
+    'TR': ['1.612','2','4.217']
     }
 
 # Create GUI at the beginning of exp to get more expInfo
@@ -80,12 +80,10 @@ if expInfo['TR'] == '2':
 elif expInfo['TR'] == '4.217':
     DurElem = np.array([4, 4, 32]) # fix = 4 TR; flickerQuartet = 4 TR, AmbiguousQuartet = 36 TR
     NumQuartets = 2  # set number of repetitions of quartet blocks
-# if float TR, we have to enforce number of TR rather than time 
-'''
-else:
-    DurElem = np.array([10, 8, 40]) # fix 10 TR; flickerQuartet = 8 TR; AmbiguousQuartet = 40 TR
-'''
 
+elif expInfo['TR'] == '1.612':
+    DurElem = np.array([8, 10, 48]) # fix = 8 TR; flickerQuartet = 10 TR, AmbiguousQuartet = 40 TR
+    NumQuartets = 4  # set number of repetitions of quartet blocks
 
 # fixation = 0; flicker = 1; quartet = 2
 

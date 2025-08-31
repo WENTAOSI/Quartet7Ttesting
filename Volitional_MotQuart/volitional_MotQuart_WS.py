@@ -53,7 +53,7 @@ expInfo = {
     'Eyelink':['False','True'],
     'display': ['Vanderbilt7T', 'dbic'],
     'aspect_ratio': '1.12',
-    'TR': ['2','4.217']
+    'TR': ['1.612','2','4.217']
     }
 
 # Create GUI at the beginning of exp to get more expInfo
@@ -179,8 +179,6 @@ myWin = visual.Window(size=(PixW, PixH),
                       )
 
 # %% TRIAL DURATIONS SETUP
-
-
 num_trials = 10
 
 # Initialize parameters 
@@ -192,20 +190,30 @@ if TR == 1 or TR == 2: # ALL number is even
     switch = 4
 
 elif TR == 4.217:
-    total_time = 8*TR
-    report = 2*TR
-    precue = 2*TR
-    delay = 3*TR
-    switch = 1*TR
+    total_time = 8
+    report = 2
+    precue = 2
+    delay = 3
+    switch = 1
 
-'''
-elif isinstance(TR, float) and TR != 4.217:
-    total_time = 15*TR
-    report = 3*TR
-    precue = 5*TR
-    delay = 5*TR
-    switch = 2*TR
-'''
+elif TR == 1.612:
+    total_time = 21
+    report = 4
+    precue = [8, 9, 10]
+    delay = [4, 5, 6]
+    switch = [2, 3, 4]
+
+# valid combinations of precue, delay, switch that sum to total_time - report 
+# is a list of dictionaries
+valid_combinations = [
+    {"precue": p, "delay": d, "switch": s}
+    for p in precue
+    for d in delay
+    for s in switch
+    if p + d + s == total_time - report
+]
+
+
 # Create a balanced list of QuartetOrder values
 quartet_orders = ["quartetPart1, quartetPart2"] * (num_trials // 2) + \
                  ["quartetPart2, quartetPart1"] * (num_trials // 2)
@@ -264,12 +272,25 @@ for trial in range(1, num_trials + 1):
     this_V = str(this_button_seq[0])
     this_H = str(this_button_seq[1])
 
+    # choose a valid combination randomly from the pre-defined valid combinations
+    chosen_combo = random.choice(valid_combinations)
+
+    precue_choice = chosen_combo["precue"]
+    delay_choice = chosen_combo["delay"]
+    switch_choice = chosen_combo["switch"]
+    
+    # Convert durations from TRs to seconds
+    precue_choice *= TR
+    delay_choice *= TR
+    switch_choice *= TR
+    report *= TR
+
     # Store the trial data
     conditions.append({
         "Trial": trial,
-        "PrecueTime": precue,
-        "DelayTime": delay,
-        "SwitchTime": switch,
+        "PrecueTime": precue_choice,
+        "DelayTime": delay_choice,
+        "SwitchTime": switch_choice,
         "ReportTime": report,
         "QuartetOrder": this_quartet_order,
         "Instruct_V_H": this_instruct_V_H,
@@ -281,6 +302,8 @@ for trial in range(1, num_trials + 1):
 # Convert to a DataFrame for visualization or saving
 conditions_df = pd.DataFrame(conditions)
 
+print(f'Trial {trial}: Precue {precue_choice}, Delay {delay_choice}, Switch {switch_choice}, Report {report}, Total {precue_choice + delay_choice + switch_choice + report}')
+    # updating TR into seconds
 # %% STIMULI
 # INITIALISE SOME STIMULI
 SquareSize = 1.0  # 1.1 #1.8

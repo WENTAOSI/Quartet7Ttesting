@@ -31,7 +31,6 @@ from EyeLinkCoreGraphicsPsychoPy import EyeLinkCoreGraphicsPsychoPy
 TRIGGERKEY = 'quoteleft'
 # BLOCK DURATIONS [in TR]
 # set durations of conditions and baseline
-#TR = 2     # sec in int if whole number  or float 4.217 or 2
 # specify vertical or horizontal switch buttom 
 vertical_buttom = "1"
 horizontal_buttom = "2"
@@ -66,7 +65,7 @@ expInfo = {
     'Eyelink':['False','True'],
     'display': ['Vanderbilt7T', 'dbic'],
     'aspect_ratio': '1.12',
-    'TR': ['2','4.217']
+    'TR': ['1.612', '2','4.217']
     }
 
 # Create GUI at the beginning of exp to get more expInfo
@@ -89,9 +88,16 @@ elif TR == 4.217:
     MotionDur = 4
     BaseDur = 4
     Fixation = 4
-    NumOf12PerBlock = 8 # number of blocks (hor + ver + flick)
+    NumOf12PerBlock = 8 # number of (hor + ver) per block
     NumQuartets = 2
-    
+
+elif TR == 1.612:
+    MotionDur = 8     # Vertical or Horizontal motion 8 TR 
+    BaseDur = 10     # 4 sqares flickering 10 TR
+    Fixation = 8     # Fixation (beginning and end) 8 TR
+    NumOf12PerBlock = 6 # number of (hor + ver) per block
+    NumQuartets = 4 # number of cycles
+
 
 '''
 else:
