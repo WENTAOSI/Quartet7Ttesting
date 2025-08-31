@@ -283,7 +283,7 @@ for trial in range(1, num_trials + 1):
     precue_choice *= TR
     delay_choice *= TR
     switch_choice *= TR
-    report *= TR
+    report_choice = report*TR
 
     # Store the trial data
     conditions.append({
@@ -291,7 +291,7 @@ for trial in range(1, num_trials + 1):
         "PrecueTime": precue_choice,
         "DelayTime": delay_choice,
         "SwitchTime": switch_choice,
-        "ReportTime": report,
+        "ReportTime": report_choice,
         "QuartetOrder": this_quartet_order,
         "Instruct_V_H": this_instruct_V_H,
         "illusory_physical": this_illusory_physical,
