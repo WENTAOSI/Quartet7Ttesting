@@ -28,7 +28,7 @@ import time
 ###############################################################
 TR=2 # 2 sec TR
 TRIGGER_KEY='quoteleft' # psychopy accepts "quoteleft" as "`" 
-period = 10 #sec of each period 
+period = 16 #sec of each period 
 
 # set global offset
 ho_dva = 0
@@ -196,6 +196,7 @@ for ind in range(0, NumRepCond):
     block_elem = np.insert(BaseOrder, np.arange(len(CondOrder)), CondOrder)
     conditions = np.hstack((conditions, block_elem))
 
+print(f"CONDITIONS: {conditions}")
 # add -1 in beginning and end, for fixation dot
 conditions = np.hstack(([-1], conditions))
 # make sure array is int

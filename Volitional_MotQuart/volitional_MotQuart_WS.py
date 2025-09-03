@@ -912,6 +912,10 @@ event.waitKeys()
 triggerText.draw()
 myWin.flip()
 event.waitKeys(keyList=[TRIGGERKEY], timeStamped=False)
+
+# start a test clock
+test_clock = core.Clock()
+
 # reset clocks
 clock.reset()
 logFile.write('StartOfRun' + str(expInfo['run']))
@@ -1140,6 +1144,9 @@ for trial in conditions:
     # Log response
     logFile.write(f"Trial {trial['Trial']} INVALID Response: {trial['invalid_ResponseKey']} at {trial['invalid_ResponseTime']} sec\n")
     logFile.write(f"Trial {trial['Trial']} Response: {trial['ResponseKey']} at {trial['ResponseTime']} sec\n")
+
+# test clock get time and print
+print(f"Total time for the run is {test_clock.getTime()} sec")
 
 # SIGNAL TRACKER EXPERIMENT END
 el_tracker.sendMessage("EXPERIMENT_END")
