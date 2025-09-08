@@ -31,8 +31,8 @@ TRIGGER_KEY='quoteleft' # psychopy accepts "quoteleft" as "`"
 period = 16 #sec of each period 
 
 # set global offset
-ho_dva = 0
-vo_dva = 0
+ho_dva = -0.0981
+vo_dva = 1.7652
 global_offset = (ho_dva, -vo_dva)
  
 def apply_global_offset(base_pos=(0,0), global_offset=global_offset):

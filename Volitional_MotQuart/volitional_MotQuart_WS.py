@@ -26,8 +26,8 @@ from EyeLinkCoreGraphicsPsychoPy import EyeLinkCoreGraphicsPsychoPy
 TRIGGERKEY = 'quoteleft'
 
 # set global offset
-ho_dva = 0
-vo_dva = 0
+ho_dva = -0.0981
+vo_dva = 1.7652
 global_offset = (ho_dva, -vo_dva)
  
 def apply_global_offset(base_pos=(0,0), global_offset=global_offset):
@@ -49,7 +49,7 @@ def apply_global_offset(base_pos=(0,0), global_offset=global_offset):
 expName = 'Volitional_MotQuart'  # set experiment name here
 expInfo = {
     'run': '1',
-    'participant': 'test',
+    'participant': 'EC',
     'Eyelink':['False','True'],
     'display': ['Vanderbilt7T', 'dbic'],
     'aspect_ratio': '1.12',
@@ -442,7 +442,7 @@ endText = visual.TextStim(
 # Define the blue and red mappings as functions
 run_number = int(''.join(filter(str.isdigit, expInfo['run'])))
 print(run_number)
-if run_number <= 8:
+if run_number <= 6:
     color_mapping = {
         "vertical": blue_Square,
         "horizontal": red_Square,

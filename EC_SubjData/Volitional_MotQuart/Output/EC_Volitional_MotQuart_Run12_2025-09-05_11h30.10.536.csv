@@ -1,0 +1,11 @@
+Trial,PrecueTime,DelayTime,SwitchTime,ReportTime,QuartetOrder,Instruct_V_H,illusory_physical,V_buttom,H_buttom,vertical,horizontal,invalid_ResponseKey,invalid_ResponseTime,ResponseKey,ResponseTime,expected_key,success
+1,16.12,8.06,3.224,6.448,"quartetPart2, quartetPart1",vertical,illusory,4,3,red_Square,blue_Square,None,None,4,28.24333480000496,4,True
+2,14.508000000000001,6.448,6.448,6.448,"quartetPart1, quartetPart2",horizontal,illusory,2,4,red_Square,blue_Square,None,None,4,62.190746999986004,4,True
+3,14.508000000000001,9.672,3.224,6.448,"quartetPart1, quartetPart2",vertical,illusory,2,3,red_Square,blue_Square,None,None,2,95.8716901000007,2,True
+4,14.508000000000001,9.672,3.224,6.448,"quartetPart2, quartetPart1",vertical,illusory,4,2,red_Square,blue_Square,None,None,4,130.30357689998345,4,True
+5,14.508000000000001,8.06,4.836,6.448,"quartetPart1, quartetPart2",horizontal,illusory,3,1,red_Square,blue_Square,None,None,1,163.60108200000832,1,True
+6,16.12,6.448,4.836,6.448,"quartetPart1, quartetPart2",horizontal,illusory,1,2,red_Square,blue_Square,None,None,2,197.34761349999462,2,True
+7,14.508000000000001,6.448,6.448,6.448,"quartetPart2, quartetPart1",vertical,illusory,3,2,red_Square,blue_Square,None,None,3,231.19501189998118,3,True
+8,12.896,9.672,4.836,6.448,"quartetPart2, quartetPart1",horizontal,illusory,2,1,red_Square,blue_Square,None,None,1,265.3932486999838,1,True
+9,14.508000000000001,6.448,6.448,6.448,"quartetPart1, quartetPart2",horizontal,illusory,1,4,red_Square,blue_Square,None,None,4,298.97339679999277,4,True
+10,14.508000000000001,8.06,4.836,6.448,"quartetPart2, quartetPart1",vertical,illusory,3,4,red_Square,blue_Square,None,None,3,333.05457169999136,3,True

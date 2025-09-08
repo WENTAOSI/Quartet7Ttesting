@@ -1,0 +1,300 @@
+MonitorDistance=48cm
+MonitorWidth=17cm
+PixelWidth=1024
+PixelHeight=768
+SquareSize=1.0
+RefreshRate=60.384978398325636
+FrameDuration=0.016666666666666666
+StartOfRun7Time at start of trial 1 is 0.00016870000399649143
+Time at the end of trial 1 is 33.86626619999879
+Trial 1 INVALID Response: 1 at -5.816009100002702 sec
+Trial 1 Response: 2 at 28.268131599994376 sec
+Time at start of trial 2 is 33.86642490001395
+Time at the end of trial 2 is 67.7136937000032
+Trial 2 INVALID Response: None at None sec
+Trial 2 Response: 2 at 62.231506000010995 sec
+Time at start of trial 3 is 67.72338599999784
+Time at the end of trial 3 is 101.56220050001866
+Trial 3 INVALID Response: None at None sec
+Trial 3 Response: 4 at 96.23100040000281 sec
+Time at start of trial 4 is 101.56230640001013
+Time at the end of trial 4 is 135.4090581999917
+Trial 4 INVALID Response: None at None sec
+Trial 4 Response: 1 at 129.87641789999907 sec
+Time at start of trial 5 is 135.40916810001363
+Time at the end of trial 5 is 169.2730233000184
+Trial 5 INVALID Response: None at None sec
+Trial 5 Response: 2 at 164.49098150001373 sec
+Time at start of trial 6 is 169.27313310001045
+Time at the end of trial 6 is 203.12035450001713
+Trial 6 INVALID Response: None at None sec
+Trial 6 Response: 3 at 197.82155140000395 sec
+Time at start of trial 7 is 203.12045250000665
+Time at the end of trial 7 is 236.96797240001615
+Trial 7 INVALID Response: None at None sec
+Trial 7 Response: 2 at 231.5190150999988 sec
+Time at start of trial 8 is 236.96807210001862
+Time at the end of trial 8 is 270.8321746000147
+Trial 8 INVALID Response: None at None sec
+Trial 8 Response: 3 at 265.49984570001834 sec
+Time at start of trial 9 is 270.8322649000038
+Time at the end of trial 9 is 304.6796508000116
+Trial 9 INVALID Response: None at None sec
+Trial 9 Response: 1 at 299.11400430000504 sec
+Time at start of trial 10 is 304.6797527000017
+Time at the end of trial 10 is 338.52778450000915
+Trial 10 INVALID Response: None at None sec
+Trial 10 Response: 3 at 333.0782734999957 sec
+Responses saved to NH_SubjData\Volitional_MotQuart\Output\NH_Volitional_MotQuart_Run7_2025-09-04_15h46.51.877.csv8.4278 	INFO 	Loaded monitor calibration from ['2025_01_10 07:56']
+9.0340 	EXP 	Created window1 = Window(allowGUI=False, allowStencil=False, autoLog=True, backendConf=UNKNOWN, backgroundFit=<method-wrapper '__getattribute__' of attributeSetter object at 0x0000027F00524790>, backgroundImage=<method-wrapper '__getattribute__' of attributeSetter object at 0x0000027F00524730>, bitsMode=UNKNOWN, blendMode='avg', bpc=(8, 8, 8), color=array([-0.5, -0.5, -0.5]), colorSpace='rgb', depthBits=8, fullscr=True, gamma=None, gammaErrorPolicy='raise', infoMsg=UNKNOWN, lms=UNKNOWN, monitor=<psychopy.monitors.calibTools.Monitor object at 0x0000027F00B17940>, multiSample=False, name='window1', numSamples=2, pos=(0, 0), screen=1, size=array([1024,  768]), stencilBits=0, stereo=False, title='PsychoPy', units='deg', useFBO=False, useRetina=False, viewOri=0.0, viewPos=None, viewScale=None, waitBlanking=True, winType='pyglet')
+9.0340 	EXP 	window1: backgroundImage = None
+9.0340 	EXP 	window1: backgroundFit = 'cover'
+9.0791 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, draggable=False, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=0.8, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([-3.6961,  4.2942]), rgb=UNKNOWN, text='H', units='deg', win=Window(...), wrapWidth=15.0)
+9.0805 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, draggable=False, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=0.8, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([-3.6961,  4.2942]), rgb=UNKNOWN, text='V', units='deg', win=Window(...), wrapWidth=15.0)
+9.0814 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, draggable=False, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=0.8, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([-1.4461,  4.7942]), rgb=UNKNOWN, text='H', units='deg', win=Window(...), wrapWidth=15.0)
+9.0823 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, draggable=False, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=0.8, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([-1.4461,  4.7942]), rgb=UNKNOWN, text='V', units='deg', win=Window(...), wrapWidth=15.0)
+9.0832 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, draggable=False, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=0.8, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([1.0539, 4.7942]), rgb=UNKNOWN, text='H', units='deg', win=Window(...), wrapWidth=15.0)
+9.0841 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, draggable=False, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=0.8, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([1.0539, 4.7942]), rgb=UNKNOWN, text='V', units='deg', win=Window(...), wrapWidth=15.0)
+9.0850 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, draggable=False, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=0.8, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([3.3039, 4.2942]), rgb=UNKNOWN, text='H', units='deg', win=Window(...), wrapWidth=15.0)
+9.0859 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, draggable=False, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=0.8, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([3.3039, 4.2942]), rgb=UNKNOWN, text='V', units='deg', win=Window(...), wrapWidth=15.0)
+9.0910 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, draggable=False, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=0.5, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([-0.1961,  0.2942]), rgb=UNKNOWN, text=str(...), units='deg', win=Window(...), wrapWidth=15.0)
+9.0945 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, draggable=False, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=0.5, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([-0.1961, -1.7058]), rgb=UNKNOWN, text='Press any key to continue', units='deg', win=Window(...), wrapWidth=15.0)
+9.0976 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, draggable=False, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=0.5, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([-0.1961, -3.7058]), rgb=UNKNOWN, text='You have pressed VERTICAL', units='deg', win=Window(...), wrapWidth=15.0)
+9.1521 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, draggable=False, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=0.5, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([-0.1961, -3.7058]), rgb=UNKNOWN, text='You have pressed HORIZONTAL', units='deg', win=Window(...), wrapWidth=15.0)
+9.1541 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, draggable=False, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=0.5, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([-0.1961,  0.2942]), rgb=UNKNOWN, text='Please rest until further instructions', units='deg', win=Window(...), wrapWidth=15.0)
+9.1593 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, draggable=False, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=0.5, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([-0.1961,  0.2942]), rgb=UNKNOWN, text=str(...), units='deg', win=Window(...), wrapWidth=15.0)
+9.1620 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, draggable=False, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=0.5, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([-0.1961,  0.2942]), rgb=UNKNOWN, text=str(...), units='deg', win=Window(...), wrapWidth=15.0)
+9.1629 	EXP 	window1: Attempting to measure frame rate of screen (1) ...
+9.1629 	EXP 	window1: recordFrameIntervals = False
+9.3168 	EXP 	window1: recordFrameIntervals = True
+9.5002 	EXP 	Screen (1) actual frame rate measured at 60.38Hz
+9.5002 	EXP 	window1: recordFrameIntervals = False
+0.0381 	EXP 	window1: units = 'pix'
+0.0381 	INFO 	Mouse: using default window
+0.1222 	INFO 	keyboard.Keyboard is using ptb backend.
+1.8178 	DATA 	Keypress: return
+13.7705 	DATA 	Keypress: 4
+14.8744 	DATA 	Keypress: 4
+28.5624 	DATA 	Keypress: 1
+34.3783 	DATA 	Keypress: quoteleft
+1.6198 	DATA 	Keypress: quoteleft
+3.2354 	DATA 	Keypress: quoteleft
+4.8520 	DATA 	Keypress: quoteleft
+6.4520 	DATA 	Keypress: quoteleft
+8.0686 	DATA 	Keypress: quoteleft
+9.6850 	DATA 	Keypress: quoteleft
+11.3015 	DATA 	Keypress: quoteleft
+12.9181 	DATA 	Keypress: quoteleft
+14.5178 	DATA 	Keypress: quoteleft
+16.1200 	DATA 	Keypress: quoteleft
+17.7372 	DATA 	Keypress: quoteleft
+19.3509 	DATA 	Keypress: quoteleft
+20.9677 	DATA 	Keypress: quoteleft
+22.5841 	DATA 	Keypress: quoteleft
+24.1850 	DATA 	Keypress: quoteleft
+25.7841 	DATA 	Keypress: quoteleft
+27.4188 	DATA 	Keypress: quoteleft
+28.2681 	DATA 	Keypress: 2
+29.0173 	DATA 	Keypress: quoteleft
+30.6338 	DATA 	Keypress: quoteleft
+32.2503 	DATA 	Keypress: quoteleft
+33.8667 	DATA 	Keypress: quoteleft
+35.4832 	DATA 	Keypress: quoteleft
+37.0829 	DATA 	Keypress: quoteleft
+38.6995 	DATA 	Keypress: quoteleft
+40.3161 	DATA 	Keypress: quoteleft
+41.9328 	DATA 	Keypress: quoteleft
+43.5330 	DATA 	Keypress: quoteleft
+45.1491 	DATA 	Keypress: quoteleft
+46.7674 	DATA 	Keypress: quoteleft
+48.3654 	DATA 	Keypress: quoteleft
+50.0000 	DATA 	Keypress: quoteleft
+51.5997 	DATA 	Keypress: quoteleft
+53.2009 	DATA 	Keypress: quoteleft
+54.8157 	DATA 	Keypress: quoteleft
+56.4316 	DATA 	Keypress: quoteleft
+58.0322 	DATA 	Keypress: quoteleft
+59.6482 	DATA 	Keypress: quoteleft
+61.2673 	DATA 	Keypress: quoteleft
+62.2315 	DATA 	Keypress: 2
+62.8814 	DATA 	Keypress: quoteleft
+64.4980 	DATA 	Keypress: quoteleft
+66.0986 	DATA 	Keypress: quoteleft
+67.7237 	DATA 	Keypress: quoteleft
+69.3310 	DATA 	Keypress: quoteleft
+70.9471 	DATA 	Keypress: quoteleft
+72.5470 	DATA 	Keypress: quoteleft
+74.1641 	DATA 	Keypress: quoteleft
+75.7635 	DATA 	Keypress: quoteleft
+77.3968 	DATA 	Keypress: quoteleft
+78.9965 	DATA 	Keypress: quoteleft
+80.6130 	DATA 	Keypress: quoteleft
+82.2132 	DATA 	Keypress: quoteleft
+83.8296 	DATA 	Keypress: quoteleft
+85.4319 	DATA 	Keypress: quoteleft
+87.0626 	DATA 	Keypress: quoteleft
+88.6634 	DATA 	Keypress: quoteleft
+90.2804 	DATA 	Keypress: quoteleft
+91.8796 	DATA 	Keypress: quoteleft
+93.4960 	DATA 	Keypress: quoteleft
+95.1132 	DATA 	Keypress: quoteleft
+96.2310 	DATA 	Keypress: 4
+96.7300 	DATA 	Keypress: quoteleft
+98.3290 	DATA 	Keypress: quoteleft
+99.9464 	DATA 	Keypress: quoteleft
+101.5626 	DATA 	Keypress: quoteleft
+103.1782 	DATA 	Keypress: quoteleft
+104.7782 	DATA 	Keypress: quoteleft
+106.3948 	DATA 	Keypress: quoteleft
+108.0111 	DATA 	Keypress: quoteleft
+109.6276 	DATA 	Keypress: quoteleft
+111.2442 	DATA 	Keypress: quoteleft
+112.8440 	DATA 	Keypress: quoteleft
+114.4605 	DATA 	Keypress: quoteleft
+116.0771 	DATA 	Keypress: quoteleft
+117.6936 	DATA 	Keypress: quoteleft
+119.2942 	DATA 	Keypress: quoteleft
+120.9110 	DATA 	Keypress: quoteleft
+122.5108 	DATA 	Keypress: quoteleft
+124.1267 	DATA 	Keypress: quoteleft
+125.7431 	DATA 	Keypress: quoteleft
+127.3597 	DATA 	Keypress: quoteleft
+128.9595 	DATA 	Keypress: quoteleft
+129.8764 	DATA 	Keypress: 1
+130.5766 	DATA 	Keypress: quoteleft
+132.1930 	DATA 	Keypress: quoteleft
+133.8095 	DATA 	Keypress: quoteleft
+135.4095 	DATA 	Keypress: quoteleft
+137.0255 	DATA 	Keypress: quoteleft
+138.6422 	DATA 	Keypress: quoteleft
+140.2587 	DATA 	Keypress: quoteleft
+141.8599 	DATA 	Keypress: quoteleft
+143.4752 	DATA 	Keypress: quoteleft
+145.0918 	DATA 	Keypress: quoteleft
+146.6919 	DATA 	Keypress: quoteleft
+148.3091 	DATA 	Keypress: quoteleft
+149.9248 	DATA 	Keypress: quoteleft
+151.5412 	DATA 	Keypress: quoteleft
+153.1434 	DATA 	Keypress: quoteleft
+154.7577 	DATA 	Keypress: quoteleft
+156.3744 	DATA 	Keypress: quoteleft
+157.9749 	DATA 	Keypress: quoteleft
+159.5908 	DATA 	Keypress: quoteleft
+161.2072 	DATA 	Keypress: quoteleft
+162.8260 	DATA 	Keypress: quoteleft
+164.4241 	DATA 	Keypress: quoteleft
+164.4910 	DATA 	Keypress: 2
+166.0406 	DATA 	Keypress: quoteleft
+167.6579 	DATA 	Keypress: quoteleft
+169.2734 	DATA 	Keypress: quoteleft
+170.8730 	DATA 	Keypress: quoteleft
+172.4896 	DATA 	Keypress: quoteleft
+174.1072 	DATA 	Keypress: quoteleft
+175.7232 	DATA 	Keypress: quoteleft
+177.3394 	DATA 	Keypress: quoteleft
+178.9397 	DATA 	Keypress: quoteleft
+180.5567 	DATA 	Keypress: quoteleft
+182.1724 	DATA 	Keypress: quoteleft
+183.7727 	DATA 	Keypress: quoteleft
+185.3888 	DATA 	Keypress: quoteleft
+187.0053 	DATA 	Keypress: quoteleft
+188.6219 	DATA 	Keypress: quoteleft
+190.2216 	DATA 	Keypress: quoteleft
+191.8383 	DATA 	Keypress: quoteleft
+193.4392 	DATA 	Keypress: quoteleft
+195.0546 	DATA 	Keypress: quoteleft
+196.6729 	DATA 	Keypress: quoteleft
+197.8216 	DATA 	Keypress: 3
+198.2882 	DATA 	Keypress: quoteleft
+199.9047 	DATA 	Keypress: quoteleft
+201.5044 	DATA 	Keypress: quoteleft
+203.1207 	DATA 	Keypress: quoteleft
+204.7372 	DATA 	Keypress: quoteleft
+206.3544 	DATA 	Keypress: quoteleft
+207.9536 	DATA 	Keypress: quoteleft
+209.5702 	DATA 	Keypress: quoteleft
+211.1867 	DATA 	Keypress: quoteleft
+212.7868 	DATA 	Keypress: quoteleft
+214.4032 	DATA 	Keypress: quoteleft
+216.0197 	DATA 	Keypress: quoteleft
+217.6197 	DATA 	Keypress: quoteleft
+219.2534 	DATA 	Keypress: quoteleft
+220.8384 	DATA 	Keypress: quoteleft
+222.4546 	DATA 	Keypress: quoteleft
+224.0692 	DATA 	Keypress: quoteleft
+225.6866 	DATA 	Keypress: quoteleft
+227.2872 	DATA 	Keypress: quoteleft
+228.9195 	DATA 	Keypress: quoteleft
+230.5199 	DATA 	Keypress: quoteleft
+231.5190 	DATA 	Keypress: 2
+232.1369 	DATA 	Keypress: quoteleft
+233.7357 	DATA 	Keypress: quoteleft
+235.3521 	DATA 	Keypress: quoteleft
+236.9683 	DATA 	Keypress: quoteleft
+238.5864 	DATA 	Keypress: quoteleft
+240.1846 	DATA 	Keypress: quoteleft
+241.8012 	DATA 	Keypress: quoteleft
+243.4177 	DATA 	Keypress: quoteleft
+245.0347 	DATA 	Keypress: quoteleft
+246.6345 	DATA 	Keypress: quoteleft
+248.2508 	DATA 	Keypress: quoteleft
+249.8673 	DATA 	Keypress: quoteleft
+251.4838 	DATA 	Keypress: quoteleft
+253.1004 	DATA 	Keypress: quoteleft
+254.7022 	DATA 	Keypress: quoteleft
+256.3024 	DATA 	Keypress: quoteleft
+257.9333 	DATA 	Keypress: quoteleft
+259.5336 	DATA 	Keypress: quoteleft
+261.1501 	DATA 	Keypress: quoteleft
+262.7663 	DATA 	Keypress: quoteleft
+264.3663 	DATA 	Keypress: quoteleft
+265.4999 	DATA 	Keypress: 3
+265.9833 	DATA 	Keypress: quoteleft
+267.5997 	DATA 	Keypress: quoteleft
+269.1996 	DATA 	Keypress: quoteleft
+270.8160 	DATA 	Keypress: quoteleft
+272.4323 	DATA 	Keypress: quoteleft
+274.0488 	DATA 	Keypress: quoteleft
+275.6654 	DATA 	Keypress: quoteleft
+277.2653 	DATA 	Keypress: quoteleft
+278.8817 	DATA 	Keypress: quoteleft
+280.4985 	DATA 	Keypress: quoteleft
+282.0983 	DATA 	Keypress: quoteleft
+283.7148 	DATA 	Keypress: quoteleft
+285.3313 	DATA 	Keypress: quoteleft
+286.9478 	DATA 	Keypress: quoteleft
+288.5488 	DATA 	Keypress: quoteleft
+290.1659 	DATA 	Keypress: quoteleft
+291.7815 	DATA 	Keypress: quoteleft
+293.3822 	DATA 	Keypress: quoteleft
+295.0140 	DATA 	Keypress: quoteleft
+296.6139 	DATA 	Keypress: quoteleft
+298.2144 	DATA 	Keypress: quoteleft
+299.1140 	DATA 	Keypress: 1
+299.8316 	DATA 	Keypress: quoteleft
+301.4473 	DATA 	Keypress: quoteleft
+303.0639 	DATA 	Keypress: quoteleft
+304.6800 	DATA 	Keypress: quoteleft
+306.2798 	DATA 	Keypress: quoteleft
+307.8979 	DATA 	Keypress: quoteleft
+309.5129 	DATA 	Keypress: quoteleft
+311.1132 	DATA 	Keypress: quoteleft
+312.7295 	DATA 	Keypress: quoteleft
+314.3462 	DATA 	Keypress: quoteleft
+315.9633 	DATA 	Keypress: quoteleft
+317.5789 	DATA 	Keypress: quoteleft
+319.1957 	DATA 	Keypress: quoteleft
+320.7959 	DATA 	Keypress: quoteleft
+322.4122 	DATA 	Keypress: quoteleft
+324.0289 	DATA 	Keypress: quoteleft
+325.6298 	DATA 	Keypress: quoteleft
+327.2451 	DATA 	Keypress: quoteleft
+328.8455 	DATA 	Keypress: quoteleft
+330.4615 	DATA 	Keypress: quoteleft
+332.0787 	DATA 	Keypress: quoteleft
+333.0783 	DATA 	Keypress: 3
+333.6948 	DATA 	Keypress: quoteleft
+335.2949 	DATA 	Keypress: quoteleft
+336.9121 	DATA 	Keypress: quoteleft
+338.5441 	DATA 	Keypress: quoteleft
+344.1701 	WARNING 	Stopping key buffers but this could be dangerous ifother keyboards rely on the same.

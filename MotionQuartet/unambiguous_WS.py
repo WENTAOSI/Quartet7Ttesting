@@ -37,8 +37,8 @@ horizontal_buttom = "2"
 ITI_buttom = "4"
 
 # set global offset
-ho_dva = 0
-vo_dva = 0
+ho_dva = -0.2942
+vo_dva = 0.8826
 global_offset = (ho_dva, -vo_dva)
  
 def apply_global_offset(base_pos=(0,0), global_offset=global_offset):
@@ -61,7 +61,7 @@ def apply_global_offset(base_pos=(0,0), global_offset=global_offset):
 expName = 'Phy_MotQuart'  # set experiment name here
 expInfo = {
     'run': '1',
-    'participant': 'test',
+    'participant': 'EC',
     'Eyelink':['False','True'],
     'display': ['Vanderbilt7T', 'dbic'],
     'aspect_ratio': '1.12',
@@ -77,12 +77,13 @@ print(f'TR = {TR}')
 # %% BLOCK DURATIONS [Triggers]
 # set durations of conditions and baseline
 if TR == 2:
-    MotionDur = int(np.ceil(10 / TR))     # Vertical or Horizontal motion 10 sec 
-    BaseDur = int(16 / TR)        # 4 sqares flickering 16 sec
-    Fixation = 6     # Fixation (beginning and end) 12 sec
-    NumOf12PerBlock = 8 # number of blocks (hor + ver + flick)
-    NumQuartets = 3
+    MotionDur = 8     # Vertical or Horizontal motion 8 TR 
+    BaseDur = 10     # 4 sqares flickering 10 TR
+    Fixation = 8     # Fixation (beginning and end) 8 TR
+    NumOf12PerBlock = 6 # number of (hor + ver) per block
+    NumQuartets = 2 # number of cycles
     print(MotionDur)
+    
 # NOTE: Fixation at the beginning and at the end lasts both for 10 triggers.
 elif TR == 4.217:
     MotionDur = 4

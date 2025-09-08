@@ -1,0 +1,637 @@
+Conditions=[0 1 2 1 2 1 2 4 1 2 1 2 1 2 4 1 2 1 2 1 2 4 1 2 1 2 1 2 4 0]
+Durations (Triggers) =[ 8  8  8  8  8  8  8 10  8  8  8  8  8  8 10  8  8  8  8  8  8 10  8  8
+  8  8  8  8 10  8]
+MonitorDistance=48cm
+MonitorWidth=17cm
+PixelWidth=1024
+PixelHeight=768
+SquareSize=1.0
+SquareDur=0.15
+BlankDur=0.067
+Durations: [ 8  8  8  8  8  8  8 10  8  8  8  8  8  8 10  8  8  8  8  8  8 10  8  8
+  8  8  8  8 10  8] 
+RefreshRate=60.71958783472392
+FrameDuration=0.01639344262295082
+HoriSpeed=0.2969275161875886
+VertiSpeed=0.35334374426323045
+HoriDist=1.930028855219326
+VertiDist=2.296734337710998
+15.6035 	INFO 	Loaded monitor calibration from ['2025_01_10 07:56']
+16.2167 	EXP 	Created window1 = Window(allowGUI=False, allowStencil=False, autoLog=True, backendConf=UNKNOWN, backgroundFit=<method-wrapper '__getattribute__' of attributeSetter object at 0x0000021C58BD1580>, backgroundImage=<method-wrapper '__getattribute__' of attributeSetter object at 0x0000021C58BD1520>, bitsMode=UNKNOWN, blendMode='avg', bpc=(8, 8, 8), color=array([-0.5, -0.5, -0.5]), colorSpace='rgb', depthBits=8, fullscr=True, gamma=None, gammaErrorPolicy='raise', infoMsg=UNKNOWN, lms=UNKNOWN, monitor=<psychopy.monitors.calibTools.Monitor object at 0x0000021C5951A3A0>, multiSample=False, name='window1', numSamples=2, pos=(0, 0), screen=1, size=array([1024,  768]), stencilBits=0, stereo=False, title='PsychoPy', units='deg', useFBO=False, useRetina=False, viewOri=0.0, viewPos=None, viewScale=None, waitBlanking=True, winType='pyglet')
+16.2167 	EXP 	window1: backgroundImage = None
+16.2167 	EXP 	window1: backgroundFit = 'cover'
+16.2507 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, draggable=False, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=1.0, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([-16.,  -8.]), rgb=UNKNOWN, text='Condition', units='deg', win=Window(...), wrapWidth=15.0)
+16.2627 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, draggable=False, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=0.8, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([-3.8923,  3.8039]), rgb=UNKNOWN, text='H', units='deg', win=Window(...), wrapWidth=15.0)
+16.2640 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, draggable=False, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=0.8, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([-3.8923,  3.8039]), rgb=UNKNOWN, text='V', units='deg', win=Window(...), wrapWidth=15.0)
+16.2652 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, draggable=False, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=0.8, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([-3.8923,  3.8039]), rgb=UNKNOWN, text='F', units='deg', win=Window(...), wrapWidth=15.0)
+16.2661 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, draggable=False, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=0.8, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([-1.6423,  4.3039]), rgb=UNKNOWN, text='H', units='deg', win=Window(...), wrapWidth=15.0)
+16.2670 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, draggable=False, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=0.8, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([-1.6423,  4.3039]), rgb=UNKNOWN, text='V', units='deg', win=Window(...), wrapWidth=15.0)
+16.2679 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, draggable=False, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=0.8, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([-1.6423,  4.3039]), rgb=UNKNOWN, text='F', units='deg', win=Window(...), wrapWidth=15.0)
+16.2688 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, draggable=False, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=0.8, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([0.8577, 4.3039]), rgb=UNKNOWN, text='H', units='deg', win=Window(...), wrapWidth=15.0)
+16.2697 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, draggable=False, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=0.8, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([0.8577, 4.3039]), rgb=UNKNOWN, text='V', units='deg', win=Window(...), wrapWidth=15.0)
+16.2706 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, draggable=False, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=0.8, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([0.8577, 4.3039]), rgb=UNKNOWN, text='F', units='deg', win=Window(...), wrapWidth=15.0)
+16.2715 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, draggable=False, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=0.8, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([3.1077, 3.8039]), rgb=UNKNOWN, text='H', units='deg', win=Window(...), wrapWidth=15.0)
+16.2724 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, draggable=False, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=0.8, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([3.1077, 3.8039]), rgb=UNKNOWN, text='V', units='deg', win=Window(...), wrapWidth=15.0)
+16.2741 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, draggable=False, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=0.8, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([3.1077, 3.8039]), rgb=UNKNOWN, text='F', units='deg', win=Window(...), wrapWidth=15.0)
+16.2785 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, draggable=False, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=0.5, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([-0.3923, -0.1961]), rgb=UNKNOWN, text=str(...), units='deg', win=Window(...), wrapWidth=15.0)
+16.3386 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, draggable=False, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=0.5, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([-0.3923, -0.1961]), rgb=UNKNOWN, text=str(...), units='deg', win=Window(...), wrapWidth=15.0)
+16.3415 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, draggable=False, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=0.5, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([-0.3923, -3.6961]), rgb=UNKNOWN, text=str(...), units='deg', win=Window(...), wrapWidth=15.0)
+16.3438 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, draggable=False, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=0.5, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([-0.3923, -0.1961]), rgb=UNKNOWN, text=str(...), units='deg', win=Window(...), wrapWidth=15.0)
+16.3448 	EXP 	window1: Attempting to measure frame rate of screen (1) ...
+16.3448 	EXP 	window1: recordFrameIntervals = False
+16.5001 	EXP 	window1: recordFrameIntervals = True
+16.7182 	WARNING 	t of last frame was 68.45ms (=1/14)
+16.8831 	EXP 	Screen (1) actual frame rate measured at 60.72Hz
+16.8831 	EXP 	window1: recordFrameIntervals = False
+0.0388 	EXP 	window1: units = 'pix'
+0.0389 	INFO 	Mouse: using default window
+0.1206 	INFO 	keyboard.Keyboard is using ptb backend.
+1.4495 	DATA 	Keypress: return
+27.4853 	DATA 	Keypress: quoteleft
+27.4855 	DATA 	StartOfRun4
+27.4855 	DATA 	Scanner trigger 0
+27.4855 	DATA 	StartOfCondition0
+29.1136 	DATA 	Keypress: quoteleft
+29.1139 	DATA 	Scanner trigger 1
+30.7305 	DATA 	Keypress: quoteleft
+30.7308 	DATA 	Scanner trigger 2
+32.3304 	DATA 	Keypress: quoteleft
+32.3307 	DATA 	Scanner trigger 3
+33.9465 	DATA 	Keypress: quoteleft
+33.9468 	DATA 	Scanner trigger 4
+35.5634 	DATA 	Keypress: quoteleft
+35.5637 	DATA 	Scanner trigger 5
+37.1797 	DATA 	Keypress: quoteleft
+37.1802 	DATA 	Scanner trigger 6
+38.7797 	DATA 	Keypress: quoteleft
+38.7801 	DATA 	Scanner trigger 7
+40.3964 	DATA 	Keypress: quoteleft
+40.3966 	DATA 	Scanner trigger 8
+40.3966 	DATA 	StartOfCondition1
+41.3813 	DATA 	Keypress: 1
+41.3961 	DATA 	Key1 pressed
+42.0127 	DATA 	Keypress: quoteleft
+42.0130 	DATA 	Scanner trigger 9
+43.6132 	DATA 	Keypress: quoteleft
+43.6299 	DATA 	Scanner trigger 10
+45.2292 	DATA 	Keypress: quoteleft
+45.2296 	DATA 	Scanner trigger 11
+46.8462 	DATA 	Keypress: quoteleft
+46.8466 	DATA 	Scanner trigger 12
+48.4456 	DATA 	Keypress: quoteleft
+48.4460 	DATA 	Scanner trigger 13
+50.0628 	DATA 	Keypress: quoteleft
+50.0632 	DATA 	Scanner trigger 14
+51.6797 	DATA 	Keypress: quoteleft
+51.6801 	DATA 	Scanner trigger 15
+53.2951 	DATA 	Keypress: quoteleft
+53.2955 	DATA 	Scanner trigger 16
+53.2956 	DATA 	StartOfCondition2
+53.8297 	DATA 	Keypress: 2
+53.8301 	DATA 	Key2 pressed
+54.8950 	DATA 	Keypress: quoteleft
+54.8952 	DATA 	Scanner trigger 17
+56.5116 	DATA 	Keypress: quoteleft
+56.5118 	DATA 	Scanner trigger 18
+58.1289 	DATA 	Keypress: quoteleft
+58.1291 	DATA 	Scanner trigger 19
+59.7449 	DATA 	Keypress: quoteleft
+59.7452 	DATA 	Scanner trigger 20
+61.3459 	DATA 	Keypress: quoteleft
+61.3463 	DATA 	Scanner trigger 21
+62.9612 	DATA 	Keypress: quoteleft
+62.9614 	DATA 	Scanner trigger 22
+64.5776 	DATA 	Keypress: quoteleft
+64.5780 	DATA 	Scanner trigger 23
+66.1946 	DATA 	Keypress: quoteleft
+66.1950 	DATA 	Scanner trigger 24
+66.1951 	DATA 	StartOfCondition1
+66.7949 	DATA 	Keypress: 1
+66.7955 	DATA 	Key1 pressed
+67.7946 	DATA 	Keypress: quoteleft
+67.7949 	DATA 	Scanner trigger 25
+69.4110 	DATA 	Keypress: quoteleft
+69.4115 	DATA 	Scanner trigger 26
+71.0272 	DATA 	Keypress: quoteleft
+71.0277 	DATA 	Scanner trigger 27
+72.6437 	DATA 	Keypress: quoteleft
+72.6441 	DATA 	Scanner trigger 28
+74.2436 	DATA 	Keypress: quoteleft
+74.2438 	DATA 	Scanner trigger 29
+75.8602 	DATA 	Keypress: quoteleft
+75.8604 	DATA 	Scanner trigger 30
+77.4618 	DATA 	Keypress: quoteleft
+77.4767 	DATA 	Scanner trigger 31
+79.0775 	DATA 	Keypress: quoteleft
+79.0779 	DATA 	Scanner trigger 32
+79.0780 	DATA 	StartOfCondition2
+79.7932 	DATA 	Keypress: 2
+79.7936 	DATA 	Key2 pressed
+80.6941 	DATA 	Keypress: quoteleft
+80.6945 	DATA 	Scanner trigger 33
+82.2940 	DATA 	Keypress: quoteleft
+82.2944 	DATA 	Scanner trigger 34
+83.9096 	DATA 	Keypress: quoteleft
+83.9100 	DATA 	Scanner trigger 35
+85.5262 	DATA 	Keypress: quoteleft
+85.5265 	DATA 	Scanner trigger 36
+87.1426 	DATA 	Keypress: quoteleft
+87.1431 	DATA 	Scanner trigger 37
+88.7440 	DATA 	Keypress: quoteleft
+88.7445 	DATA 	Scanner trigger 38
+90.3599 	DATA 	Keypress: quoteleft
+90.3603 	DATA 	Scanner trigger 39
+91.9761 	DATA 	Keypress: quoteleft
+91.9768 	DATA 	Scanner trigger 40
+91.9769 	DATA 	StartOfCondition1
+92.6259 	DATA 	Keypress: 1
+92.6264 	DATA 	Key1 pressed
+93.5767 	DATA 	Keypress: quoteleft
+93.5771 	DATA 	Scanner trigger 41
+95.1920 	DATA 	Keypress: quoteleft
+95.1923 	DATA 	Scanner trigger 42
+96.8093 	DATA 	Keypress: quoteleft
+96.8096 	DATA 	Scanner trigger 43
+98.4252 	DATA 	Keypress: quoteleft
+98.4256 	DATA 	Scanner trigger 44
+100.0251 	DATA 	Keypress: quoteleft
+100.0253 	DATA 	Scanner trigger 45
+101.6415 	DATA 	Keypress: quoteleft
+101.6418 	DATA 	Scanner trigger 46
+103.2581 	DATA 	Keypress: quoteleft
+103.2584 	DATA 	Scanner trigger 47
+104.8752 	DATA 	Keypress: quoteleft
+104.8754 	DATA 	Scanner trigger 48
+104.8755 	DATA 	StartOfCondition2
+105.5750 	DATA 	Keypress: 2
+105.5753 	DATA 	Key2 pressed
+106.4921 	DATA 	Keypress: quoteleft
+106.4926 	DATA 	Scanner trigger 49
+108.0911 	DATA 	Keypress: quoteleft
+108.0914 	DATA 	Scanner trigger 50
+109.6934 	DATA 	Keypress: quoteleft
+109.7077 	DATA 	Scanner trigger 51
+111.3092 	DATA 	Keypress: quoteleft
+111.3243 	DATA 	Scanner trigger 52
+112.9262 	DATA 	Keypress: quoteleft
+112.9408 	DATA 	Scanner trigger 53
+114.5421 	DATA 	Keypress: quoteleft
+114.5424 	DATA 	Scanner trigger 54
+116.1415 	DATA 	Keypress: quoteleft
+116.1418 	DATA 	Scanner trigger 55
+117.7570 	DATA 	Keypress: quoteleft
+117.7573 	DATA 	Scanner trigger 56
+117.7573 	DATA 	StartOfCondition4
+118.9904 	DATA 	Keypress: 4
+119.0579 	DATA 	Key4 pressed
+119.3744 	DATA 	Keypress: quoteleft
+119.4902 	DATA 	Scanner trigger 57
+120.9903 	DATA 	Keypress: quoteleft
+121.2244 	DATA 	Scanner trigger 58
+122.6080 	DATA 	Keypress: quoteleft
+122.9575 	DATA 	Scanner trigger 59
+124.2076 	DATA 	Keypress: quoteleft
+124.2575 	DATA 	Scanner trigger 60
+125.8231 	DATA 	Keypress: quoteleft
+125.9896 	DATA 	Scanner trigger 61
+127.4401 	DATA 	Keypress: quoteleft
+127.7228 	DATA 	Scanner trigger 62
+129.0571 	DATA 	Keypress: quoteleft
+129.0573 	DATA 	Scanner trigger 63
+130.6561 	DATA 	Keypress: quoteleft
+130.7902 	DATA 	Scanner trigger 64
+132.2727 	DATA 	Keypress: quoteleft
+132.5225 	DATA 	Scanner trigger 65
+133.8911 	DATA 	Keypress: quoteleft
+134.2557 	DATA 	Scanner trigger 66
+134.2558 	DATA 	StartOfCondition1
+134.9899 	DATA 	Keypress: 1
+134.9902 	DATA 	Key1 pressed
+135.5060 	DATA 	Keypress: quoteleft
+135.5065 	DATA 	Scanner trigger 67
+137.1056 	DATA 	Keypress: quoteleft
+137.1060 	DATA 	Scanner trigger 68
+138.7225 	DATA 	Keypress: quoteleft
+138.7227 	DATA 	Scanner trigger 69
+140.3397 	DATA 	Keypress: quoteleft
+140.3401 	DATA 	Scanner trigger 70
+141.9552 	DATA 	Keypress: quoteleft
+141.9556 	DATA 	Scanner trigger 71
+143.5566 	DATA 	Keypress: quoteleft
+143.5569 	DATA 	Scanner trigger 72
+145.1717 	DATA 	Keypress: quoteleft
+145.1722 	DATA 	Scanner trigger 73
+146.7734 	DATA 	Keypress: quoteleft
+146.7901 	DATA 	Scanner trigger 74
+146.7902 	DATA 	StartOfCondition2
+147.4216 	DATA 	Keypress: 2
+147.4221 	DATA 	Key2 pressed
+148.3888 	DATA 	Keypress: quoteleft
+148.4065 	DATA 	Scanner trigger 75
+150.0058 	DATA 	Keypress: quoteleft
+150.0061 	DATA 	Scanner trigger 76
+151.6215 	DATA 	Keypress: quoteleft
+151.6219 	DATA 	Scanner trigger 77
+153.2218 	DATA 	Keypress: quoteleft
+153.2223 	DATA 	Scanner trigger 78
+154.8377 	DATA 	Keypress: quoteleft
+154.8379 	DATA 	Scanner trigger 79
+156.4543 	DATA 	Keypress: quoteleft
+156.4547 	DATA 	Scanner trigger 80
+158.0725 	DATA 	Keypress: quoteleft
+158.0729 	DATA 	Scanner trigger 81
+159.6716 	DATA 	Keypress: quoteleft
+159.6720 	DATA 	Scanner trigger 82
+159.6721 	DATA 	StartOfCondition1
+160.3379 	DATA 	Keypress: 1
+160.3383 	DATA 	Key1 pressed
+161.2872 	DATA 	Keypress: quoteleft
+161.2876 	DATA 	Scanner trigger 83
+162.9038 	DATA 	Keypress: quoteleft
+162.9041 	DATA 	Scanner trigger 84
+164.5212 	DATA 	Keypress: quoteleft
+164.5216 	DATA 	Scanner trigger 85
+166.1378 	DATA 	Keypress: quoteleft
+166.1382 	DATA 	Scanner trigger 86
+167.7368 	DATA 	Keypress: quoteleft
+167.7370 	DATA 	Scanner trigger 87
+169.3539 	DATA 	Keypress: quoteleft
+169.3544 	DATA 	Scanner trigger 88
+170.9697 	DATA 	Keypress: quoteleft
+170.9701 	DATA 	Scanner trigger 89
+172.5863 	DATA 	Keypress: quoteleft
+172.5867 	DATA 	Scanner trigger 90
+172.5867 	DATA 	StartOfCondition2
+173.1536 	DATA 	Keypress: 2
+173.1541 	DATA 	Key2 pressed
+174.1874 	DATA 	Keypress: quoteleft
+174.1881 	DATA 	Scanner trigger 91
+175.8046 	DATA 	Keypress: quoteleft
+175.8048 	DATA 	Scanner trigger 92
+177.4193 	DATA 	Keypress: quoteleft
+177.4198 	DATA 	Scanner trigger 93
+179.0191 	DATA 	Keypress: quoteleft
+179.0194 	DATA 	Scanner trigger 94
+180.6369 	DATA 	Keypress: quoteleft
+180.6372 	DATA 	Scanner trigger 95
+182.2524 	DATA 	Keypress: quoteleft
+182.2528 	DATA 	Scanner trigger 96
+183.8525 	DATA 	Keypress: quoteleft
+183.8528 	DATA 	Scanner trigger 97
+185.4689 	DATA 	Keypress: quoteleft
+185.4693 	DATA 	Scanner trigger 98
+185.4694 	DATA 	StartOfCondition1
+186.0535 	DATA 	Keypress: 1
+186.0541 	DATA 	Key1 pressed
+187.0858 	DATA 	Keypress: quoteleft
+187.0861 	DATA 	Scanner trigger 99
+188.6853 	DATA 	Keypress: quoteleft
+188.6856 	DATA 	Scanner trigger 100
+190.3017 	DATA 	Keypress: quoteleft
+190.3019 	DATA 	Scanner trigger 101
+191.9190 	DATA 	Keypress: quoteleft
+191.9193 	DATA 	Scanner trigger 102
+193.5348 	DATA 	Keypress: quoteleft
+193.5352 	DATA 	Scanner trigger 103
+195.1361 	DATA 	Keypress: quoteleft
+195.1364 	DATA 	Scanner trigger 104
+196.7513 	DATA 	Keypress: quoteleft
+196.7516 	DATA 	Scanner trigger 105
+198.3688 	DATA 	Keypress: quoteleft
+198.3691 	DATA 	Scanner trigger 106
+198.3692 	DATA 	StartOfCondition2
+199.1017 	DATA 	Keypress: 2
+199.1021 	DATA 	Key2 pressed
+199.9843 	DATA 	Keypress: quoteleft
+199.9847 	DATA 	Scanner trigger 107
+201.6014 	DATA 	Keypress: quoteleft
+201.6017 	DATA 	Scanner trigger 108
+203.2013 	DATA 	Keypress: quoteleft
+203.2014 	DATA 	Scanner trigger 109
+204.8179 	DATA 	Keypress: quoteleft
+204.8183 	DATA 	Scanner trigger 110
+206.4338 	DATA 	Keypress: quoteleft
+206.4342 	DATA 	Scanner trigger 111
+208.0511 	DATA 	Keypress: quoteleft
+208.0514 	DATA 	Scanner trigger 112
+209.6510 	DATA 	Keypress: quoteleft
+209.6514 	DATA 	Scanner trigger 113
+211.2669 	DATA 	Keypress: quoteleft
+211.2671 	DATA 	Scanner trigger 114
+211.2672 	DATA 	StartOfCondition4
+212.3002 	DATA 	Keypress: 4
+212.5672 	DATA 	Key4 pressed
+212.8847 	DATA 	Keypress: quoteleft
+213.0007 	DATA 	Scanner trigger 115
+214.4842 	DATA 	Keypress: quoteleft
+214.7831 	DATA 	Scanner trigger 116
+216.0847 	DATA 	Keypress: quoteleft
+216.5164 	DATA 	Scanner trigger 117
+217.7165 	DATA 	Keypress: quoteleft
+217.8169 	DATA 	Scanner trigger 118
+219.3173 	DATA 	Keypress: quoteleft
+219.5494 	DATA 	Scanner trigger 119
+220.9341 	DATA 	Keypress: quoteleft
+221.2829 	DATA 	Scanner trigger 120
+222.5493 	DATA 	Keypress: quoteleft
+222.5825 	DATA 	Scanner trigger 121
+224.1500 	DATA 	Keypress: quoteleft
+224.3169 	DATA 	Scanner trigger 122
+225.7659 	DATA 	Keypress: quoteleft
+226.0497 	DATA 	Scanner trigger 123
+227.3833 	DATA 	Keypress: quoteleft
+227.7832 	DATA 	Scanner trigger 124
+227.7834 	DATA 	StartOfCondition1
+228.6322 	DATA 	Keypress: 1
+228.6326 	DATA 	Key1 pressed
+228.9833 	DATA 	Keypress: quoteleft
+228.9835 	DATA 	Scanner trigger 125
+230.5997 	DATA 	Keypress: quoteleft
+230.6000 	DATA 	Scanner trigger 126
+232.2152 	DATA 	Keypress: quoteleft
+232.2156 	DATA 	Scanner trigger 127
+233.8318 	DATA 	Keypress: quoteleft
+233.8321 	DATA 	Scanner trigger 128
+235.4325 	DATA 	Keypress: quoteleft
+235.4329 	DATA 	Scanner trigger 129
+237.0491 	DATA 	Keypress: quoteleft
+237.0494 	DATA 	Scanner trigger 130
+238.6649 	DATA 	Keypress: quoteleft
+238.6653 	DATA 	Scanner trigger 131
+240.2981 	DATA 	Keypress: quoteleft
+240.2985 	DATA 	Scanner trigger 132
+240.2986 	DATA 	StartOfCondition2
+240.8825 	DATA 	Keypress: 2
+240.8830 	DATA 	Key2 pressed
+241.8814 	DATA 	Keypress: quoteleft
+241.8817 	DATA 	Scanner trigger 133
+243.4984 	DATA 	Keypress: quoteleft
+243.4987 	DATA 	Scanner trigger 134
+245.1144 	DATA 	Keypress: quoteleft
+245.1146 	DATA 	Scanner trigger 135
+246.7168 	DATA 	Keypress: quoteleft
+246.7310 	DATA 	Scanner trigger 136
+248.3317 	DATA 	Keypress: quoteleft
+248.3320 	DATA 	Scanner trigger 137
+249.9478 	DATA 	Keypress: quoteleft
+249.9482 	DATA 	Scanner trigger 138
+251.5639 	DATA 	Keypress: quoteleft
+251.5643 	DATA 	Scanner trigger 139
+253.1651 	DATA 	Keypress: quoteleft
+253.1654 	DATA 	Scanner trigger 140
+253.1656 	DATA 	StartOfCondition1
+254.0980 	DATA 	Keypress: 1
+254.0985 	DATA 	Key1 pressed
+254.7804 	DATA 	Keypress: quoteleft
+254.7807 	DATA 	Scanner trigger 141
+256.3970 	DATA 	Keypress: quoteleft
+256.3972 	DATA 	Scanner trigger 142
+257.9974 	DATA 	Keypress: quoteleft
+257.9978 	DATA 	Scanner trigger 143
+259.6138 	DATA 	Keypress: quoteleft
+259.6142 	DATA 	Scanner trigger 144
+261.2298 	DATA 	Keypress: quoteleft
+261.2301 	DATA 	Scanner trigger 145
+262.8465 	DATA 	Keypress: quoteleft
+262.8468 	DATA 	Scanner trigger 146
+264.4464 	DATA 	Keypress: quoteleft
+264.4466 	DATA 	Scanner trigger 147
+266.0631 	DATA 	Keypress: quoteleft
+266.0634 	DATA 	Scanner trigger 148
+266.0635 	DATA 	StartOfCondition2
+266.6629 	DATA 	Keypress: 2
+266.6631 	DATA 	Key2 pressed
+267.6794 	DATA 	Keypress: quoteleft
+267.6797 	DATA 	Scanner trigger 149
+269.2964 	DATA 	Keypress: quoteleft
+269.2968 	DATA 	Scanner trigger 150
+270.9130 	DATA 	Keypress: quoteleft
+270.9135 	DATA 	Scanner trigger 151
+272.5132 	DATA 	Keypress: quoteleft
+272.5135 	DATA 	Scanner trigger 152
+274.1299 	DATA 	Keypress: quoteleft
+274.1302 	DATA 	Scanner trigger 153
+275.7466 	DATA 	Keypress: quoteleft
+275.7469 	DATA 	Scanner trigger 154
+277.3620 	DATA 	Keypress: quoteleft
+277.3624 	DATA 	Scanner trigger 155
+278.9622 	DATA 	Keypress: quoteleft
+278.9626 	DATA 	Scanner trigger 156
+278.9627 	DATA 	StartOfCondition1
+279.6118 	DATA 	Keypress: 1
+279.6122 	DATA 	Key1 pressed
+280.5798 	DATA 	Keypress: quoteleft
+280.5803 	DATA 	Scanner trigger 157
+282.1797 	DATA 	Keypress: quoteleft
+282.1962 	DATA 	Scanner trigger 158
+283.7952 	DATA 	Keypress: quoteleft
+283.7954 	DATA 	Scanner trigger 159
+285.4115 	DATA 	Keypress: quoteleft
+285.4119 	DATA 	Scanner trigger 160
+287.0286 	DATA 	Keypress: quoteleft
+287.0291 	DATA 	Scanner trigger 161
+288.6280 	DATA 	Keypress: quoteleft
+288.6283 	DATA 	Scanner trigger 162
+290.2452 	DATA 	Keypress: quoteleft
+290.2456 	DATA 	Scanner trigger 163
+291.8613 	DATA 	Keypress: quoteleft
+291.8618 	DATA 	Scanner trigger 164
+291.8618 	DATA 	StartOfCondition2
+292.3952 	DATA 	Keypress: 2
+292.4127 	DATA 	Key2 pressed
+293.4778 	DATA 	Keypress: quoteleft
+293.4781 	DATA 	Scanner trigger 165
+295.0775 	DATA 	Keypress: quoteleft
+295.0779 	DATA 	Scanner trigger 166
+296.6939 	DATA 	Keypress: quoteleft
+296.6942 	DATA 	Scanner trigger 167
+298.3105 	DATA 	Keypress: quoteleft
+298.3109 	DATA 	Scanner trigger 168
+299.9274 	DATA 	Keypress: quoteleft
+299.9281 	DATA 	Scanner trigger 169
+301.5275 	DATA 	Keypress: quoteleft
+301.5278 	DATA 	Scanner trigger 170
+303.1434 	DATA 	Keypress: quoteleft
+303.1437 	DATA 	Scanner trigger 171
+304.7599 	DATA 	Keypress: quoteleft
+304.7603 	DATA 	Scanner trigger 172
+304.7603 	DATA 	StartOfCondition4
+305.7608 	DATA 	Keypress: 4
+306.0597 	DATA 	Key4 pressed
+306.3777 	DATA 	Keypress: quoteleft
+306.4936 	DATA 	Scanner trigger 173
+307.9776 	DATA 	Keypress: quoteleft
+308.2595 	DATA 	Scanner trigger 174
+309.5938 	DATA 	Keypress: quoteleft
+309.9927 	DATA 	Scanner trigger 175
+311.2097 	DATA 	Keypress: quoteleft
+311.2936 	DATA 	Scanner trigger 176
+312.8262 	DATA 	Keypress: quoteleft
+313.0259 	DATA 	Scanner trigger 177
+314.4281 	DATA 	Keypress: quoteleft
+314.7591 	DATA 	Scanner trigger 178
+316.0428 	DATA 	Keypress: quoteleft
+316.0591 	DATA 	Scanner trigger 179
+317.6595 	DATA 	Keypress: quoteleft
+317.7933 	DATA 	Scanner trigger 180
+319.2596 	DATA 	Keypress: quoteleft
+319.5254 	DATA 	Scanner trigger 181
+320.8768 	DATA 	Keypress: quoteleft
+321.2587 	DATA 	Scanner trigger 182
+321.2589 	DATA 	StartOfCondition1
+322.0089 	DATA 	Keypress: 1
+322.0092 	DATA 	Key1 pressed
+322.4921 	DATA 	Keypress: quoteleft
+322.4925 	DATA 	Scanner trigger 183
+324.0922 	DATA 	Keypress: quoteleft
+324.0925 	DATA 	Scanner trigger 184
+325.7094 	DATA 	Keypress: quoteleft
+325.7097 	DATA 	Scanner trigger 185
+327.3251 	DATA 	Keypress: quoteleft
+327.3255 	DATA 	Scanner trigger 186
+328.9420 	DATA 	Keypress: quoteleft
+328.9424 	DATA 	Scanner trigger 187
+330.5589 	DATA 	Keypress: quoteleft
+330.5593 	DATA 	Scanner trigger 188
+332.1589 	DATA 	Keypress: quoteleft
+332.1592 	DATA 	Scanner trigger 189
+333.7752 	DATA 	Keypress: quoteleft
+333.7756 	DATA 	Scanner trigger 190
+333.7758 	DATA 	StartOfCondition2
+334.4249 	DATA 	Keypress: 2
+334.4252 	DATA 	Key2 pressed
+335.3910 	DATA 	Keypress: quoteleft
+335.3914 	DATA 	Scanner trigger 191
+336.9910 	DATA 	Keypress: quoteleft
+336.9912 	DATA 	Scanner trigger 192
+338.6077 	DATA 	Keypress: quoteleft
+338.6080 	DATA 	Scanner trigger 193
+340.2248 	DATA 	Keypress: quoteleft
+340.2253 	DATA 	Scanner trigger 194
+341.8407 	DATA 	Keypress: quoteleft
+341.8410 	DATA 	Scanner trigger 195
+343.4415 	DATA 	Keypress: quoteleft
+343.4418 	DATA 	Scanner trigger 196
+345.0579 	DATA 	Keypress: quoteleft
+345.0583 	DATA 	Scanner trigger 197
+346.6736 	DATA 	Keypress: quoteleft
+346.6739 	DATA 	Scanner trigger 198
+346.6740 	DATA 	StartOfCondition1
+347.3080 	DATA 	Keypress: 1
+347.3083 	DATA 	Key1 pressed
+348.2901 	DATA 	Keypress: quoteleft
+348.2905 	DATA 	Scanner trigger 199
+349.8917 	DATA 	Keypress: quoteleft
+349.9067 	DATA 	Scanner trigger 200
+351.5073 	DATA 	Keypress: quoteleft
+351.5076 	DATA 	Scanner trigger 201
+353.1071 	DATA 	Keypress: quoteleft
+353.1073 	DATA 	Scanner trigger 202
+354.7232 	DATA 	Keypress: quoteleft
+354.7236 	DATA 	Scanner trigger 203
+356.3399 	DATA 	Keypress: quoteleft
+356.3403 	DATA 	Scanner trigger 204
+357.9561 	DATA 	Keypress: quoteleft
+357.9566 	DATA 	Scanner trigger 205
+359.5572 	DATA 	Keypress: quoteleft
+359.5575 	DATA 	Scanner trigger 206
+359.5576 	DATA 	StartOfCondition2
+360.1392 	DATA 	Keypress: 2
+360.1395 	DATA 	Key2 pressed
+361.1734 	DATA 	Keypress: quoteleft
+361.1737 	DATA 	Scanner trigger 207
+362.7725 	DATA 	Keypress: quoteleft
+362.7728 	DATA 	Scanner trigger 208
+364.4055 	DATA 	Keypress: quoteleft
+364.4059 	DATA 	Scanner trigger 209
+366.0065 	DATA 	Keypress: quoteleft
+366.0069 	DATA 	Scanner trigger 210
+367.6226 	DATA 	Keypress: quoteleft
+367.6229 	DATA 	Scanner trigger 211
+369.2385 	DATA 	Keypress: quoteleft
+369.2389 	DATA 	Scanner trigger 212
+370.8392 	DATA 	Keypress: quoteleft
+370.8394 	DATA 	Scanner trigger 213
+372.4552 	DATA 	Keypress: quoteleft
+372.4554 	DATA 	Scanner trigger 214
+372.4555 	DATA 	StartOfCondition1
+373.2057 	DATA 	Keypress: 1
+373.2061 	DATA 	Key1 pressed
+374.0716 	DATA 	Keypress: quoteleft
+374.0720 	DATA 	Scanner trigger 215
+375.6882 	DATA 	Keypress: quoteleft
+375.6886 	DATA 	Scanner trigger 216
+377.2883 	DATA 	Keypress: quoteleft
+377.2886 	DATA 	Scanner trigger 217
+378.9050 	DATA 	Keypress: quoteleft
+378.9053 	DATA 	Scanner trigger 218
+380.5067 	DATA 	Keypress: quoteleft
+380.5214 	DATA 	Scanner trigger 219
+382.1377 	DATA 	Keypress: quoteleft
+382.1382 	DATA 	Scanner trigger 220
+383.7375 	DATA 	Keypress: quoteleft
+383.7378 	DATA 	Scanner trigger 221
+385.3545 	DATA 	Keypress: quoteleft
+385.3548 	DATA 	Scanner trigger 222
+385.3549 	DATA 	StartOfCondition2
+386.0713 	DATA 	Keypress: 2
+386.0716 	DATA 	Key2 pressed
+386.9548 	DATA 	Keypress: quoteleft
+386.9708 	DATA 	Scanner trigger 223
+388.5711 	DATA 	Keypress: quoteleft
+388.5714 	DATA 	Scanner trigger 224
+390.1871 	DATA 	Keypress: quoteleft
+390.1874 	DATA 	Scanner trigger 225
+391.8053 	DATA 	Keypress: quoteleft
+391.8057 	DATA 	Scanner trigger 226
+393.4035 	DATA 	Keypress: quoteleft
+393.4039 	DATA 	Scanner trigger 227
+395.0201 	DATA 	Keypress: quoteleft
+395.0203 	DATA 	Scanner trigger 228
+396.6366 	DATA 	Keypress: quoteleft
+396.6369 	DATA 	Scanner trigger 229
+398.2531 	DATA 	Keypress: quoteleft
+398.2535 	DATA 	Scanner trigger 230
+398.2536 	DATA 	StartOfCondition4
+399.5030 	DATA 	Keypress: 4
+399.5532 	DATA 	Key4 pressed
+399.8534 	DATA 	Keypress: quoteleft
+399.9861 	DATA 	Scanner trigger 231
+401.4703 	DATA 	Keypress: quoteleft
+401.7193 	DATA 	Scanner trigger 232
+403.0872 	DATA 	Keypress: quoteleft
+403.4536 	DATA 	Scanner trigger 233
+404.7034 	DATA 	Keypress: quoteleft
+404.7535 	DATA 	Scanner trigger 234
+406.3027 	DATA 	Keypress: quoteleft
+406.4857 	DATA 	Scanner trigger 235
+407.9205 	DATA 	Keypress: quoteleft
+408.2189 	DATA 	Scanner trigger 236
+409.5370 	DATA 	Keypress: quoteleft
+409.9521 	DATA 	Scanner trigger 237
+411.1523 	DATA 	Keypress: quoteleft
+411.2531 	DATA 	Scanner trigger 238
+412.7525 	DATA 	Keypress: quoteleft
+412.9852 	DATA 	Scanner trigger 239
+414.3711 	DATA 	Keypress: quoteleft
+414.7191 	DATA 	Scanner trigger 240
+414.7192 	DATA 	StartOfCondition0
+415.9704 	DATA 	Keypress: quoteleft
+415.9852 	DATA 	Scanner trigger 241
+417.6028 	DATA 	Keypress: quoteleft
+417.6031 	DATA 	Scanner trigger 242
+419.2015 	DATA 	Keypress: quoteleft
+419.2020 	DATA 	Scanner trigger 243
+420.8183 	DATA 	Keypress: quoteleft
+420.8187 	DATA 	Scanner trigger 244
+422.4358 	DATA 	Keypress: quoteleft
+422.4362 	DATA 	Scanner trigger 245
+424.0346 	DATA 	Keypress: quoteleft
+424.0349 	DATA 	Scanner trigger 246
+425.6511 	DATA 	Keypress: quoteleft
+425.6514 	DATA 	Scanner trigger 247
+427.2692 	DATA 	Keypress: quoteleft
+427.2694 	DATA 	Scanner trigger 248
+427.2695 	DATA 	EndOfRun4
+
+427.9505 	WARNING 	Stopping key buffers but this could be dangerous ifother keyboards rely on the same.

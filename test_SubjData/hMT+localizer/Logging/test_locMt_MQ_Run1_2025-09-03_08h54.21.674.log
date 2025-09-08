@@ -1,0 +1,15 @@
+MonitorDistance=48cm
+MonitorWidth=17cm
+PixelWidth=1024
+PixelHeight=768
+Conditions=[0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0]
+Durations=[8. 8. 8. 8. 8. 8. 8. 8. 8. 8. 8. 8. 8. 8. 8. 8. 8. 8. 8. 8. 8. 8. 8. 8.
+ 8. 8. 8. 8. 8.]
+Targets=[ 17.  53.  88.  94.  97. 105. 219.]
+TotalTime=232.0
+RefreshRate=59.762860966544146
+FrameDuration=0.016666666666666666
+nDots=200
+speed=0.13386240000254473
+dotSize=0.2
+fieldSizeRadius=4

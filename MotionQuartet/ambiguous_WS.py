@@ -34,8 +34,8 @@ horizontal_buttom = "2"
 ITI_buttom = "4"
 
 # set global offset
-ho_dva = 0
-vo_dva = 0
+ho_dva = -0.3923
+vo_dva = 0.1961
 global_offset = (ho_dva, -vo_dva)
 
 def apply_global_offset(base_pos=(0,0), global_offset=global_offset):
@@ -57,10 +57,10 @@ def apply_global_offset(base_pos=(0,0), global_offset=global_offset):
 expName = 'Amb_MotQuart'  # set experiment name here
 expInfo = {
     'run': '1',
-    'participant': 'test',
+    'participant': 'NH',
     'Eyelink':['False','True'],
     'display': ['Vanderbilt7T', 'dbic'],
-    'aspect_ratio': '1.12',
+    'aspect_ratio': '1.19',
     'TR': ['1.612','2','4.217']
     }
 

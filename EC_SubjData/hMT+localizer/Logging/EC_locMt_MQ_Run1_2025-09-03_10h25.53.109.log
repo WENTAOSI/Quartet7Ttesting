@@ -1,0 +1,559 @@
+MonitorDistance=48cm
+MonitorWidth=17cm
+PixelWidth=1024
+PixelHeight=768
+Conditions=[0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0]
+Durations=[8. 8. 8. 8. 8. 8. 8. 8. 8. 8. 8. 8. 8. 8. 8. 8. 8. 8. 8. 8. 8. 8. 8. 8.
+ 8. 8. 8. 8. 8.]
+Targets=[ 61.  70.  92. 124. 131. 169. 206.]
+TotalTime=232.0
+RefreshRate=59.9560282508336
+FrameDuration=0.016666666666666666
+nDots=200
+speed=0.13343111999565735
+dotSize=0.2
+fieldSizeRadius=4
+You have detected 0 out of 7 targets.
+You really need to focus more!
+24.1139 	INFO 	Loaded monitor calibration from ['2025_01_10 07:56']
+25.3470 	EXP 	Created window1 = Window(allowGUI=False, allowStencil=True, autoLog=True, backendConf=UNKNOWN, backgroundFit=<method-wrapper '__getattribute__' of attributeSetter object at 0x000002A0FDACC460>, backgroundImage=<method-wrapper '__getattribute__' of attributeSetter object at 0x000002A0FDACC400>, bitsMode=UNKNOWN, blendMode='avg', bpc=(8, 8, 8), color=array([-0.5, -0.5, -0.5]), colorSpace='rgb', depthBits=8, fullscr=True, gamma=None, gammaErrorPolicy='raise', infoMsg=UNKNOWN, lms=UNKNOWN, monitor=<psychopy.monitors.calibTools.Monitor object at 0x000002A08014AAC0>, multiSample=False, name='window1', numSamples=2, pos=(0, 0), screen=1, size=array([1024,  768]), stencilBits=8, stereo=False, title='PsychoPy', units='deg', useFBO=False, useRetina=False, viewOri=0.0, viewPos=None, viewScale=None, waitBlanking=True, winType='pyglet')
+25.3471 	EXP 	window1: backgroundImage = None
+25.3471 	EXP 	window1: backgroundFit = 'cover'
+26.3513 	EXP 	window1: Attempting to measure frame rate of screen (1) ...
+26.3513 	EXP 	window1: recordFrameIntervals = False
+26.5131 	EXP 	window1: recordFrameIntervals = True
+26.6973 	EXP 	Screen (1) actual frame rate measured at 59.96Hz
+26.6974 	EXP 	window1: recordFrameIntervals = False
+0.1967 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, draggable=False, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=0.5, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([ 0.2942, -1.2749]), rgb=UNKNOWN, text=str(...), units='deg', win=Window(...), wrapWidth=15.0)
+0.2023 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, draggable=False, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=0.5, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([ 0.2942, -1.2749]), rgb=UNKNOWN, text=str(...), units='deg', win=Window(...), wrapWidth=15.0)
+25.0933 	DATA 	Keypress: 1
+53.8687 	DATA 	Keypress: quoteleft
+0.0000 	DATA 	StartOfRun1
+0.0003 	DATA 	TR 1
+0.0003 	DATA 	CondStat
+
+2.0093 	DATA 	Keypress: quoteleft
+2.0097 	DATA 	TR 2
+4.0097 	DATA 	Keypress: quoteleft
+4.0100 	DATA 	TR 3
+6.0091 	DATA 	Keypress: quoteleft
+6.0095 	DATA 	TR 4
+8.0102 	DATA 	Keypress: quoteleft
+8.0105 	DATA 	TR 5
+9.9936 	DATA 	Keypress: quoteleft
+9.9939 	DATA 	TR 6
+11.9933 	DATA 	Keypress: quoteleft
+11.9936 	DATA 	TR 7
+14.0086 	DATA 	Keypress: quoteleft
+14.0090 	DATA 	TR 8
+14.0092 	DATA 	CondCenter
+
+16.0086 	DATA 	Keypress: quoteleft
+16.0092 	DATA 	TR 9
+18.0086 	DATA 	Keypress: quoteleft
+18.0091 	DATA 	TR 10
+20.0089 	DATA 	Keypress: quoteleft
+20.0092 	DATA 	TR 11
+22.0090 	DATA 	Keypress: quoteleft
+22.0095 	DATA 	TR 12
+24.0087 	DATA 	Keypress: quoteleft
+24.0091 	DATA 	TR 13
+25.9933 	DATA 	Keypress: quoteleft
+26.0076 	DATA 	TR 14
+28.0076 	DATA 	Keypress: quoteleft
+28.0080 	DATA 	TR 15
+29.9920 	DATA 	Keypress: quoteleft
+29.9924 	DATA 	TR 16
+29.9925 	DATA 	CondStat
+
+31.9921 	DATA 	Keypress: quoteleft
+31.9925 	DATA 	TR 17
+34.0080 	DATA 	Keypress: quoteleft
+34.0086 	DATA 	TR 18
+35.9917 	DATA 	Keypress: quoteleft
+36.0070 	DATA 	TR 19
+38.0067 	DATA 	Keypress: quoteleft
+38.0073 	DATA 	TR 20
+40.0082 	DATA 	Keypress: quoteleft
+40.0087 	DATA 	TR 21
+41.9917 	DATA 	Keypress: quoteleft
+42.0064 	DATA 	TR 22
+44.0064 	DATA 	Keypress: quoteleft
+44.0068 	DATA 	TR 23
+45.9927 	DATA 	Keypress: quoteleft
+46.0061 	DATA 	TR 24
+46.0062 	DATA 	CondCenter
+
+47.9920 	DATA 	Keypress: quoteleft
+48.0062 	DATA 	TR 25
+49.9920 	DATA 	Keypress: quoteleft
+50.0060 	DATA 	TR 26
+52.0058 	DATA 	Keypress: quoteleft
+52.0062 	DATA 	TR 27
+54.0062 	DATA 	Keypress: quoteleft
+54.0065 	DATA 	TR 28
+56.0060 	DATA 	Keypress: quoteleft
+56.0063 	DATA 	TR 29
+58.0056 	DATA 	Keypress: quoteleft
+58.0060 	DATA 	TR 30
+60.0065 	DATA 	Keypress: quoteleft
+60.0070 	DATA 	TR 31
+62.0057 	DATA 	Keypress: quoteleft
+62.0061 	DATA 	TR 32
+62.0061 	DATA 	CondStat
+
+64.0052 	DATA 	Keypress: quoteleft
+64.0057 	DATA 	TR 33
+66.0047 	DATA 	Keypress: quoteleft
+66.0052 	DATA 	TR 34
+68.0044 	DATA 	Keypress: quoteleft
+68.0047 	DATA 	TR 35
+70.0045 	DATA 	Keypress: quoteleft
+70.0049 	DATA 	TR 36
+72.0041 	DATA 	Keypress: quoteleft
+72.0045 	DATA 	TR 37
+74.0040 	DATA 	Keypress: quoteleft
+74.0044 	DATA 	TR 38
+76.0045 	DATA 	Keypress: quoteleft
+76.0049 	DATA 	TR 39
+78.0039 	DATA 	Keypress: quoteleft
+78.0043 	DATA 	TR 40
+78.0043 	DATA 	CondCenter
+
+80.0042 	DATA 	Keypress: quoteleft
+80.0047 	DATA 	TR 41
+82.0036 	DATA 	Keypress: quoteleft
+82.0039 	DATA 	TR 42
+84.0034 	DATA 	Keypress: quoteleft
+84.0038 	DATA 	TR 43
+86.0032 	DATA 	Keypress: quoteleft
+86.0036 	DATA 	TR 44
+88.0036 	DATA 	Keypress: quoteleft
+88.0040 	DATA 	TR 45
+90.0040 	DATA 	Keypress: quoteleft
+90.0043 	DATA 	TR 46
+92.0030 	DATA 	Keypress: quoteleft
+92.0034 	DATA 	TR 47
+94.0032 	DATA 	Keypress: quoteleft
+94.0037 	DATA 	TR 48
+94.0038 	DATA 	CondStat
+
+96.0024 	DATA 	Keypress: quoteleft
+96.0029 	DATA 	TR 49
+98.0036 	DATA 	Keypress: quoteleft
+98.0041 	DATA 	TR 50
+100.0022 	DATA 	Keypress: quoteleft
+100.0025 	DATA 	TR 51
+102.0019 	DATA 	Keypress: quoteleft
+102.0023 	DATA 	TR 52
+104.0030 	DATA 	Keypress: quoteleft
+104.0033 	DATA 	TR 53
+106.0023 	DATA 	Keypress: quoteleft
+106.0028 	DATA 	TR 54
+108.0016 	DATA 	Keypress: quoteleft
+108.0019 	DATA 	TR 55
+110.0024 	DATA 	Keypress: quoteleft
+110.0028 	DATA 	TR 56
+110.0029 	DATA 	CondCenter
+
+112.0020 	DATA 	Keypress: quoteleft
+112.0023 	DATA 	TR 57
+114.0010 	DATA 	Keypress: quoteleft
+114.0014 	DATA 	TR 58
+116.0024 	DATA 	Keypress: quoteleft
+116.0027 	DATA 	TR 59
+118.0007 	DATA 	Keypress: quoteleft
+118.0009 	DATA 	TR 60
+120.0007 	DATA 	Keypress: quoteleft
+120.0011 	DATA 	TR 61
+122.0021 	DATA 	Keypress: quoteleft
+122.0026 	DATA 	TR 62
+124.0005 	DATA 	Keypress: quoteleft
+124.0010 	DATA 	TR 63
+126.0004 	DATA 	Keypress: quoteleft
+126.0007 	DATA 	TR 64
+126.0008 	DATA 	CondStat
+
+128.0011 	DATA 	Keypress: quoteleft
+128.0017 	DATA 	TR 65
+130.0004 	DATA 	Keypress: quoteleft
+130.0009 	DATA 	TR 66
+132.0004 	DATA 	Keypress: quoteleft
+132.0007 	DATA 	TR 67
+133.9998 	DATA 	Keypress: quoteleft
+134.0002 	DATA 	TR 68
+135.9996 	DATA 	Keypress: quoteleft
+136.0000 	DATA 	TR 69
+138.0000 	DATA 	Keypress: quoteleft
+138.0004 	DATA 	TR 70
+139.9997 	DATA 	Keypress: quoteleft
+140.0000 	DATA 	TR 71
+141.9994 	DATA 	Keypress: quoteleft
+141.9997 	DATA 	TR 72
+141.9998 	DATA 	CondCenter
+
+144.0000 	DATA 	Keypress: quoteleft
+144.0002 	DATA 	TR 73
+145.9987 	DATA 	Keypress: quoteleft
+145.9992 	DATA 	TR 74
+147.9997 	DATA 	Keypress: quoteleft
+148.0000 	DATA 	TR 75
+149.9985 	DATA 	Keypress: quoteleft
+149.9989 	DATA 	TR 76
+151.9985 	DATA 	Keypress: quoteleft
+151.9991 	DATA 	TR 77
+153.9995 	DATA 	Keypress: quoteleft
+153.9998 	DATA 	TR 78
+155.9988 	DATA 	Keypress: quoteleft
+155.9993 	DATA 	TR 79
+157.9991 	DATA 	Keypress: quoteleft
+157.9993 	DATA 	TR 80
+157.9994 	DATA 	CondStat
+
+159.9989 	DATA 	Keypress: quoteleft
+160.0146 	DATA 	TR 81
+161.9997 	DATA 	Keypress: quoteleft
+162.0145 	DATA 	TR 82
+163.9989 	DATA 	Keypress: quoteleft
+163.9992 	DATA 	TR 83
+165.9998 	DATA 	Keypress: quoteleft
+166.0150 	DATA 	TR 84
+167.9990 	DATA 	Keypress: quoteleft
+168.0148 	DATA 	TR 85
+170.0144 	DATA 	Keypress: quoteleft
+170.0150 	DATA 	TR 86
+171.9995 	DATA 	Keypress: quoteleft
+172.0135 	DATA 	TR 87
+173.9978 	DATA 	Keypress: quoteleft
+173.9983 	DATA 	TR 88
+173.9984 	DATA 	CondCenter
+
+175.9971 	DATA 	Keypress: quoteleft
+175.9973 	DATA 	TR 89
+177.9978 	DATA 	Keypress: quoteleft
+177.9986 	DATA 	TR 90
+179.9987 	DATA 	Keypress: quoteleft
+180.0146 	DATA 	TR 91
+181.9961 	DATA 	Keypress: quoteleft
+181.9964 	DATA 	TR 92
+183.9961 	DATA 	Keypress: quoteleft
+183.9964 	DATA 	TR 93
+185.9974 	DATA 	Keypress: quoteleft
+185.9976 	DATA 	TR 94
+187.9978 	DATA 	Keypress: quoteleft
+187.9985 	DATA 	TR 95
+189.9955 	DATA 	Keypress: quoteleft
+189.9957 	DATA 	TR 96
+189.9958 	DATA 	CondStat
+
+191.9955 	DATA 	Keypress: quoteleft
+191.9958 	DATA 	TR 97
+193.9954 	DATA 	Keypress: quoteleft
+193.9957 	DATA 	TR 98
+195.9966 	DATA 	Keypress: quoteleft
+195.9969 	DATA 	TR 99
+197.9953 	DATA 	Keypress: quoteleft
+197.9957 	DATA 	TR 100
+199.9951 	DATA 	Keypress: quoteleft
+199.9954 	DATA 	TR 101
+201.9946 	DATA 	Keypress: quoteleft
+201.9948 	DATA 	TR 102
+203.9952 	DATA 	Keypress: quoteleft
+203.9955 	DATA 	TR 103
+205.9955 	DATA 	Keypress: quoteleft
+205.9957 	DATA 	TR 104
+205.9959 	DATA 	CondCenter
+
+207.9947 	DATA 	Keypress: quoteleft
+207.9951 	DATA 	TR 105
+209.9941 	DATA 	Keypress: quoteleft
+209.9944 	DATA 	TR 106
+211.9939 	DATA 	Keypress: quoteleft
+211.9941 	DATA 	TR 107
+213.9956 	DATA 	Keypress: quoteleft
+213.9959 	DATA 	TR 108
+215.9943 	DATA 	Keypress: quoteleft
+215.9945 	DATA 	TR 109
+217.9935 	DATA 	Keypress: quoteleft
+217.9938 	DATA 	TR 110
+219.9933 	DATA 	Keypress: quoteleft
+219.9935 	DATA 	TR 111
+221.9932 	DATA 	Keypress: quoteleft
+221.9934 	DATA 	TR 112
+221.9935 	DATA 	CondStat
+
+223.9935 	DATA 	Keypress: quoteleft
+223.9937 	DATA 	TR 113
+225.9929 	DATA 	Keypress: quoteleft
+225.9932 	DATA 	TR 114
+227.9932 	DATA 	Keypress: quoteleft
+227.9935 	DATA 	TR 115
+229.9939 	DATA 	Keypress: quoteleft
+229.9941 	DATA 	TR 116
+231.9935 	DATA 	Keypress: quoteleft
+231.9936 	DATA 	TR 117
+233.9924 	DATA 	Keypress: quoteleft
+233.9927 	DATA 	TR 118
+235.9929 	DATA 	Keypress: quoteleft
+235.9933 	DATA 	TR 119
+237.9922 	DATA 	Keypress: quoteleft
+237.9925 	DATA 	TR 120
+237.9926 	DATA 	CondCenter
+
+239.9918 	DATA 	Keypress: quoteleft
+239.9920 	DATA 	TR 121
+241.9918 	DATA 	Keypress: quoteleft
+241.9922 	DATA 	TR 122
+243.9920 	DATA 	Keypress: quoteleft
+243.9924 	DATA 	TR 123
+245.9924 	DATA 	Keypress: quoteleft
+245.9927 	DATA 	TR 124
+247.9913 	DATA 	Keypress: quoteleft
+247.9915 	DATA 	TR 125
+249.9913 	DATA 	Keypress: quoteleft
+249.9915 	DATA 	TR 126
+251.9911 	DATA 	Keypress: quoteleft
+251.9913 	DATA 	TR 127
+253.9914 	DATA 	Keypress: quoteleft
+253.9916 	DATA 	TR 128
+253.9917 	DATA 	CondStat
+
+255.9912 	DATA 	Keypress: quoteleft
+255.9916 	DATA 	TR 129
+257.9910 	DATA 	Keypress: quoteleft
+257.9913 	DATA 	TR 130
+259.9904 	DATA 	Keypress: quoteleft
+259.9907 	DATA 	TR 131
+261.9902 	DATA 	Keypress: quoteleft
+261.9904 	DATA 	TR 132
+263.9911 	DATA 	Keypress: quoteleft
+263.9914 	DATA 	TR 133
+265.9911 	DATA 	Keypress: quoteleft
+265.9916 	DATA 	TR 134
+267.9906 	DATA 	Keypress: quoteleft
+267.9908 	DATA 	TR 135
+269.9908 	DATA 	Keypress: quoteleft
+269.9911 	DATA 	TR 136
+269.9913 	DATA 	CondCenter
+
+271.9899 	DATA 	Keypress: quoteleft
+271.9901 	DATA 	TR 137
+273.9903 	DATA 	Keypress: quoteleft
+273.9906 	DATA 	TR 138
+275.9900 	DATA 	Keypress: quoteleft
+276.0070 	DATA 	TR 139
+277.9899 	DATA 	Keypress: quoteleft
+278.0058 	DATA 	TR 140
+279.9898 	DATA 	Keypress: quoteleft
+280.0068 	DATA 	TR 141
+281.9904 	DATA 	Keypress: quoteleft
+281.9906 	DATA 	TR 142
+284.0063 	DATA 	Keypress: quoteleft
+284.0067 	DATA 	TR 143
+285.9901 	DATA 	Keypress: quoteleft
+285.9906 	DATA 	TR 144
+285.9908 	DATA 	CondStat
+
+287.9907 	DATA 	Keypress: quoteleft
+288.0053 	DATA 	TR 145
+289.9900 	DATA 	Keypress: quoteleft
+289.9903 	DATA 	TR 146
+292.0048 	DATA 	Keypress: quoteleft
+292.0053 	DATA 	TR 147
+293.9897 	DATA 	Keypress: quoteleft
+294.0046 	DATA 	TR 148
+295.9901 	DATA 	Keypress: quoteleft
+296.0044 	DATA 	TR 149
+297.9907 	DATA 	Keypress: quoteleft
+298.0049 	DATA 	TR 150
+299.9906 	DATA 	Keypress: quoteleft
+300.0041 	DATA 	TR 151
+302.0058 	DATA 	Keypress: quoteleft
+302.0062 	DATA 	TR 152
+302.0064 	DATA 	CondCenter
+
+304.0040 	DATA 	Keypress: quoteleft
+304.0043 	DATA 	TR 153
+306.0040 	DATA 	Keypress: quoteleft
+306.0041 	DATA 	TR 154
+308.0053 	DATA 	Keypress: quoteleft
+308.0060 	DATA 	TR 155
+309.9894 	DATA 	Keypress: quoteleft
+310.0035 	DATA 	TR 156
+312.0042 	DATA 	Keypress: quoteleft
+312.0047 	DATA 	TR 157
+314.0037 	DATA 	Keypress: quoteleft
+314.0042 	DATA 	TR 158
+315.9863 	DATA 	Keypress: quoteleft
+315.9866 	DATA 	TR 159
+318.0037 	DATA 	Keypress: quoteleft
+318.0041 	DATA 	TR 160
+318.0042 	DATA 	CondStat
+
+320.0037 	DATA 	Keypress: quoteleft
+320.0041 	DATA 	TR 161
+321.9865 	DATA 	Keypress: quoteleft
+321.9869 	DATA 	TR 162
+323.9859 	DATA 	Keypress: quoteleft
+323.9861 	DATA 	TR 163
+326.0033 	DATA 	Keypress: quoteleft
+326.0038 	DATA 	TR 164
+328.0020 	DATA 	Keypress: quoteleft
+328.0023 	DATA 	TR 165
+330.0038 	DATA 	Keypress: quoteleft
+330.0042 	DATA 	TR 166
+332.0019 	DATA 	Keypress: quoteleft
+332.0022 	DATA 	TR 167
+334.0018 	DATA 	Keypress: quoteleft
+334.0022 	DATA 	TR 168
+334.0023 	DATA 	CondCenter
+
+336.0021 	DATA 	Keypress: quoteleft
+336.0024 	DATA 	TR 169
+337.9871 	DATA 	Keypress: quoteleft
+337.9873 	DATA 	TR 170
+339.9845 	DATA 	Keypress: quoteleft
+339.9848 	DATA 	TR 171
+341.9845 	DATA 	Keypress: quoteleft
+341.9848 	DATA 	TR 172
+343.9843 	DATA 	Keypress: quoteleft
+343.9845 	DATA 	TR 173
+346.0017 	DATA 	Keypress: quoteleft
+346.0021 	DATA 	TR 174
+348.0016 	DATA 	Keypress: quoteleft
+348.0019 	DATA 	TR 175
+350.0022 	DATA 	Keypress: quoteleft
+350.0024 	DATA 	TR 176
+350.0025 	DATA 	CondStat
+
+352.0009 	DATA 	Keypress: quoteleft
+352.0015 	DATA 	TR 177
+354.0014 	DATA 	Keypress: quoteleft
+354.0017 	DATA 	TR 178
+356.0008 	DATA 	Keypress: quoteleft
+356.0012 	DATA 	TR 179
+358.0003 	DATA 	Keypress: quoteleft
+358.0005 	DATA 	TR 180
+359.9997 	DATA 	Keypress: quoteleft
+360.0001 	DATA 	TR 181
+362.0012 	DATA 	Keypress: quoteleft
+362.0015 	DATA 	TR 182
+363.9828 	DATA 	Keypress: quoteleft
+363.9833 	DATA 	TR 183
+365.9992 	DATA 	Keypress: quoteleft
+365.9995 	DATA 	TR 184
+365.9996 	DATA 	CondCenter
+
+367.9992 	DATA 	Keypress: quoteleft
+367.9997 	DATA 	TR 185
+369.9994 	DATA 	Keypress: quoteleft
+369.9998 	DATA 	TR 186
+371.9992 	DATA 	Keypress: quoteleft
+371.9995 	DATA 	TR 187
+373.9991 	DATA 	Keypress: quoteleft
+373.9995 	DATA 	TR 188
+375.9986 	DATA 	Keypress: quoteleft
+375.9989 	DATA 	TR 189
+377.9994 	DATA 	Keypress: quoteleft
+377.9997 	DATA 	TR 190
+379.9988 	DATA 	Keypress: quoteleft
+379.9993 	DATA 	TR 191
+381.9980 	DATA 	Keypress: quoteleft
+381.9983 	DATA 	TR 192
+381.9983 	DATA 	CondStat
+
+383.9987 	DATA 	Keypress: quoteleft
+383.9994 	DATA 	TR 193
+385.9991 	DATA 	Keypress: quoteleft
+385.9994 	DATA 	TR 194
+387.9980 	DATA 	Keypress: quoteleft
+387.9984 	DATA 	TR 195
+389.9983 	DATA 	Keypress: quoteleft
+389.9987 	DATA 	TR 196
+391.9974 	DATA 	Keypress: quoteleft
+391.9979 	DATA 	TR 197
+393.9972 	DATA 	Keypress: quoteleft
+393.9975 	DATA 	TR 198
+395.9971 	DATA 	Keypress: quoteleft
+395.9975 	DATA 	TR 199
+397.9970 	DATA 	Keypress: quoteleft
+397.9973 	DATA 	TR 200
+397.9974 	DATA 	CondCenter
+
+399.9974 	DATA 	Keypress: quoteleft
+399.9980 	DATA 	TR 201
+401.9970 	DATA 	Keypress: quoteleft
+401.9975 	DATA 	TR 202
+403.9977 	DATA 	Keypress: quoteleft
+403.9984 	DATA 	TR 203
+405.9970 	DATA 	Keypress: quoteleft
+405.9975 	DATA 	TR 204
+407.9976 	DATA 	Keypress: quoteleft
+407.9980 	DATA 	TR 205
+409.9961 	DATA 	Keypress: quoteleft
+409.9967 	DATA 	TR 206
+411.9960 	DATA 	Keypress: quoteleft
+411.9967 	DATA 	TR 207
+413.9959 	DATA 	Keypress: quoteleft
+413.9964 	DATA 	TR 208
+413.9965 	DATA 	CondStat
+
+415.9967 	DATA 	Keypress: quoteleft
+415.9971 	DATA 	TR 209
+417.9960 	DATA 	Keypress: quoteleft
+417.9967 	DATA 	TR 210
+419.9953 	DATA 	Keypress: quoteleft
+419.9957 	DATA 	TR 211
+421.9952 	DATA 	Keypress: quoteleft
+421.9954 	DATA 	TR 212
+423.9951 	DATA 	Keypress: quoteleft
+423.9954 	DATA 	TR 213
+425.9957 	DATA 	Keypress: quoteleft
+425.9960 	DATA 	TR 214
+427.9947 	DATA 	Keypress: quoteleft
+427.9950 	DATA 	TR 215
+429.9947 	DATA 	Keypress: quoteleft
+429.9950 	DATA 	TR 216
+429.9951 	DATA 	CondCenter
+
+431.9952 	DATA 	Keypress: quoteleft
+431.9954 	DATA 	TR 217
+433.9944 	DATA 	Keypress: quoteleft
+433.9947 	DATA 	TR 218
+435.9949 	DATA 	Keypress: quoteleft
+435.9952 	DATA 	TR 219
+437.9941 	DATA 	Keypress: quoteleft
+437.9943 	DATA 	TR 220
+439.9949 	DATA 	Keypress: quoteleft
+439.9951 	DATA 	TR 221
+441.9938 	DATA 	Keypress: quoteleft
+441.9941 	DATA 	TR 222
+443.9949 	DATA 	Keypress: quoteleft
+443.9952 	DATA 	TR 223
+445.9934 	DATA 	Keypress: quoteleft
+445.9936 	DATA 	TR 224
+445.9937 	DATA 	CondStat
+
+447.9938 	DATA 	Keypress: quoteleft
+447.9942 	DATA 	TR 225
+449.9948 	DATA 	Keypress: quoteleft
+449.9950 	DATA 	TR 226
+451.9939 	DATA 	Keypress: quoteleft
+451.9943 	DATA 	TR 227
+453.9930 	DATA 	Keypress: quoteleft
+453.9932 	DATA 	TR 228
+455.9935 	DATA 	Keypress: quoteleft
+455.9937 	DATA 	TR 229
+457.9942 	DATA 	Keypress: quoteleft
+457.9946 	DATA 	TR 230
+459.9923 	DATA 	Keypress: quoteleft
+459.9925 	DATA 	TR 231
+461.9929 	DATA 	Keypress: quoteleft
+461.9933 	DATA 	TR 232
+461.9935 	DATA 	EndOfRun1
+461.9937 	DATA 	ArrayOfDetectedTargets[0. 0. 0. 0. 0. 0. 0.]
+461.9938 	DATA 	NumberOfDetectedTargets0.0
+461.9939 	DATA 	RatioOfDetectedTargets0.0
+461.9939 	DATA 	You have detected 0 out of 7 targets.
+TargetDuration=0.3
+TimeKeyPressedArray=[]
