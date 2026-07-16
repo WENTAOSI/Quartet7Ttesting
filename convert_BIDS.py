@@ -54,6 +54,17 @@ for subj_folder, bids_sub in subject_map.items():
                 "Stim": "trial_type",
             }))
 
+    # Convert onset and duration from TRs to seconds
+    phy_events["onset"] = (
+        pd.to_numeric(phy_events["onset"], errors="raise")
+        * TR
+    )
+
+    phy_events["duration"] = (
+        pd.to_numeric(phy_events["duration"], errors="raise")
+        * TR
+    )
+
     phy_events["trial_type"] = (
         phy_events["trial_type"]
         .astype(str)
