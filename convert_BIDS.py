@@ -1,6 +1,7 @@
 from pathlib import Path
 import pandas as pd
 import re
+import numpy as np
 # ============================================================
 # Root directory
 # ============================================================
@@ -19,12 +20,99 @@ condition_mapping = {
     "horiM": "horizontal_motion",
     "flickerSI": "flicker_static",
 }
-TR = 1.612
 
 # ============================================================
 # Convert each subject
 # ============================================================
 for subj_folder, bids_sub in subject_map.items():
+    # --------------------------------------------------------
+    # hMT loc
+    # --------------------------------------------------------
+    TR = 2.0 # hMT loc 2 sec TR
+    loc_condition_mapping = {0: "stationary", 1: "moving"}
+    loc_protocol_dir = Path(root, subj_folder, "hMT+localizer", "Protocols")
+    output_dir = Path(bids_root, bids_sub, "func")
+    output_dir.mkdir(parents=True, exist_ok=True)
+    loc_protocol_files = list(loc_protocol_dir.glob("*.csv"))
+    loc_files_by_run = {}
+    
+    for loc_input_file in loc_protocol_files:
+        match = re.search(r"run(\d+)\.csv$", loc_input_file.name)
+        if match is None:
+            continue
+        run_num = int(match.group(1))
+        loc_files_by_run[run_num] = loc_input_file
+    
+        # Convert each localizer run
+    for run_num, loc_input_file in sorted(loc_files_by_run.items()):
+        loc_df = pd.read_csv(loc_input_file)
+        # Remove accidental unnamed index columns
+        loc_df = loc_df.loc[:, ~loc_df.columns.str.startswith("Unnamed")].copy()
+        # Make sure required columns exist
+        required_columns = {
+            "Condition",
+            "Duration",
+            "Target",
+        }
+        missing_columns = required_columns - set(loc_df.columns)
+        if missing_columns:
+            raise ValueError(
+                f"{loc_input_file.name} is missing columns: "
+                f"{sorted(missing_columns)}"
+            )
+        # Convert values to numeric
+        loc_df["Condition"] = pd.to_numeric(loc_df["Condition"], errors="raise")
+        loc_df["Duration"] = pd.to_numeric(loc_df["Duration"], errors="raise")
+        
+        # ----------------------------------------------------
+        # Block events
+        # ----------------------------------------------------
+        block_events = pd.DataFrame()
+        # Recalculate onset from cumulative durations.
+        # This also fixes the final row where Onset incorrectly returns to 0.
+        block_events["onset"] = (loc_df["Duration"].cumsum().shift(fill_value=0))
+        block_events["duration"] = loc_df["Duration"]
+        block_events["trial_type"] = (loc_df["Condition"].map(loc_condition_mapping))
+        # Check for unmapped condition values
+        if block_events["trial_type"].isna().any():
+            unknown_conditions = sorted(
+                loc_df.loc[
+                    block_events["trial_type"].isna(), "Condition",
+                ].unique()
+            )
+            raise ValueError(
+                f"Unknown localizer conditions in "
+                f"{loc_input_file.name}: {unknown_conditions}"
+            )
+
+        # ----------------------------------------------------
+        # Combine and sort all events
+        # ----------------------------------------------------
+        loc_events = (block_events.sort_values(["onset", "duration"]).reset_index(drop=True))
+        # Ensure numeric column
+        loc_events["onset"] = loc_events["onset"].astype(float)
+        loc_events["duration"] = loc_events["duration"].astype(float)
+        # multiply TR by TR LENGTH 
+        loc_events["onset"] *= TR
+        loc_events["duration"] *= TR
+
+        # ----------------------------------------------------
+        # Save BIDS events.tsv
+        # ----------------------------------------------------
+        loc_output_file = (output_dir/ f"{bids_sub}_task-hMTlocalizer_run-{run_num:02d}_events.tsv")
+        loc_events.to_csv(
+            loc_output_file,
+            sep="\t",
+            index=False,
+            float_format="%.3f",
+            na_rep="n/a",
+        )
+        print(f"Saved {loc_output_file}")
+    
+    # --------------------------------------------------------
+    # PHY
+    # --------------------------------------------------------
+    TR = 1.612 # the rest of high res has 1.612 TR
     phy_protocol_dir = Path(root, subj_folder, "Phy_MotQuart", "Protocols")
     phy_protocol_files = list(phy_protocol_dir.glob("*.csv"))
 
@@ -37,15 +125,8 @@ for subj_folder, bids_sub in subject_map.items():
     if not phy_input_file.exists():
         print(f"Skipping {subj_folder}: protocol not found.")
         continue
-
-    output_dir = Path(bids_root, bids_sub, "func")
-    output_dir.mkdir(parents=True, exist_ok=True)
     
     phy_runs = 6 # 6 physical runs
-    
-    # --------------------------------------------------------
-    # PHY
-    # --------------------------------------------------------
     phy_df = pd.read_csv(phy_input_file)
     phy_events = (phy_df[["Onset", "Durations", "Stim"]].rename(
             columns={
@@ -55,15 +136,8 @@ for subj_folder, bids_sub in subject_map.items():
             }))
 
     # Convert onset and duration from TRs to seconds
-    phy_events["onset"] = (
-        pd.to_numeric(phy_events["onset"], errors="raise")
-        * TR
-    )
-
-    phy_events["duration"] = (
-        pd.to_numeric(phy_events["duration"], errors="raise")
-        * TR
-    )
+    phy_events["onset"] = (pd.to_numeric(phy_events["onset"], errors="raise") * TR)
+    phy_events["duration"] = (pd.to_numeric(phy_events["duration"], errors="raise") * TR)
 
     phy_events["trial_type"] = (
         phy_events["trial_type"]
