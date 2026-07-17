@@ -43,7 +43,7 @@ if dlg.OK == False: core.quit()  # user pressed cancel
 # PARAMETERS
 # =====================================================
 TR = float(expInfo['TR'][0])  # Use the selected TR value
-trigger_key = '5'
+trigger_key = "quoteleft"
 quit_key = 'escape'
 
 n_blocks = 14           # MOT blocks
