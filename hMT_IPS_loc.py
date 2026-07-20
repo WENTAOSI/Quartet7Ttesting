@@ -5,10 +5,25 @@ import csv
 from pathlib import Path
 import pandas as pd
 
-##########################For Vandy 7T##########################################
+# GUI Store info about experiment and experimental run
+expName = 'MT_IPS_loc'  # set experiment name here
+expInfo = {
+    'sub-num': 'sub-00',
+    'run': '1',
+    'TR': ['2'],
+    'type': ['stationarybaseline', 'movingbaseline'],
+    'display': ['Vanderbilt7T'],
+    'ho_dva': '-0.0981',
+    'vo_dva': '1.7652'
+    }
+# Create GUI at the beginning of exp to get more expInfo
+dlg = gui.DlgFromDict(dictionary=expInfo, title=expName, sortKeys=False)
+if dlg.OK == False: core.quit()  # user pressed cancel
+
+##########################SCREEN OFFSET For Vandy 7T###################################
 # set global offset
-ho_dva = -0.0981
-vo_dva = 1.7652
+ho_dva = float(expInfo["ho_dva"])
+vo_dva = float(expInfo["vo_dva"])
 global_offset = (ho_dva, -vo_dva)
 
 def apply_global_offset(base_pos=(0,0), global_offset=global_offset):
@@ -24,27 +39,17 @@ def apply_global_offset(base_pos=(0,0), global_offset=global_offset):
           |
           ↓ -Y
 '''
-###############################################################################
-# GUI Store info about experiment and experimental run
-expName = 'MT_IPS_loc'  # set experiment name here
-expInfo = {
-    'run': '1',
-    'sub-num': 'sub-00',
-    'type': ['stationarybaseline', 'movingbaseline'],
-    'Eyelink':['False'],
-    'display': ['Vanderbilt7T'],
-    'TR': ['2']
-    }
-# Create GUI at the beginning of exp to get more expInfo
-dlg = gui.DlgFromDict(dictionary=expInfo, title=expName)
-if dlg.OK == False: core.quit()  # user pressed cancel
-
+########################################################################################
 # =====================================================
 # PARAMETERS
 # =====================================================
 TR = float(expInfo['TR'][0])  # Use the selected TR value
-trigger_key = "quoteleft"
 quit_key = 'escape'
+
+if expInfo['display'] == 'Vanderbilt7T':
+    trigger_key = "quoteleft"
+else:
+    raise ValueError(f"Invalid display input: {expInfo['display']}. ")
 
 n_blocks = 14           # MOT blocks
 cue_TRs = 1            # 2 s target cue
@@ -53,8 +58,9 @@ response_max = 2       # 4 s response period
 base_TRs = 5           # 10 s baseline
 
 n_objects = 10         # 5 left, 5 right
-dot_radius = 0.1
-speed = 2.0
+dot_radius = 0.25     # following Maechler et al. 2025
+speed = 1.75          # following Maechler et al. 2025
+minimum_dot_distance = 0.55
 
 # Foveal circular aperture
 aperture_radius = 4.0   # dva radius
@@ -137,85 +143,263 @@ def is_left(i):
     """
     return i < n_objects // 2
 
-def generate_positions():
-    """
-    Generate starting positions uniformly within the circular aperture.
-
-    The first five dots are restricted to the left hemifield.
-    The last five dots are restricted to the right hemifield.
-    """
-    positions = []
-
-    for i in range(n_objects):
-        while True:
-            # sqrt gives approximately uniform spatial density
-            # over the area of the circle
-            radius = effective_radius * np.sqrt(np.random.random())
-            angle = np.random.uniform(0, 2 * np.pi)
-            x = radius * np.cos(angle)
-            y = radius * np.sin(angle)
-            if is_left(i):
-                if x <= -midline_gap / 2:
-                    break
-            else:
-                if x >= midline_gap / 2:
-                    break
-        positions.append([x, y])
-    return np.array(positions, dtype=float)
-
 def generate_velocities():
     angles = np.random.uniform(0, 2 * np.pi, n_objects)
     return np.column_stack([np.cos(angles) * speed, np.sin(angles) * speed])
 
+def generate_positions():
+    """
+    Generate non-overlapping starting positions.
+
+    Dots 0-4 are restricted to the left hemifield.
+    Dots 5-9 are restricted to the right hemifield.
+    """
+    positions = []
+
+    minimum_dot_distance = 2 * dot_radius + 0.05
+    max_attempts = 10000
+
+    for i in range(n_objects):
+        valid_position_found = False
+
+        for _ in range(max_attempts):
+            # Sample uniformly over the circular aperture
+            radius = effective_radius * np.sqrt(np.random.random())
+            angle = np.random.uniform(0, 2 * np.pi)
+            candidate = np.array([radius * np.cos(angle), radius * np.sin(angle)])
+
+            # Enforce hemifield restriction
+            if is_left(i):
+                if candidate[0] > -midline_gap / 2:
+                    continue
+            else:
+                if candidate[0] < midline_gap / 2:
+                    continue
+
+            # Enforce minimum distance from existing dots
+            if len(positions) > 0:
+                existing_positions = np.asarray(positions)
+                distances = np.linalg.norm(existing_positions - candidate, axis=1)
+                if np.any(distances < minimum_dot_distance):
+                    continue
+
+            positions.append(candidate)
+            valid_position_found = True
+            break
+
+        if not valid_position_found:
+            raise RuntimeError(
+                f"Could not place dot {i} after "
+                f"{max_attempts} attempts. "
+                "Reduce dot size, reduce minimum distance, "
+                "or increase aperture size."
+            )
+    return np.asarray(positions, dtype=float)
+
+
 def update_positions(pos, vel, dt):
     """
-    Update dot positions while enforcing:
-    1. A circular aperture with radius 4 dva.
-    2. An invisible vertical boundary at fixation.
-    3. Five dots in each hemifield.
+    Update dot positions using trajectory avoidance.
+    Enforces:
+    1. Circular aperture boundary.
+    2. Vertical midline boundary.
+    3. Five dots remain in each hemifield.
+    4. Minimum center-to-center distance between dots.
+    5. Constant speed for every dot.
+    Dots alter direction before overlapping rather than undergoing
+    physical-looking elastic collisions.
     """
-    new_pos = pos + vel * dt
-    
+
+    minimum_dot_distance = 2 * dot_radius + 0.05
+    # Begin with copies so the original arrays are not modified unexpectedly.
+    new_vel = vel.copy()
+    new_pos = pos.copy()
+
+    # =====================================================
+    # PREDICTIVE TRAJECTORY AVOIDANCE
+    # =====================================================
+    # Check predicted dot positions before committing to movement.
+    predicted_pos = pos + new_vel * dt
+
+    for i in range(n_objects):
+        for j in range(i + 1, n_objects):
+            predicted_displacement = predicted_pos[i] - predicted_pos[j]
+            predicted_distance = np.linalg.norm(predicted_displacement)
+            # Redirect trajectories when dots are predicted to become too close.
+            if predicted_distance < minimum_dot_distance:
+                current_displacement = pos[i] - pos[j]
+                current_distance = np.linalg.norm(current_displacement)
+                if current_distance < 1e-8:
+                    # Extremely unlikely case where centers are identical.
+                    separation_direction = np.random.uniform(-1.0, 1.0, size=2)
+                    direction_length = np.linalg.norm(separation_direction)
+
+                    if direction_length < 1e-8:
+                        separation_direction = np.array([1.0, 0.0])
+                    else:
+                        separation_direction /= direction_length
+                else:
+                    separation_direction = (current_displacement / current_distance)
+
+                # Determine whether dots are moving toward each other.
+                relative_velocity = new_vel[i] - new_vel[j]
+                approaching_speed = np.dot(relative_velocity, separation_direction)
+
+                if approaching_speed < 0:
+                    # Remove the velocity components directed toward
+                    # each other and add outward steering components.
+                    new_vel[i] = (new_vel[i] - approaching_speed * separation_direction)
+                    new_vel[j] = (new_vel[j] + approaching_speed * separation_direction)
+                    # Add a small perpendicular component so trajectories
+                    # curve around each other rather than reverse directly.
+                    perpendicular = np.array([-separation_direction[1], separation_direction[0]])
+                    # Choose the turning direction that changes the
+                    # current trajectory the least.
+                    turn_i = np.sign(np.dot(new_vel[i], perpendicular))
+
+                    if turn_i == 0:
+                        turn_i = random.choice([-1.0, 1.0])
+                    turn_j = -turn_i
+                    avoidance_strength = speed * 0.25
+
+                    new_vel[i] += (turn_i * avoidance_strength * perpendicular)
+                    new_vel[j] += (turn_j * avoidance_strength * perpendicular)
+
+    # =====================================================
+    # RESTORE CONSTANT SPEED
+    # =====================================================
+    for i in range(n_objects):
+        current_speed = np.linalg.norm(new_vel[i])
+        if current_speed < 1e-8:
+            angle = np.random.uniform(0, 2 * np.pi)
+            new_vel[i] = np.array([np.cos(angle) * speed,np.sin(angle) * speed])
+        else:
+            new_vel[i] = (new_vel[i] / current_speed * speed)
+    # Move dots using the adjusted trajectories.
+    new_pos = pos + new_vel * dt
+
+    # =====================================================
+    # HEMIFIELD AND APERTURE BOUNDARIES
+    # =====================================================
     for i in range(n_objects):
         # -------------------------------------------------
-        # Vertical meridian boundary
+        # Vertical midline boundary
         # -------------------------------------------------
         if is_left(i):
-            left_boundary = -midline_gap / 2
-            if new_pos[i, 0] > left_boundary:
-                new_pos[i, 0] = left_boundary
-                vel[i, 0] *= -1
+            midline_boundary = -midline_gap / 2
+
+            if new_pos[i, 0] > midline_boundary:
+                new_pos[i, 0] = midline_boundary
+                # Ensure velocity points back into the left field.
+                new_vel[i, 0] = -abs(new_vel[i, 0])
         else:
-            right_boundary = midline_gap / 2
-            if new_pos[i, 0] < right_boundary:
-                new_pos[i, 0] = right_boundary
-                vel[i, 0] *= -1
+            midline_boundary = midline_gap / 2
+            
+            if new_pos[i, 0] < midline_boundary:
+                new_pos[i, 0] = midline_boundary
+                # Ensure velocity points back into the right field.
+                new_vel[i, 0] = abs(new_vel[i, 0])
 
         # -------------------------------------------------
         # Circular aperture boundary
         # -------------------------------------------------
         distance_from_center = np.linalg.norm(new_pos[i])
-        
-        if distance_from_center > effective_radius:
-            # Normal vector pointing outward from the circle
-            normal = (new_pos[i] / distance_from_center)
-            # Reflect velocity across the circular boundary
-            vel[i] = (vel[i] - 2 * np.dot(vel[i], normal) * normal)
-            # Place dot back on the valid boundary
-            new_pos[i] = (normal * effective_radius)
 
+        if distance_from_center > effective_radius:
+            boundary_normal = (new_pos[i] / distance_from_center)
+            # Put the center back on the valid boundary.
+            new_pos[i] = (boundary_normal * effective_radius)
+            outward_speed = np.dot(new_vel[i], boundary_normal)
+            # Reflect only when moving outward.
+            if outward_speed > 0:
+                new_vel[i] = (new_vel[i] - 2  * outward_speed * boundary_normal)
+
+        # -------------------------------------------------
         # Recheck hemifield after circular reflection
+        # -------------------------------------------------
         if is_left(i):
-            left_boundary = -midline_gap / 2
-            if new_pos[i, 0] > left_boundary:
-                new_pos[i, 0] = left_boundary
-                vel[i, 0] = -abs(vel[i, 0])
+            midline_boundary = -midline_gap / 2
+            if new_pos[i, 0] > midline_boundary:
+                new_pos[i, 0] = midline_boundary
+                new_vel[i, 0] = -abs(new_vel[i, 0])
+
         else:
-            right_boundary = midline_gap / 2
-            if new_pos[i, 0] < right_boundary:
-                new_pos[i, 0] = right_boundary
-                vel[i, 0] = abs(vel[i, 0])
-    return new_pos, vel
+            midline_boundary = midline_gap / 2
+            if new_pos[i, 0] < midline_boundary:
+                new_pos[i, 0] = midline_boundary
+                new_vel[i, 0] = abs(new_vel[i, 0])
+
+    # =====================================================
+    # FINAL OVERLAP SAFETY CHECK
+    # =====================================================
+    # This is only a positional correction. It does not exchange
+    # velocities or simulate an elastic collision.
+    for i in range(n_objects):
+        for j in range(i + 1, n_objects):
+
+            displacement = new_pos[i] - new_pos[j]
+            distance = np.linalg.norm(displacement)
+
+            if distance < minimum_dot_distance:
+                if distance < 1e-8:
+                    separation_direction = np.random.uniform( -1.0, 1.0, size=2)
+                    direction_length = np.linalg.norm(separation_direction)
+
+                    if direction_length < 1e-8:
+                        separation_direction = np.array([1.0, 0.0])
+                    else:
+                        separation_direction /= direction_length
+                else:
+                    separation_direction = (displacement / distance)
+                overlap = minimum_dot_distance - distance
+
+                # Split the positional correction between the dots.
+                new_pos[i] += (separation_direction * overlap / 2)
+                new_pos[j] -= (separation_direction * overlap / 2)
+                # Redirect directions slightly outward.
+                new_vel[i] += (separation_direction * speed * 0.15)
+                new_vel[j] -= (separation_direction * speed * 0.15)
+
+    # =====================================================
+    # REAPPLY BOUNDARIES AFTER SAFETY CORRECTION
+    # =====================================================
+    for i in range(n_objects):
+
+        if is_left(i):
+            midline_boundary = -midline_gap / 2
+            
+            if new_pos[i, 0] > midline_boundary:
+                new_pos[i, 0] = midline_boundary
+                new_vel[i, 0] = -abs(new_vel[i, 0])
+        else:
+            midline_boundary = midline_gap / 2
+
+            if new_pos[i, 0] < midline_boundary:
+                new_pos[i, 0] = midline_boundary
+                new_vel[i, 0] = abs(new_vel[i, 0])
+
+        distance_from_center = np.linalg.norm(new_pos[i])
+
+        if distance_from_center > effective_radius:
+            boundary_normal = (new_pos[i] / distance_from_center)
+            new_pos[i] = (boundary_normal * effective_radius)
+            outward_speed = np.dot(new_vel[i], boundary_normal)
+
+            if outward_speed > 0:
+                new_vel[i] = (new_vel[i] - 2  * outward_speed  * boundary_normal)
+
+    # =====================================================
+    # FINAL CONSTANT-SPEED NORMALIZATION
+    # =====================================================
+    for i in range(n_objects):
+        current_speed = np.linalg.norm(new_vel[i])
+        if current_speed < 1e-8:
+            angle = np.random.uniform(0, 2 * np.pi)
+            new_vel[i] = np.array([np.cos(angle) * speed, np.sin(angle) * speed])
+        else:
+            new_vel[i] = (new_vel[i] / current_speed  * speed)
+
+    return new_pos, new_vel
 
 def draw_fixation():
     fix.draw()
@@ -235,7 +419,6 @@ def draw_dots(pos, target_indices=None,show_targets=False):
             dot.lineColor = "white"
         dot.draw()
     draw_fixation()
-
 
 def choose_bilateral_targets():
     """
@@ -361,11 +544,11 @@ for block_num in range(1, n_blocks + 1):
         pos = generate_positions()
         vel = generate_velocities()
     # -----------------------------
-    # FIXATION BASELINE: 5 TRs Stationary or Moving dots 
+    # BASELINE: 5 TRs Stationary or Moving dots 
     # -----------------------------
-    if expInfo['type'] == 'stationary_baseline':
+    if expInfo['type'] == 'stationarybaseline':
         stationary_period(pos, base_TRs)
-    elif expInfo['type'] == 'moving_baseline':
+    elif expInfo['type'] == 'movingbaseline':
         pos, vel = run_motion_period(pos, vel, base_TRs)
     
     target_indices = (choose_bilateral_targets())
@@ -442,6 +625,27 @@ for block_num in range(1, n_blocks + 1):
         "accuracy": accuracy
     })
     current_onset += response_max_duration
+
+# -----------------------------
+# BASELINE: 5 TRs Stationary or Moving dots 
+# -----------------------------
+if expInfo['type'] == 'stationarybaseline':
+    stationary_period(pos, base_TRs)
+elif expInfo['type'] == 'movingbaseline':
+    pos, vel = run_motion_period(pos, vel, base_TRs)
+    
+fixation_duration = base_TRs * TR
+    
+bids_events.append({
+        "onset": current_onset,
+        "duration": fixation_duration,
+        "trial_type": expInfo['type'],
+        "block": block_num,
+        "probe_condition": "n/a",
+        "response": "n/a",
+        "response_time": "n/a",
+        "accuracy": "n/a"
+    })
 
 # =====================================================
 # SAVE
