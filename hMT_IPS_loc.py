@@ -322,7 +322,6 @@ def update_positions(pos, vel, dt):
             if new_pos[i, 0] > midline_boundary:
                 new_pos[i, 0] = midline_boundary
                 new_vel[i, 0] = -abs(new_vel[i, 0])
-
         else:
             midline_boundary = midline_gap / 2
             if new_pos[i, 0] < midline_boundary:
