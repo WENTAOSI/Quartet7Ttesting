@@ -26,6 +26,24 @@ from EyeLinkCoreGraphicsPsychoPy import EyeLinkCoreGraphicsPsychoPy
 
 # %% SET PARAMS
 ###############################################################################
+# %% GUI
+
+# Store info about experiment and experimental run
+expName = 'Phy_MotQuart'  # set experiment name here
+expInfo = {
+    'run': '1',
+    'participant': 'sub-test',
+    'Eyelink':['False','True'],
+    'display': ['Vanderbilt7T', 'dbic'],
+    'aspect_ratio': '1.12',
+    'TR': '2',
+    'ho_dva': '-0.0981',
+    'vo_dva': '1.7652'
+    }
+
+# Create GUI at the beginning of exp to get more expInfo
+dlg = gui.DlgFromDict(dictionary=expInfo, title=expName, sortKeys=False)
+if dlg.OK == False: core.quit()  # user pressed cancel
 TRIGGERKEY = 'quoteleft'
 # BLOCK DURATIONS [in TR]
 # set durations of conditions and baseline
@@ -35,8 +53,8 @@ horizontal_buttom = "2"
 ITI_buttom = "4"
 
 # set global offset
-ho_dva = -0.2942
-vo_dva = 0.8826
+ho_dva = float(expInfo["ho_dva"])
+vo_dva = float(expInfo["vo_dva"])
 global_offset = (ho_dva, -vo_dva)
  
 def apply_global_offset(base_pos=(0,0), global_offset=global_offset):
@@ -53,22 +71,7 @@ def apply_global_offset(base_pos=(0,0), global_offset=global_offset):
           ↓ -Y
 '''
 ###############################################################################
-# %% GUI
 
-# Store info about experiment and experimental run
-expName = 'Phy_MotQuart'  # set experiment name here
-expInfo = {
-    'run': '1',
-    'participant': 'sub-test',
-    'Eyelink':['False','True'],
-    'display': ['Vanderbilt7T', 'dbic'],
-    'aspect_ratio': '1.12',
-    'TR': '2'
-    }
-
-# Create GUI at the beginning of exp to get more expInfo
-dlg = gui.DlgFromDict(dictionary=expInfo, title=expName)
-if dlg.OK == False: core.quit()  # user pressed cancel
 
 TR = float(expInfo['TR'])
 print(f'TR = {TR}')
