@@ -1,12 +1,10 @@
 """
 It presents physical motion quartet stimulus.
 Block design:
-Motion condition: (10 triggers (10s) horizontal motion, 10 triggers vertical motion) x 4 times; followed by control condition: Flickering quartet (16 triggers)
-There are 6 blocks in total.
-The stimulus begins and ends with a fixation condition of 20s.
+Motion condition: depends on TR
 
-Total triggers: 616
-Total time: 616 sec =[10min20s]
+Total triggers: depends on TR
+Total time: depends on TR
 
 Psychopy3 (v2020.2.4)
 Based on https://github.com/MSchnei/motion_quartet_scripts (@author: Marian.Schneider)
@@ -61,11 +59,11 @@ def apply_global_offset(base_pos=(0,0), global_offset=global_offset):
 expName = 'Phy_MotQuart'  # set experiment name here
 expInfo = {
     'run': '1',
-    'participant': 'EC',
+    'participant': 'sub-test',
     'Eyelink':['False','True'],
     'display': ['Vanderbilt7T', 'dbic'],
     'aspect_ratio': '1.12',
-    'TR': ['1.612', '2','4.217']
+    'TR': '2'
     }
 
 # Create GUI at the beginning of exp to get more expInfo
@@ -76,16 +74,7 @@ TR = float(expInfo['TR'])
 print(f'TR = {TR}')
 # %% BLOCK DURATIONS [Triggers]
 # set durations of conditions and baseline
-if TR == 2:
-    MotionDur = 8     # Vertical or Horizontal motion 8 TR 
-    BaseDur = 10     # 4 sqares flickering 10 TR
-    Fixation = 8     # Fixation (beginning and end) 8 TR
-    NumOf12PerBlock = 6 # number of (hor + ver) per block
-    NumQuartets = 2 # number of cycles
-    print(MotionDur)
-    
-# NOTE: Fixation at the beginning and at the end lasts both for 10 triggers.
-elif TR == 4.217:
+if TR == 4.217:
     MotionDur = 4
     BaseDur = 4
     Fixation = 4
@@ -99,13 +88,22 @@ elif TR == 1.612:
     NumOf12PerBlock = 6 # number of (hor + ver) per block
     NumQuartets = 4 # number of cycles
 
+elif TR == 2:
+    MotionDur = 5     # Vertical or Horizontal motion 5 TR 
+    BaseDur = 8     # 4 sqares flickering 8 TR
+    Fixation = 6     # Fixation (beginning and end) 6 TR
+    NumOf12PerBlock = 8 # number of (hor + ver) per block
+    NumQuartets = 3 # number of cycles
+    print(MotionDur)
 
-'''
 else:
-    MotionDur = 5 # Vertical or Horizontal motion 5TR
-    BaseDur = 8 # 4 sqares flickering8TR
-    Fixation = 10 # Fixation (beginning and end) 10 TR
-'''
+    MotionDur = 5     # Vertical or Horizontal motion 5 TR 
+    BaseDur = 8     # 4 sqares flickering 8 TR
+    Fixation = 6     # Fixation (beginning and end) 6 TR
+    NumOf12PerBlock = 8 # number of (hor + ver) per block
+    NumQuartets = 3 # number of cycles
+    print(MotionDur)
+
 # set number of repetitions for each condition
 # fixation = 0; horiM = 2; vertiM = 1; flickerSl = 4
 Cond_elem = np.tile([1, 2], int(NumOf12PerBlock/2))
@@ -934,6 +932,37 @@ print(protocol_array)
 # change into output folder
 os.chdir(parentDir)
 
+################################### SAVE BIDS event files ########################################
+# set up correct name for BIDS df
+BIDS_df = (protocol_array_df[["Onset", "Durations", "Stim"]].rename(
+            columns={
+                "Onset": "onset",
+                "Durations": "duration",
+                "Stim": "trial_type",
+            }))
+# Rename stimulus labels
+condition_mapping = {
+    "fixation": "fixation",
+    "vertiM": "vertical_motion",
+    "horiM": "horizontal_motion",
+    "flickerSI": "flicker_static",
+}
+# Convert onset and duration from TRs to seconds
+BIDS_df["onset"] = (pd.to_numeric(BIDS_df["onset"], errors="raise") * TR)
+BIDS_df["duration"] = (pd.to_numeric(BIDS_df["duration"], errors="raise") * TR)
+BIDS_df["trial_type"] = (
+        BIDS_df["trial_type"]
+        .astype(str)
+        .str.strip()
+        .replace(condition_mapping)
+    )
+BIDS_dir = os.path.join('BIDS_events', expInfo['participant'], 'func')
+if not os.path.isdir(BIDS_dir):
+    os.makedirs(BIDS_dir)
+
+BIDS_output_file = os.path.join(BIDS_dir, f"{expInfo['participant']}_task-physical_run-{int(expInfo['run']):02d}_events.tsv")
+BIDS_df.to_csv(BIDS_output_file, sep="\t", index=False, float_format="%.3f")
+print(f"SAVED {BIDS_output_file}")
 
 # EYETRACKER CLOSE DISPLAY AND SAVE EDF
 os.chdir(parentDir)

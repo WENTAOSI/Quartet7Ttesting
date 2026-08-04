@@ -2,11 +2,11 @@
 Created on Sat May 07 2022
 It presents ambiguous motion quartet stimulus.
 MotQuart lastes for 80s, FlickQuart lastes for 16s.
-6 repetitions.
-The stimulus begins and ends with a fixation condition of 20s.
+n repetitions depends on TRs
+The stimulus begins and ends with a fixation condition of 12s.
 
-Total triggers: 616
-Total time: 616 = [10min20s]
+Total triggers: depends on TR
+Total time: depends on TR
 
 Psychopy3 (v2020.2.4)
 Based on https://github.com/MSchnei/motion_quartet_scripts (@author: Marian.Schneider)
@@ -57,11 +57,11 @@ def apply_global_offset(base_pos=(0,0), global_offset=global_offset):
 expName = 'Amb_MotQuart'  # set experiment name here
 expInfo = {
     'run': '1',
-    'participant': 'NH',
+    'participant': 'sub-test',
     'Eyelink':['False','True'],
     'display': ['Vanderbilt7T', 'dbic'],
     'aspect_ratio': '1.19',
-    'TR': ['1.612','2','4.217']
+    'TR': '2'
     }
 
 # Create GUI at the beginning of exp to get more expInfo
@@ -72,12 +72,8 @@ TR = float(expInfo['TR'])
 print(f'TR = {TR}')
 
 # if integer TR we can set percise timing 
-if expInfo['TR'] == '2':
-    DurElem = np.array([int(12/TR), int(16/TR), int(80/TR)])  # fix = 12s; flickerQuartet = 16s, AmbiguousQuartet = 96s
-    NumQuartets = 3  # set number of repetitions of quartet blocks
-    # NOTE: Fixation at the beginning and at the end lasts both for 10 triggers.
 
-elif expInfo['TR'] == '4.217':
+if expInfo['TR'] == '4.217':
     DurElem = np.array([4, 4, 32]) # fix = 4 TR; flickerQuartet = 4 TR, AmbiguousQuartet = 36 TR
     NumQuartets = 2  # set number of repetitions of quartet blocks
 
@@ -85,7 +81,20 @@ elif expInfo['TR'] == '1.612':
     DurElem = np.array([8, 10, 48]) # fix = 8 TR; flickerQuartet = 10 TR, AmbiguousQuartet = 40 TR
     NumQuartets = 4  # set number of repetitions of quartet blocks
 
-# fixation = 0; flicker = 1; quartet = 2
+elif expInfo['TR'] == '2':
+    fix_TR = 6; flicker_quartet = 8; amb_quartet = 40
+    DurElem = np.array([fix_TR, flicker_quartet, amb_quartet])  # fix = 12s; flickerQuartet = 16s, AmbiguousQuartet = 80s + 16s = 96s
+    NumQuartets = 3  # set number of repetitions of quartet blocks
+    # NOTE: Fixation at the beginning and at the end lasts both for 6 triggers.
+    # fixation = 0; flicker = 1; quartet = 2
+
+else: # manually entering TR numbers assuming it is close to 2
+    fix_TR = 6; flicker_quartet = 8; amb_quartet = 40
+    DurElem = np.array([fix_TR, flicker_quartet, amb_quartet])  # fix = 6TR ; flickerQuartet = 8TR, AmbiguousQuartet = 40TR + 8TR = 48TR
+    NumQuartets = 3  # set number of repetitions of quartet blocks
+
+total_TR = int((fix_TR * 2) + (amb_quartet + flicker_quartet) * NumQuartets)
+print(f"total_TR: {total_TR}")
 
 Conditions = np.zeros(int(NumQuartets*2))
 Conditions[::2] = np.tile([2], NumQuartets)  # every 2nd element
@@ -894,6 +903,17 @@ condition_labels = {
 labels = ['Label'] + [condition_labels.get(row[0], 'Unknown') for row in KeyPressedArray[1:]]
 # Add the labels as a new column
 KeyPressedArray = np.column_stack((KeyPressedArray, labels))
+# First row contains the column names
+keyPressed_df = pd.DataFrame(
+    KeyPressedArray[1:],
+    columns=KeyPressedArray[0]
+)
+# Convert timestamp column back to numeric
+keyPressed_df["KeyPressedt"] = pd.to_numeric(
+    keyPressed_df["KeyPressedt"],
+    errors="raise"
+)
+
 # Save np.array into output folder 
 np.save(f"{expInfo['participant']}_amb_run{expInfo['run']}_key_presses.npy", KeyPressedArray)
 
@@ -906,6 +926,73 @@ np.savetxt(
     comments=''                   # Prevent '#' before the header
 )
 
+################################### SAVE BIDS event files ########################################
+os.chdir(parentDir)
+amb_run_duration = total_TR * TR
+amb_fixation_duration = fix_TR * TR
+amb_final_fixation_onset = amb_run_duration - amb_fixation_duration
+
+# Rename stimulus labels
+condition_mapping = {
+    "fixation": "fixation",
+    "vertiM": "vertical_motion",
+    "horiM": "horizontal_motion",
+    "flickerSI": "flicker_static",
+}
+
+# Build BIDS events
+amb_events = (
+    keyPressed_df[["KeyPressedt", "Label"]].copy().rename(
+        columns={
+                "KeyPressedt": "onset",
+                "Label": "trial_type",
+                }
+            )
+        )
+amb_events["onset"] = pd.to_numeric(amb_events["onset"],errors="raise",)
+amb_events = (amb_events.sort_values("onset").reset_index(drop=True))
+amb_events["trial_type"] = (amb_events["trial_type"].astype(str).str.strip().replace(condition_mapping))
+
+# Duration = next onset - current onset
+amb_events["duration"] = (amb_events["onset"].shift(-1) - amb_events["onset"])
+# Last logged event ends when final fixation begins
+amb_events.loc[amb_events.index[-1],"duration",] = (amb_final_fixation_onset - amb_events.loc[amb_events.index[-1],"onset",])
+
+# Add initial fixation
+initial_fixation = pd.DataFrame(
+    {"onset": [0.0],
+    "duration": [amb_fixation_duration],
+    "trial_type": ["fixation"]}
+        )
+# Add final fixation
+final_fixation = pd.DataFrame(
+            {"onset": [amb_final_fixation_onset],
+            "duration": [amb_fixation_duration],
+            "trial_type": ["fixation"]}
+        )
+amb_events = pd.concat([initial_fixation, amb_events,final_fixation,],ignore_index=True,)
+# Sort once more
+amb_events = (amb_events.sort_values("onset").reset_index(drop=True))
+
+# Validate
+if (amb_events["duration"] <= 0).any():
+    bad_rows = amb_events.loc[amb_events["duration"] <= 0]
+    raise ValueError(f"Negative durations found:\n{bad_rows}")
+
+BIDS_dir = os.path.join('BIDS_events', expInfo['participant'], 'func')
+os.makedirs(BIDS_dir, exist_ok=True)
+amb_output_file = os.path.join(BIDS_dir, f"{expInfo['participant']}_task-ambiguous_run-{int(expInfo['run']):02d}_events.tsv")
+
+# Save
+amb_events.to_csv(
+            amb_output_file,
+            sep="\t",
+            index=False,
+            float_format="%.3f",
+        )
+print(f"Saved {amb_output_file}")
+
+'''
 # Change into protocol folder
 os.chdir(parentDir)
 os.chdir(prtFolderName)
@@ -928,6 +1015,7 @@ for i, flicker_end in zip(flicker_indices, flicker_ends):
     KeyPressed_df.at[i, 'Timestamp'] = flicker_end #assign flicker end
     KeyPressed_df.at[i-1, 'KeyPressedt'] = flicker_start # assign flicker start a block before
     KeyPressed_df.at[i, 'KeyPressedt'] = flicker_start
+
 
 # Add fixation row at the top and bottom
 if TR == 2:
@@ -963,6 +1051,7 @@ elif TR == 4.217:
 # Concat start row + main dataframe + end row
 KeyPressed_df = pd.concat([fixation_start, KeyPressed_df, fixation_end], ignore_index=True)
 
+
 # add Duration, Onset change Label to Stim
 KeyPressed_df['Timestamp'] = KeyPressed_df['Timestamp'].astype(float)
 KeyPressed_df['Duration'] = KeyPressed_df['Timestamp'].diff().fillna(KeyPressed_df['Timestamp'])
@@ -971,6 +1060,7 @@ KeyPressed_df['Duration'] = KeyPressed_df['Duration'].astype(float)
 KeyPressed_df['Onset'] = KeyPressed_df['Timestamp'] - KeyPressed_df['Duration']
 
 KeyPressed_df.to_csv(f"{expInfo['participant']}_amb_run{expInfo['run']}_protocol.csv", index=False)
+'''
 
 # EYETRACKER CLOSE DISPLAY AND SAVE EDF
 os.chdir(parentDir)
