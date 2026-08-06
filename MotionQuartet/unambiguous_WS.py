@@ -233,7 +233,7 @@ myWin = visual.Window(size=(PixW, PixH),
                       blendMode='avg',
                       )
 
-
+myWin.mouseVisible = False
 
 # %% STIMULI
 # INITIALISE SOME STIMULI
@@ -255,7 +255,7 @@ dotFix = visual.Circle(myWin,
                        autoLog=False,
                        name='dotFix',
                        units='deg',
-                       radius=.1,
+                       radius=.15,
                        pos=apply_global_offset((0,0), global_offset),
                        fillColor='red',
                        lineColor='red'

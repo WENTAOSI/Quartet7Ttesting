@@ -93,12 +93,15 @@ win = visual.Window(
     color="black",
     checkTiming=False
 )
+
+win.mouseVisible = False
+
 fix = visual.TextStim(
     win,
     text="+",
     pos=apply_global_offset((0, 0)),
     color="white",
-    height=0.35
+    height=0.75
 )
 dots = [
     visual.Circle(
@@ -120,7 +123,7 @@ text_stim = visual.TextStim(
     win,
     text="",
     color="white",
-    height=0.4
+    height=0.6
 )
 
 # =====================================================
@@ -500,7 +503,7 @@ def response_period(pos, target_indices, probe_condition):
             "1 = yes    2 = no"
         )
 
-        text_stim.pos = apply_global_offset((0, -4.5))
+        text_stim.pos = apply_global_offset((0, -5.5))
         text_stim.draw()
         win.flip()
         keys = event.getKeys(

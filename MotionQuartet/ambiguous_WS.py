@@ -215,7 +215,7 @@ myWin = visual.Window(size=(PixW, PixH),
                       units='deg',
                       blendMode='avg',
                       )
-
+myWin.mouseVisible = False
 
 logFile.write('Conditions=' + str(Conditions) + '\n')
 logFile.write('Durations (Triggers) =' + str(Durations) + '\n')
@@ -244,7 +244,7 @@ dotFix = visual.Circle(
     autoLog=False,
     name='dotFix',
     units='deg',
-    radius=.1,
+    radius=.15,
     pos=apply_global_offset((0,0), global_offset),
     fillColor='red',
     lineColor='red'
