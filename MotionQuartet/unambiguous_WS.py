@@ -789,7 +789,7 @@ event.waitKeys(keyList=[TRIGGERKEY], timeStamped=False)
 
 # Create Counters
 i = 0           # counter for blocks
-trigCount = 0   # counter triggers
+trigCount = 1   # counter triggers
 
 # reset clocks
 # clock.reset()

@@ -464,6 +464,13 @@ def run_motion_period(pos, vel, n_trs):
 
 def response_period(pos, target_indices, probe_condition):
 
+    """
+    Present the response screen for exactly `response_max` scanner TRs.
+    The participant can respond at any point, but the response period does
+    not end early after a response. It ends only after the required number
+    of scanner triggers has been received.
+    """
+
     if probe_condition == "target":
         probe_index = random.choice(target_indices)
     else:
@@ -472,7 +479,6 @@ def response_period(pos, target_indices, probe_condition):
             if i not in target_indices
         ]
         probe_index = random.choice(distractors)
-
     correct_answer = (
         "1"
         if probe_index in target_indices
@@ -482,8 +488,10 @@ def response_period(pos, target_indices, probe_condition):
     resp_clock = core.Clock()
     response = None
     rt = None
-
-    while resp_clock.getTime() < response_max:
+    trigger_count = 0
+    # Remove any old button presses remaining in the event buffer.
+    event.clearEvents(eventType="keyboard")
+    while trigger_count < response_max:
         draw_dots(pos)
         probe_ring.pos = apply_global_offset(pos[probe_index])
         probe_ring.draw()
@@ -491,23 +499,32 @@ def response_period(pos, target_indices, probe_condition):
             "Was the highlighted dot a target?\n\n"
             "1 = yes    2 = no"
         )
+
         text_stim.pos = apply_global_offset((0, -4.5))
         text_stim.draw()
         win.flip()
-        keys = event.getKeys(keyList=["1", "2", quit_key], timeStamped=resp_clock)
+        keys = event.getKeys(
+            keyList=["1", "2", trigger_key, quit_key],
+            timeStamped=resp_clock
+        )
 
-        for key, t in keys:
+        for key, key_time in keys:
             if key == quit_key:
                 win.close()
                 core.quit()
-            if response is None:
+
+            elif key == trigger_key:
+                trigger_count += 1
+
+            elif key in ["1", "2"] and response is None:
                 response = key
-                rt = t
+                rt = key_time
     accuracy = (
         int(response == correct_answer)
         if response is not None
         else 0
     )
+
     return probe_index, correct_answer, response, rt, accuracy
 
 # =====================================================
