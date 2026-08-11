@@ -51,7 +51,7 @@ if expInfo['display'] == 'Vanderbilt7T':
 else:
     raise ValueError(f"Invalid display input: {expInfo['display']}. ")
 
-n_blocks = 14           # MOT blocks
+n_blocks = 14          # MOT blocks
 cue_TRs = 1            # 2 s target cue
 track_TRs = 5          # 10 s tracking
 response_max = 2       # 4 s response period
@@ -566,9 +566,9 @@ for block_num in range(1, n_blocks + 1):
     # BASELINE: 5 TRs Stationary or Moving dots 
     # -----------------------------
     if expInfo['type'] == 'stationarybaseline':
-        stationary_period(pos, base_TRs)
+        stationary_period(pos, base_TRs) # account for the first TR of the block which is already counted
     elif expInfo['type'] == 'movingbaseline':
-        pos, vel = run_motion_period(pos, vel, base_TRs)
+        pos, vel = run_motion_period(pos, vel, base_TRs) # account for the first TR of the block which is already counted
     
     target_indices = (choose_bilateral_targets())
     fixation_duration = base_TRs * TR
@@ -649,9 +649,9 @@ for block_num in range(1, n_blocks + 1):
 # BASELINE: 5 TRs Stationary or Moving dots 
 # -----------------------------
 if expInfo['type'] == 'stationarybaseline':
-    stationary_period(pos, base_TRs)
+    stationary_period(pos, base_TRs-1) # -1 otherwise need to exit the program mannually after the last TR of the block
 elif expInfo['type'] == 'movingbaseline':
-    pos, vel = run_motion_period(pos, vel, base_TRs)
+    pos, vel = run_motion_period(pos, vel, base_TRs-1) # -1 otherwise need to exit the program mannually after the last TR of the block
     
 fixation_duration = base_TRs * TR
     
