@@ -1,0 +1,12 @@
+Conditions=[0 1 2 1 2 1 2 1 2 4 1 2 1 2 1 2 1 2 4 1 2 1 2 1 2 1 2 4 0]
+Durations (Triggers) =[6 6 4 5 4 6 5 5 5 8 6 5 6 4 5 4 5 5 8 4 5 5 4 6 6 5 5 8 6]
+MonitorDistance=48cm
+MonitorWidth=17cm
+PixelWidth=1024
+PixelHeight=768
+SquareSize=1.0
+SquareDur=0.15
+BlankDur=0.067
+Durations: [6 6 4 5 4 6 5 5 5 8 6 5 6 4 5 4 5 5 8 4 5 5 4 6 6 5 5 8 6] 
+RefreshRate=None
+FrameDuration=0.016666666666666666

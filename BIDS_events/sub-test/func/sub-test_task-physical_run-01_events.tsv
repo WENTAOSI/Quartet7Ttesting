@@ -1,30 +1,30 @@
-onset	duration	trial_type
-0.000	12.000	fixation
-12.000	10.000	vertical_motion
-22.000	10.000	horizontal_motion
-32.000	10.000	vertical_motion
-42.000	10.000	horizontal_motion
-52.000	10.000	vertical_motion
-62.000	10.000	horizontal_motion
-72.000	10.000	vertical_motion
-82.000	10.000	horizontal_motion
-92.000	16.000	flickerSl
-108.000	10.000	vertical_motion
-118.000	10.000	horizontal_motion
-128.000	10.000	vertical_motion
-138.000	10.000	horizontal_motion
-148.000	10.000	vertical_motion
-158.000	10.000	horizontal_motion
-168.000	10.000	vertical_motion
-178.000	10.000	horizontal_motion
-188.000	16.000	flickerSl
-204.000	10.000	vertical_motion
-214.000	10.000	horizontal_motion
-224.000	10.000	vertical_motion
-234.000	10.000	horizontal_motion
-244.000	10.000	vertical_motion
-254.000	10.000	horizontal_motion
-264.000	10.000	vertical_motion
-274.000	10.000	horizontal_motion
-284.000	16.000	flickerSl
-300.000	12.000	fixation
+onset	duration	trial_type	target_present	target_onset	detected	response_time
+0	12	fixation	1	6	0	n/a
+12	8	vertical_motion	0	n/a	n/a	n/a
+20	10	horizontal_motion	1	26	0	n/a
+30	12	vertical_motion	0	n/a	n/a	n/a
+42	12	horizontal_motion	1	42	0	n/a
+54	10	vertical_motion	0	n/a	n/a	n/a
+64	8	horizontal_motion	0	n/a	n/a	n/a
+72	10	vertical_motion	0	n/a	n/a	n/a
+82	10	horizontal_motion	0	n/a	n/a	n/a
+92	16	fixation	1	94	0	n/a
+108	8	vertical_motion	1	110	0	n/a
+116	10	horizontal_motion	0	n/a	n/a	n/a
+126	8	vertical_motion	0	n/a	n/a	n/a
+134	10	horizontal_motion	0	n/a	n/a	n/a
+144	12	vertical_motion	0	n/a	n/a	n/a
+156	10	horizontal_motion	0	n/a	n/a	n/a
+166	10	vertical_motion	0	n/a	n/a	n/a
+176	12	horizontal_motion	1	176	0	n/a
+188	16	fixation	0	n/a	n/a	n/a
+204	10	vertical_motion	0	n/a	n/a	n/a
+214	10	horizontal_motion	1	214	0	n/a
+224	8	vertical_motion	0	n/a	n/a	n/a
+232	10	horizontal_motion	0	n/a	n/a	n/a
+242	12	vertical_motion	1	242	0	n/a
+254	10	horizontal_motion	1	256	0	n/a
+264	12	vertical_motion	0	n/a	n/a	n/a
+276	8	horizontal_motion	1	282	0	n/a
+284	16	fixation	0	n/a	n/a	n/a
+300	12	fixation	0	n/a	n/a	n/a
