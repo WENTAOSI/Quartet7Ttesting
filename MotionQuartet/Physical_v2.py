@@ -11,7 +11,7 @@ Key modifications:
 - removed not needed eyetracker to make it cleaner 
 - Flicker baseline becomes fixation baseline
 - fixation task on fixation dot (press 1 when it turns white)
-- jittered H and V timing 
+- jittered H and V position psudorandomly while preserving the total number of trials for each block 
 
 """
 from psychopy import visual, event, core, monitors, logging, gui, data, misc
@@ -42,7 +42,7 @@ if dlg.OK == False: core.quit()  # user pressed cancel
 TRIGGERKEY = 'quoteleft'
 # BLOCK DURATIONS [in TR]
 # set durations of conditions and baseline
-# specify vertical or horizontal switch buttom 
+# specify vertical or horizontal condition number 
 vertical_cond = "1"
 horizontal_cond = "2"
 fixation_cond = "4"
@@ -85,7 +85,7 @@ elif TR == 1.612:
 
 elif TR == 2:
     MotionDur = 5     # Vertical or Horizontal motion 5 TR 
-    BaseDur = 8     # 4 sqares flickering 8 TR
+    BaseDur = 6     # formerly 4 sqares flickering 8 TR, now fixation 
     Fixation = 6     # Fixation (beginning and end) 6 TR
     NumOf12PerBlock = 8 # number of (hor + ver) per block
     NumQuartets = 3 # number of cycles
@@ -93,64 +93,57 @@ elif TR == 2:
 
 else:
     MotionDur = 5     # Vertical or Horizontal motion 5 TR 
-    BaseDur = 8     # 4 sqares flickering 8 TR
+    BaseDur = 6     # formerly 4 sqares flickering 8 TR, now fixation
     Fixation = 6     # Fixation (beginning and end) 6 TR
     NumOf12PerBlock = 8 # number of (hor + ver) per block
     NumQuartets = 3 # number of cycles
     print(MotionDur)
 
+# ============================================================
+# RANDOMIZE H/V ORDER WITHIN EACH BIG BLOCK
+# ============================================================
 # set number of repetitions for each condition
-# fixation = 0; horiM = 2; vertiM = 1; flickerSl = 4
-Cond_elem = np.tile([1, 2], int(NumOf12PerBlock/2))
-Conditions = np.tile(Cond_elem, NumQuartets)
-print(f"conditions: {Conditions}")
-pos_baseline = np.arange(NumOf12PerBlock, NumOf12PerBlock*(NumQuartets+1), NumOf12PerBlock)
-Conditions = np.insert(Conditions, pos_baseline, [4])   # Insert baseline condition
-Conditions = np.hstack(([0], Conditions, [0]))          # Add fixation condition
+# fixation = 0; horiM = 2; vertiM = 1; baseline fixation = 4
+rng = np.random.default_rng()
+all_motion_conditions = []
+for block_i in range(NumQuartets):
+    # Equal number of vertical and horizontal trials
+    block_conditions = np.array(
+        [1] * (NumOf12PerBlock // 2) +
+        [2] * (NumOf12PerBlock // 2)
+    )
+    # Randomize H/V order within this big block
+    rng.shuffle(block_conditions)
+    all_motion_conditions.extend(block_conditions)
+Conditions = np.array(all_motion_conditions, dtype=int)
+print(f"randomized motion conditions: {Conditions}")
+
+# Insert baseline fixation after each big motion block
+pos_baseline = np.arange(
+    NumOf12PerBlock,
+    NumOf12PerBlock * NumQuartets,
+    NumOf12PerBlock
+)
+Conditions = np.insert(Conditions,pos_baseline,4)
+
+# Add beginning and ending fixation
+Conditions = np.hstack(([0], Conditions, [0]))
 Conditions = Conditions.astype(int)
-print(f"conditions: {Conditions}")
+print(f"final conditions: {Conditions}")
 
 # ============================================================
-# JITTER H/V DURATIONS WHILE PRESERVING EACH BIG BLOCK LENGTH
+# FIXED CONDITION DURATIONS
 # ============================================================
-rng = np.random.default_rng()
-Durations = np.zeros(len(Conditions), dtype=int)
-# Beginning/end fixation
-Durations[Conditions == 0] = Fixation
+Durations = np.ones(len(Conditions),dtype=int) * MotionDur
 # Inter-block fixation
 Durations[Conditions == 4] = BaseDur
-# Each big block contains NumOf12PerBlock H/V epochs.
-# Original duration = NumOf12PerBlock * MotionDur
-target_motion_TRs = NumOf12PerBlock * MotionDur
-for block_i in range(NumQuartets):
-    # Find H/V conditions belonging to this big block
-    start = 1 + block_i * (NumOf12PerBlock + 1)
-    stop = start + NumOf12PerBlock
-    motion_idx = np.arange(start, stop)
-    # Start all trials at the original duration
-    jittered = np.ones(NumOf12PerBlock, dtype=int) * MotionDur
-    # Create balanced +/- 1 TR jitter.
-    # For 8 trials:
-    # four trials can move away from 5 while total remains 40.
-    # Example:
-    # 4, 6, 5, 5, 4, 6, 5, 5
-    # Number of shortened trials must equal number of lengthened trials.
-    n_jitter_pairs = NumOf12PerBlock // 4
-    chosen = rng.choice(
-        NumOf12PerBlock,
-        size=2 * n_jitter_pairs,
-        replace=False
-    )
-    shortened = chosen[:n_jitter_pairs]
-    lengthened = chosen[n_jitter_pairs:]
-    jittered[shortened] -= 1
-    jittered[lengthened] += 1
-    # Randomize which epochs receive the jitter
-    Durations[motion_idx] = jittered
-    assert np.sum(jittered) == target_motion_TRs
-print(f"Jittered durations: {Durations}")
-totalTrigger = np.sum(Durations)   
+# Beginning/end fixation
+Durations[Conditions == 0] = Fixation
+totalTrigger = np.sum(Durations)
+print("Durations:")
+print(Durations)
 print("Total TRs:", totalTrigger)
+
 # ============================================================
 # FIXATION COLOR-CHANGE TIMELINE
 # ============================================================
@@ -175,7 +168,6 @@ while len(white_fix_TRs) < N_WHITE_FIXATIONS:
 
 white_fix_TRs = np.sort(np.array(white_fix_TRs))
 print(f"White fixation TRs: {white_fix_TRs}")
-
 
 # %%Circle properties
 circle_dva = 6  # Diameter in dva
@@ -289,18 +281,10 @@ logFile.write('SquareDur=' + str(SquareDur) + '\n')
 logFile.write('BlankDur=' + str(BlankDur) + '\n')
 logFile.write(f'Durations: {Durations} \n')
 
-message = visual.TextStim(myWin,
-                          text='Condition',
-                          pos=(-16, -8)
-                          )
+message = visual.TextStim(myWin,text='Condition',pos=apply_global_offset((-16, -8), global_offset))
 
-dotFix = visual.Circle(myWin,
-                       autoLog=False,
-                       name='dotFix',
-                       units='deg',
-                       radius=.15,
-                       pos=apply_global_offset((0,0), global_offset)
-                       )
+dotFix = visual.Circle(myWin,autoLog=False,name='dotFix',units='deg',radius=.15,
+                       pos=apply_global_offset((0,0), global_offset))
 
 def update_fixation_color(current_TR):
     if current_TR in white_fix_TRs:
@@ -314,27 +298,17 @@ def update_fixation_color(current_TR):
 #if expInfo['display'] == 'Vanderbilt7T':
 #    dotFix.radius = int(10/(1920/1024))
 
-Square = visual.GratingStim(myWin,
-                            autoLog=False,
-                            name='Square',
-                            tex=None,
-                            units='deg',
-                            size=(SquareSize, SquareSize),
-                            color= squareColor,
-                            )
+Square = visual.GratingStim(myWin,autoLog=False,name='Square',tex=None,units='deg',
+                            size=(SquareSize, SquareSize),color= squareColor)
     
 triggerText = visual.TextStim(
-    win=myWin,
-    color='white',
-    height=0.5,
+    win=myWin,color='white',height=0.5,
     pos=apply_global_offset(base_pos=(0,0), global_offset=global_offset),
     text='Experiment will start soon. Waiting for scanner'
     )
 
 instructText = visual.TextStim(
-    win=myWin,
-    color='white',
-    height=0.5,
+    win=myWin,color='white',height=0.5,
     pos=apply_global_offset(base_pos=(0, 0), global_offset=global_offset),
     text="Press 1 when the fixation dot turns white.\n\nPress '1' to start the experiment."
 )
@@ -449,7 +423,6 @@ while trigCount < totalTrigger:    #
                     KeyPressedArray = np.vstack((KeyPressedArray,KeyPressedNew))
                     ButtonPressTimes.append(t)
                     logging.data(msg=f'Fixation detection button pressed at {t:.3f} s')
-
                                    
                 elif key == TRIGGERKEY:
                     t = clock.getTime()
@@ -482,8 +455,6 @@ output_csv.to_csv(f"{outFolderName}/{expInfo['participant']}_Phy_keyPressed_run{
 Timestamps = np.cumsum(Durations) 
 print("Timestamps:")
 print(Timestamps)
-
-
 # Define a mapping for conditions
 condition_labels = {
         '0': 'fixation',
@@ -491,7 +462,6 @@ condition_labels = {
         horizontal_cond: 'horiM',
         fixation_cond: 'fixation'
     }
-    
 # Map the labels to the Conditions array
 Labels = np.array([condition_labels[str(cond)] for cond in Conditions]) # extra step to convert cond to str
 print(f'Labels {Labels}')
@@ -524,11 +494,9 @@ print(protocol_array)
 os.chdir(parentDir)
 
 ################################### SAVE BIDS EVENT FILE ########################################
-
 # =============================================================================
-# 1. MAIN MOTION/FIXATION EVENTS
+# ORGANIZE MAIN MOTION/FIXATION EVENTS
 # =============================================================================
-
 BIDS_df = (
     protocol_array_df[["Onset", "Durations", "Stim"]]
     .rename(
@@ -539,20 +507,18 @@ BIDS_df = (
         }
     )
 )
-
 condition_mapping = {
     "fixation": "fixation",
     "vertiM": "vertical_motion",
     "horiM": "horizontal_motion",
 }
-
 # Convert TR units -> seconds
 BIDS_df["onset"] = (pd.to_numeric(BIDS_df["onset"], errors="raise") * TR)
 BIDS_df["duration"] = (pd.to_numeric(BIDS_df["duration"], errors="raise") * TR)
 BIDS_df["trial_type"] = (BIDS_df["trial_type"].astype(str).str.strip().replace(condition_mapping))
 
 # =============================================================================
-# 2. INITIALIZE FIXATION-TASK COLUMNS
+# INITIALIZE FIXATION-TASK COLUMNS
 # =============================================================================
 # target_present:
 #   0 = no white fixation target during this condition
@@ -584,7 +550,6 @@ for target_TR in white_fix_TRs:
     target_onset = (target_TR - 1) * TR
     # -------------------------------------------------------------------------
     # Find the condition that was active when the white fixation appeared
-    # -------------------------------------------------------------------------
     condition_mask = ((BIDS_df["onset"] <= target_onset) & (target_onset < BIDS_df["onset"] + BIDS_df["duration"]))
     matching_rows = BIDS_df.index[condition_mask]
 
@@ -598,13 +563,11 @@ for target_TR in white_fix_TRs:
 
     # -------------------------------------------------------------------------
     # Mark target occurrence
-    # -------------------------------------------------------------------------
     BIDS_df.loc[row_idx, "target_present"] = 1
     BIDS_df.loc[row_idx, "target_onset"] = target_onset
 
     # -------------------------------------------------------------------------
     # Find a valid button press after this target
-    # -------------------------------------------------------------------------
     valid_responses = []
     for press_idx, press_time in enumerate(ButtonPressTimes):
         # Don't use the same press twice
@@ -615,8 +578,6 @@ for target_TR in white_fix_TRs:
 
     # -------------------------------------------------------------------------
     # Score detection
-    # -------------------------------------------------------------------------
-
     if len(valid_responses) > 0:
         # First valid response after target onset
         press_idx, first_response = min(valid_responses,key=lambda x: x[1])
@@ -629,28 +590,15 @@ for target_TR in white_fix_TRs:
 # =============================================================================
 # 4. SAVE
 # =============================================================================
-
-BIDS_dir = os.path.join(
-    'BIDS_events',
-    expInfo['participant'],
-    'func'
-)
+BIDS_dir = os.path.join('BIDS_events', expInfo['participant'],'func')
 
 if not os.path.isdir(BIDS_dir):
     os.makedirs(BIDS_dir)
 
-BIDS_output_file = os.path.join(
-    BIDS_dir,
-    f"{expInfo['participant']}_task-physical_"
-    f"run-{int(expInfo['run']):02d}_events.tsv"
-)
+BIDS_output_file = os.path.join(BIDS_dir, f"{expInfo['participant']}_task-physical_"
+    f"run-{int(expInfo['run']):02d}_events.tsv")
 
-BIDS_df.to_csv(
-    BIDS_output_file,
-    sep="\t",
-    index=False,
-    float_format="%.3f"
-)
+BIDS_df.to_csv(BIDS_output_file,sep="\t",index=False,float_format="%.3f")
 
 print("\n================ BIDS EVENTS ================")
 print(BIDS_df.to_string(index=False))
