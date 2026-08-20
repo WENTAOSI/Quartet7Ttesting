@@ -1,0 +1,57 @@
+Conditions=[0 1 1 1 2 2 2 1 2 4 2 1 2 2 1 2 1 1 4 2 2 1 1 2 1 1 2 0]
+Durations (Triggers) =[6 5 5 5 5 5 5 5 5 6 5 5 5 5 5 5 5 5 6 5 5 5 5 5 5 5 5 6]
+MonitorDistance=48cm
+MonitorWidth=17cm
+PixelWidth=1024
+PixelHeight=768
+SquareSize=1.0
+SquareDur=0.15
+BlankDur=0.067
+Durations: [6 5 5 5 5 5 5 5 5 6 5 5 5 5 5 5 5 5 6 5 5 5 5 5 5 5 5 6] 
+RefreshRate=None
+FrameDuration=0.016666666666666666
+4.2913 	INFO 	Loaded monitor calibration from ['2023_03_19 22:45']
+4.3005 	WARNING 	Requested an unavailable screen number - using first available.
+4.3018 	WARNING 	User requested fullscreen with size [1024  768], but screen is actually [1512, 982]. Using actual size
+5.7336 	WARNING 	Couldn't measure a consistent frame rate!
+  - Is your graphics card set to sync to vertical blank?
+  - Are you running other processes on your computer?
+
+5.7341 	EXP 	Created window1 = Window(allowGUI=False, allowStencil=False, autoLog=True, backendConf=UNKNOWN, backgroundFit=<method-wrapper '__getattribute__' of attributeSetter object at 0x7f87f2655220>, backgroundImage=<method-wrapper '__getattribute__' of attributeSetter object at 0x7f87f26551c0>, bitsMode=UNKNOWN, blendMode='avg', bpc=(8, 8, 8), color=array([-0.5, -0.5, -0.5]), colorSpace='rgb', depthBits=8, fullscr=True, gamma=None, gammaErrorPolicy='raise', infoMsg=UNKNOWN, lms=UNKNOWN, monitor=<psychopy.monitors.calibTools.Monitor object at 0x7f87f2281e20>, multiSample=False, name='window1', numSamples=2, pos=[0.0, 0.0], screen=1, size=array([3024, 1964]), stencilBits=0, stereo=False, title='PsychoPy', units='deg', useFBO=False, useRetina=True, viewOri=0.0, viewPos=None, viewScale=None, waitBlanking=True, winType='pyglet')
+5.7341 	EXP 	window1: backgroundImage = None
+5.7342 	EXP 	window1: backgroundFit = 'cover'
+5.7631 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, draggable=False, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=1.0, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([-16.0981,  -9.7652]), rgb=UNKNOWN, text='Condition', units='deg', win=Window(...), wrapWidth=15.0)
+5.7830 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, draggable=False, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=0.5, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([-0.0981, -1.7652]), rgb=UNKNOWN, text=str(...), units='deg', win=Window(...), wrapWidth=15.0)
+5.7904 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, draggable=False, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=0.5, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([-0.0981, -1.7652]), rgb=UNKNOWN, text=str(...), units='deg', win=Window(...), wrapWidth=15.0)
+5.7922 	EXP 	window1: Attempting to measure frame rate of screen (1) ...
+5.7923 	EXP 	window1: recordFrameIntervals = False
+5.8860 	EXP 	window1: recordFrameIntervals = True
+6.0403 	WARNING 	t of last frame was 20.10ms (=1/49)
+6.0828 	WARNING 	t of last frame was 20.37ms (=1/49)
+6.2028 	WARNING 	t of last frame was 20.01ms (=1/49)
+6.2658 	WARNING 	t of last frame was 20.44ms (=1/48)
+6.2868 	WARNING 	Multiple dropped frames have occurred - I'll stop bothering you about them!
+6.8113 	WARNING 	Couldn't measure a consistent frame rate!
+  - Is your graphics card set to sync to vertical blank?
+  - Are you running other processes on your computer?
+
+2.5845 	DATA 	Keypress: 1
+4.9228 	DATA 	Keypress: quoteleft
+0.0000 	DATA 	StartOfRun1
+0.0000 	DATA 	Scanner trigger 0
+0.0001 	DATA 	StartOfCondition0
+0.9492 	DATA 	Keypress: quoteleft
+0.9543 	DATA 	Scanner trigger 1
+2.0234 	DATA 	Keypress: quoteleft
+2.0243 	DATA 	Scanner trigger 2
+3.0811 	DATA 	Keypress: quoteleft
+3.0897 	DATA 	Scanner trigger 3
+4.2085 	DATA 	Keypress: quoteleft
+4.2133 	DATA 	Scanner trigger 4
+5.4071 	DATA 	Keypress: quoteleft
+5.4078 	DATA 	Scanner trigger 5
+6.5977 	DATA 	Keypress: quoteleft
+6.5983 	DATA 	Scanner trigger 6
+6.5984 	DATA 	StartOfCondition1
+9.1523 	DATA 	Keypress: escape
+9.1548 	DATA 	User pressed quit

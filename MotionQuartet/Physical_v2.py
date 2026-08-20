@@ -11,7 +11,7 @@ Key modifications:
 - removed not needed eyetracker to make it cleaner 
 - Flicker baseline becomes fixation baseline
 - fixation task on fixation dot (press 1 when it turns white)
-- jittered H and V position psudorandomly while preserving the total number of trials for each block 
+- switch H and V position psudorandomly while preserving the total number of trials for each block 
 
 """
 from psychopy import visual, event, core, monitors, logging, gui, data, misc
@@ -382,7 +382,7 @@ event.waitKeys(keyList=[TRIGGERKEY], timeStamped=False)
 clock.reset()
 # Create Counters
 i = 0           # counter for blocks
-trigCount = 1   # counter triggers
+trigCount = 0   # counter triggers
 
 # reset clocks
 # clock.reset()
