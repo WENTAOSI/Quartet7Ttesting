@@ -404,23 +404,36 @@ logging.data(msg='Scanner trigger %i' % (trigCount))
 # RUN CONDITIONS
 # ============================================================
 last_trigger_time = None
-while trigCount < totalTrigger:
+# The initial trigger (received before this loop) starts TR #1.
+# Therefore, only totalTrigger - 1 additional scanner triggers
+# are required. The final TR is allowed to elapse using time.
+while trigCount < totalTrigger - 1:
     logging.data('StartOfCondition' + str(Conditions[i]))
+    # --------------------------------------------------------
+    # END TRIGGER FOR CURRENT CONDITION
+    # --------------------------------------------------------
+    # For the final condition, do not wait for totalTrigger.
+    # Stop at totalTrigger - 1 so the last TR can be completed
+    # using elapsed time instead of requiring another trigger.
+    condition_end_trigger = min(np.sum(Durations[0:i+1]),totalTrigger - 1)
     # --------------------------------------------------------
     # RUN CURRENT CONDITION
     # --------------------------------------------------------
-    while trigCount < np.sum(Durations[0:i+1]):
+    while trigCount < condition_end_trigger:
         t = clock.getTime()
-        # Draw stimulus
+        # ====================================================
+        # DRAW STIMULUS
+        # ====================================================
         if Conditions[i] == 0:
             fixation()
         elif Conditions[i] == 1:
             fixation()
         elif Conditions[i] == 2:
-            quartet(HoriDist,VertiDist)
-        # ----------------------------------------------------
+            quartet(HoriDist, VertiDist)
+
+        # ====================================================
         # CHECK KEYS
-        # ----------------------------------------------------
+        # ====================================================
         for key in event.getKeys():
             if key in ['escape', 'q']:
                 logging.data(msg='User pressed quit')
@@ -429,51 +442,84 @@ while trigCount < totalTrigger:
             elif key in ['1', 'num_1']:
                 t = clock.getTime()
                 KeyPressed = '1'
-                KeyPressedNew = np.array([KeyPressed,t])
-                KeyPressedArray = np.vstack(( KeyPressedArray,KeyPressedNew))
+                KeyPressedNew = np.array([KeyPressed, t])
+                KeyPressedArray = np.vstack((KeyPressedArray, KeyPressedNew))
                 logging.data(msg='Key1 pressed')
             elif key in ['2', 'num_2']:
                 t = clock.getTime()
                 KeyPressed = '2'
-                KeyPressedNew = np.array([KeyPressed,t])
-                KeyPressedArray = np.vstack((KeyPressedArray,KeyPressedNew))
+                KeyPressedNew = np.array([KeyPressed, t])
+                KeyPressedArray = np.vstack((KeyPressedArray, KeyPressedNew))
                 logging.data(msg='Key2 pressed')
             elif key in ['3', 'num_3']:
                 t = clock.getTime()
                 KeyPressed = '3'
-                KeyPressedNew = np.array([KeyPressed,t])
-                KeyPressedArray = np.vstack((KeyPressedArray,KeyPressedNew))
+                KeyPressedNew = np.array([KeyPressed, t])
+                KeyPressedArray = np.vstack((KeyPressedArray, KeyPressedNew))
                 logging.data(msg='Key3 pressed')
             elif key in ['4', 'num_4']:
                 t = clock.getTime()
                 KeyPressed = '4'
-                KeyPressedNew = np.array([KeyPressed,t])
-                KeyPressedArray = np.vstack((KeyPressedArray,KeyPressedNew))
+                KeyPressedNew = np.array([KeyPressed, t])
+                KeyPressedArray = np.vstack((KeyPressedArray, KeyPressedNew))
                 logging.data(msg='Key4 pressed')
             elif key == TRIGGERKEY:
-                # Time of this scanner trigger
+                # Exact time of scanner trigger
                 last_trigger_time = clock.getTime()
-                # Count this trigger
                 trigCount += 1
                 logging.data(msg='Scanner trigger %i' % trigCount)
-    # Finished current condition
+                print(f'Trigger {trigCount}/{totalTrigger - 1}')
+
+    # ========================================================
+    # CONDITION FINISHED
+    # ========================================================
     i += 1
-    # ============================================================
-    # FINAL TR
-    # ============================================================
-    # The final scanner trigger starts the final TR.
-    # The final condition is always fixation.
-    # Since there is no next trigger, use the known TR duration
-    # to allow the final TR to elapse.
-    if last_trigger_time is not None:
-        while clock.getTime() - last_trigger_time < TR:
-            fixation()
-            # Still check for quit
-            for key in event.getKeys():
-                if key in ['escape', 'q']:
-                    logging.data(msg='User pressed quit')
-                    myWin.close()
-                    core.quit()
+    print('Block counter: %i' % i)
+# ============================================================
+# FINAL TR
+# ============================================================
+# We have received totalTrigger - 1 triggers after the initial
+# scanner trigger.
+# The most recent trigger started the final TR. Do NOT wait for
+# another scanner trigger. Simply continue presenting fixation
+# until one full TR has elapsed from that trigger.
+# ============================================================
+print(
+    f'Last scanner trigger received: {trigCount}. '
+    f'Allowing final TR ({TR} s) to elapse.'
+)
+
+while clock.getTime() - last_trigger_time < TR:
+    fixation()
+    # Still collect responses / quit during final TR
+    for key in event.getKeys():
+        if key in ['escape', 'q']:
+            logging.data(msg='User pressed quit')
+            myWin.close()
+            core.quit()
+        elif key in ['1', 'num_1']:
+            t = clock.getTime()
+            KeyPressedNew = np.array(['1', t])
+            KeyPressedArray = np.vstack((KeyPressedArray, KeyPressedNew))
+            logging.data(msg='Key1 pressed')
+        elif key in ['2', 'num_2']:
+            t = clock.getTime()
+            KeyPressedNew = np.array(['2', t])
+            KeyPressedArray = np.vstack((KeyPressedArray, KeyPressedNew))
+            logging.data(msg='Key2 pressed')
+        elif key in ['3', 'num_3']:
+            t = clock.getTime()
+            KeyPressedNew = np.array(['3', t])
+            KeyPressedArray = np.vstack((KeyPressedArray, KeyPressedNew))
+            logging.data(msg='Key3 pressed')
+        elif key in ['4', 'num_4']:
+            t = clock.getTime()
+            KeyPressedNew = np.array(['4', t])
+            KeyPressedArray = np.vstack((KeyPressedArray, KeyPressedNew))
+            logging.data(msg='Key4 pressed')
+
+print('Final TR finished.')
+print(f'Experiment duration: {clock.getTime():.3f} s')
 # END RUN
 logging.data('EndOfRun' + str(expInfo['run']) + '\n')
 # %% SAVE DATA

@@ -340,33 +340,24 @@ last_trigger_time = None
 
 while trigCount < totalTrigger - 1:
     logging.data('StartOfCondition' + str(Conditions[i]))
-    condition_end_trigger = min(
-        np.sum(Durations[0:i+1]),
-        totalTrigger - 1
-    )
+    condition_end_trigger = min(np.sum(Durations[0:i+1]),totalTrigger - 1) # exist one TR earier and use time based timing to finish the last TR
 
     while trigCount < condition_end_trigger:
-
         update_fixation_color(trigCount)
-
         # DRAW
         if Conditions[i] == 0:
             dotFix.draw()
             myWin.flip()
-
         elif Conditions[i] == 2:
             mHori = HMotion_update(HoriDist, VertiDist)
-
         elif Conditions[i] == 1:
             mVerti = VMotion_update(HoriDist, VertiDist)
-
         elif Conditions[i] == 4:
             dotFix.draw()
             myWin.flip()
 
         # KEYBOARD
         for key in event.getKeys():
-
             if key in ['escape', 'q']:
                 logging.data(msg='User pressed quit')
                 myWin.close()
@@ -376,23 +367,15 @@ while trigCount < totalTrigger - 1:
                 t = clock.getTime()
                 KeyPressed = '1'
                 KeyPressedNew = np.array([KeyPressed, t])
-                KeyPressedArray = np.vstack(
-                    (KeyPressedArray, KeyPressedNew)
-                )
+                KeyPressedArray = np.vstack((KeyPressedArray, KeyPressedNew))
                 ButtonPressTimes.append(t)
 
             elif key == TRIGGERKEY:
-
                 last_trigger_time = clock.getTime()
                 trigCount += 1
 
-                logging.data(
-                    msg='Scanner trigger %i' % trigCount
-                )
-
-                print(
-                    f'Trigger {trigCount}/{totalTrigger}'
-                )
+                logging.data(msg='Scanner trigger %i' % trigCount)
+                print(f'Trigger {trigCount}/{totalTrigger}')
 
     # CONDITION FINISHED
     i += 1
@@ -406,26 +389,20 @@ print(
 )
 
 while clock.getTime() - last_trigger_time < TR:
-
     update_fixation_color(trigCount)
-
     dotFix.draw()
     myWin.flip()
 
     for key in event.getKeys():
-
         if key in ['escape', 'q']:
             logging.data(msg='User pressed quit')
             myWin.close()
             core.quit()
-
         elif key in ['1', 'num_1']:
             t = clock.getTime()
             KeyPressed = '1'
             KeyPressedNew = np.array([KeyPressed, t])
-            KeyPressedArray = np.vstack(
-                (KeyPressedArray, KeyPressedNew)
-            )
+            KeyPressedArray = np.vstack((KeyPressedArray, KeyPressedNew))
             ButtonPressTimes.append(t)
 print('Experiment finished')
 # ========================================================
@@ -522,13 +499,8 @@ os.chdir(parentDir)
 # ORGANIZE MAIN MOTION/FIXATION EVENTS
 # =============================================================================
 BIDS_df = (
-    protocol_array_df[["Onset", "Durations", "Stim"]]
-    .rename(
-        columns={
-            "Onset": "onset",
-            "Durations": "duration",
-            "Stim": "trial_type"
-        }
+    protocol_array_df[["Onset", "Durations", "Stim"]].rename(
+        columns={"Onset": "onset","Durations": "duration","Stim": "trial_type"}
     )
 )
 condition_mapping = {
@@ -540,7 +512,6 @@ condition_mapping = {
 BIDS_df["onset"] = (pd.to_numeric(BIDS_df["onset"], errors="raise") * TR)
 BIDS_df["duration"] = (pd.to_numeric(BIDS_df["duration"], errors="raise") * TR)
 BIDS_df["trial_type"] = (BIDS_df["trial_type"].astype(str).str.strip().replace(condition_mapping))
-
 # =============================================================================
 # INITIALIZE FIXATION-TASK COLUMNS
 # =============================================================================
@@ -559,7 +530,6 @@ BIDS_df["target_present"] = 0
 BIDS_df["target_onset"] = "n/a"
 BIDS_df["detected"] = "n/a"
 BIDS_df["response_time"] = "n/a"
-
 # =============================================================================
 # 3. ASSIGN FIXATION TARGETS TO THEIR CORRESPONDING CONDITION ROWS
 # =============================================================================
@@ -589,7 +559,6 @@ for target_TR in white_fix_TRs:
     # Mark target occurrence
     BIDS_df.loc[row_idx, "target_present"] = 1
     BIDS_df.loc[row_idx, "target_onset"] = target_onset
-
     # -------------------------------------------------------------------------
     # Find a valid button press after this target
     valid_responses = []
@@ -599,7 +568,6 @@ for target_TR in white_fix_TRs:
             continue
         if (target_onset <= press_time <target_onset + DETECTION_WINDOW):
             valid_responses.append((press_idx, press_time))
-
     # -------------------------------------------------------------------------
     # Score detection
     if len(valid_responses) > 0:
@@ -610,24 +578,18 @@ for target_TR in white_fix_TRs:
         BIDS_df.loc[row_idx, "response_time"] = (first_response - target_onset)
     else:
         BIDS_df.loc[row_idx, "detected"] = 0
-
 # =============================================================================
 # 4. SAVE
 # =============================================================================
 BIDS_dir = os.path.join('BIDS_events', expInfo['participant'],'func')
-
 if not os.path.isdir(BIDS_dir):
     os.makedirs(BIDS_dir)
-
 BIDS_output_file = os.path.join(BIDS_dir, f"{expInfo['participant']}_task-physical_"
     f"run-{int(expInfo['run']):02d}_events.tsv")
-
 BIDS_df.to_csv(BIDS_output_file,sep="\t",index=False,float_format="%.3f")
-
 print("\n================ BIDS EVENTS ================")
 print(BIDS_df.to_string(index=False))
 print(f"\nSAVED {BIDS_output_file}")
-
 os.chdir(parentDir)
 myWin.close()
 
