@@ -337,7 +337,7 @@ logging.data('StartOfRun' + str(expInfo['run']))
 logging.data(msg='Scanner trigger %i' % (trigCount))
 
 last_trigger_time = None
-while trigCount < totalTrigger:
+while trigCount < totalTrigger-1: # last TR is handled separately with time based solution at the very end to ensure it elapses automatically
     logging.data('StartOfCondition' + str(Conditions[i]))
     while trigCount < np.sum(Durations[0:i+1]):
         t = clock.getTime()
@@ -382,33 +382,29 @@ while trigCount < totalTrigger:
     # ========================================================
     i += 1
     print('Block counter: %i' % i)
-    # ========================================================
-    # FINAL TR
-    # If the trigger that just ended the inner loop was the
-    # FINAL scanner trigger, that trigger STARTED the last TR.
-    # Keep displaying fixation until that TR has elapsed.
-    # ========================================================
-    if trigCount >= totalTrigger:
-        while clock.getTime() - last_trigger_time < TR:
-            update_fixation_color(trigCount)
-            dotFix.draw()
-            myWin.flip()
-            # Still collect responses / quit
-            for key in event.getKeys():
-                if key in ['escape', 'q']:
-                    logging.data(msg='User pressed quit')
-                    myWin.close()
-                    core.quit()
-                elif key in ['1', 'num_1']:
-                    t = clock.getTime()
-                    KeyPressed = '1'
-                    KeyPressedNew = np.array([KeyPressed, t])
-                    KeyPressedArray = np.vstack((KeyPressedArray,KeyPressedNew))
-                    ButtonPressTimes.append(t)
-                    logging.data(msg=f'Fixation detection button pressed at {t:.3f} s')
-        # Last TR has now actually elapsed
-        break
-  
+# ========================================================
+# FINAL TR
+# If the trigger that just ended the inner loop was the
+# FINAL scanner trigger, that trigger STARTED the last TR.
+# Keep displaying fixation until that TR has elapsed.
+# ========================================================
+while clock.getTime() - last_trigger_time < TR:
+    update_fixation_color(trigCount)
+    dotFix.draw()
+    myWin.flip()
+    # Still collect responses / quit
+    for key in event.getKeys():
+        if key in ['escape', 'q']:
+            logging.data(msg='User pressed quit')
+            myWin.close()
+            core.quit()
+        elif key in ['1', 'num_1']:
+            t = clock.getTime()
+            KeyPressed = '1'
+            KeyPressedNew = np.array([KeyPressed, t])
+            KeyPressedArray = np.vstack((KeyPressedArray,KeyPressedNew))
+            ButtonPressTimes.append(t)
+            logging.data(msg=f'Fixation detection button pressed at {t:.3f} s')
 # ============================================================
 # END RUN
 # ============================================================
