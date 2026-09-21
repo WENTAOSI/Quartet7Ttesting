@@ -1,0 +1,9 @@
+Trial,Stim,Duration,QuartetOrder,Instruct_V_H,illusory_physical,V_buttom,H_buttom,vertical,horizontal,invalid_ResponseKey,invalid_ResponseTime,ResponseKey,ResponseTime,ResponseRT,expected_key,success,Timestamp,Onset
+1,PrecueTime,6,"quartetPart1, quartetPart2",vertical,illusory,1,2,blue_Square,red_Square,None,None,None,None,None,1,,6,0
+1,DelayTime,4,"quartetPart1, quartetPart2",vertical,illusory,1,2,blue_Square,red_Square,None,None,None,None,None,1,,10,6
+1,SwitchTime,1,"quartetPart1, quartetPart2",vertical,illusory,1,2,blue_Square,red_Square,None,None,None,None,None,1,,11,10
+1,ReportTime,2,"quartetPart1, quartetPart2",vertical,illusory,1,2,blue_Square,red_Square,None,None,None,None,None,1,,13,11
+2,PrecueTime,4,"quartetPart1, quartetPart2",horizontal,illusory,3,4,blue_Square,red_Square,None,None,None,None,None,4,,17,13
+2,DelayTime,6,"quartetPart1, quartetPart2",horizontal,illusory,3,4,blue_Square,red_Square,None,None,None,None,None,4,,23,17
+2,SwitchTime,1,"quartetPart1, quartetPart2",horizontal,illusory,3,4,blue_Square,red_Square,None,None,None,None,None,4,,24,23
+2,ReportTime,2,"quartetPart1, quartetPart2",horizontal,illusory,3,4,blue_Square,red_Square,None,None,None,None,None,4,,26,24

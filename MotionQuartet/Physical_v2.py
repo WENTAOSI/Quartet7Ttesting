@@ -69,36 +69,14 @@ TR = float(expInfo['TR'])
 print(f'TR = {TR}')
 # %% BLOCK DURATIONS [Triggers]
 # set durations of conditions and baseline
-if TR == 4.217:
-    MotionDur = 4
-    BaseDur = 4
-    Fixation = 4
-    NumOf12PerBlock = 8 # number of (hor + ver) per block
-    NumQuartets = 2
-
-elif TR == 1.612:
-    MotionDur = 8     # Vertical or Horizontal motion 8 TR 
-    BaseDur = 10     # 4 sqares flickering 10 TR
-    Fixation = 8     # Fixation (beginning and end) 8 TR
-    NumOf12PerBlock = 6 # number of (hor + ver) per block
-    NumQuartets = 4 # number of cycles
-
-elif TR == 2:
+if TR == 2:
     MotionDur = 5     # Vertical or Horizontal motion 5 TR 
     BaseDur = 6     # formerly 4 sqares flickering 8 TR, now fixation 
     Fixation = 6     # Fixation (beginning and end) 6 TR
     NumOf12PerBlock = 8 # number of (hor + ver) per block
     NumQuartets = 3 # number of cycles
-    print(MotionDur)
-
 else:
-    MotionDur = 5     # Vertical or Horizontal motion 5 TR 
-    BaseDur = 6     # formerly 4 sqares flickering 8 TR, now fixation
-    Fixation = 6     # Fixation (beginning and end) 6 TR
-    NumOf12PerBlock = 8 # number of (hor + ver) per block
-    NumQuartets = 3 # number of cycles
-    print(MotionDur)
-
+    raise ValueError("TR must be 2 seconds for this experiment.")
 # ============================================================
 # RANDOMIZE H/V ORDER WITHIN EACH BIG BLOCK
 # ============================================================
@@ -108,10 +86,7 @@ rng = np.random.default_rng()
 all_motion_conditions = []
 for block_i in range(NumQuartets):
     # Equal number of vertical and horizontal trials
-    block_conditions = np.array(
-        [1] * (NumOf12PerBlock // 2) +
-        [2] * (NumOf12PerBlock // 2)
-    )
+    block_conditions = np.array([1] * (NumOf12PerBlock // 2) + [2] * (NumOf12PerBlock // 2))
     # Randomize H/V order within this big block
     rng.shuffle(block_conditions)
     all_motion_conditions.extend(block_conditions)
@@ -119,11 +94,7 @@ Conditions = np.array(all_motion_conditions, dtype=int)
 print(f"randomized motion conditions: {Conditions}")
 
 # Insert baseline fixation after each big motion block
-pos_baseline = np.arange(
-    NumOf12PerBlock,
-    NumOf12PerBlock * NumQuartets,
-    NumOf12PerBlock
-)
+pos_baseline = np.arange(NumOf12PerBlock, NumOf12PerBlock * NumQuartets, NumOf12PerBlock)
 Conditions = np.insert(Conditions,pos_baseline,4)
 
 # Add beginning and ending fixation
@@ -192,12 +163,10 @@ squareColor = np.multiply(backColor, -1)  # from -1 (black) to 1 (white)
 # %% SAVING and LOGGING
 expInfo['date'] = data.getDateStr()  # add a simple timestamp
 expInfo['expName'] = expName
-
 # get the path that this script is in and change dir to it
 _thisDir = os.path.dirname(os.path.abspath(__file__))  # get current path
 parentDir = os.path.dirname(_thisDir)
 os.chdir(parentDir)  # change directory to this path
-
 # Name and create specific subject folder
 subjFolderName = '%s_SubjData' % (expInfo['participant'])
 if not os.path.isdir(subjFolderName):
@@ -235,22 +204,18 @@ if expInfo['display'] == 'dbic':
     widthMon = 42.8  # cm
     PixW = 1920  # cm
     PixH = 1080 # cm
-
 elif expInfo['display'] == 'Vanderbilt7T':
     distanceMon = 48  # cm
     widthMon = 17  # cm
     PixW = 1024  # cm
     PixH = 768 # cm
-    
 moni = monitors.Monitor('testMonitor', width=widthMon, distance=distanceMon)
 moni.setSizePix([PixW, PixH])  # [1920.0, 1080.0] in psychoph lab
-
 # log monitor info
 logFile.write('MonitorDistance=' + str(distanceMon) + 'cm' + '\n')
 logFile.write('MonitorWidth=' + str(widthMon) + 'cm' + '\n')
 logFile.write('PixelWidth=' + str(PixW) + '\n')
 logFile.write('PixelHeight=' + str(PixH) + '\n')
-
 # set screen:
 if expInfo['display'] == 'Vanderbilt7T':
     screen=1
@@ -269,23 +234,18 @@ myWin = visual.Window(size=(PixW, PixH),
                       blendMode='avg',
                       )
 myWin.mouseVisible = False
-
 # %% STIMULI
 # INITIALISE SOME STIMULI
 SquareSize = 1.0  # 1.1 #1.8
 SquareDur = 0.15  # in seconds # 9 frames
 BlankDur = 0.067  # in seconds # 5 frames
-
 logFile.write('SquareSize=' + str(SquareSize) + '\n')
 logFile.write('SquareDur=' + str(SquareDur) + '\n')
 logFile.write('BlankDur=' + str(BlankDur) + '\n')
 logFile.write(f'Durations: {Durations} \n')
 
 message = visual.TextStim(myWin,text='Condition',pos=apply_global_offset((-16, -8), global_offset))
-
-dotFix = visual.Circle(myWin,autoLog=False,name='dotFix',units='deg',radius=.15,
-                       pos=apply_global_offset((0,0), global_offset))
-
+dotFix = visual.Circle(myWin,autoLog=False,name='dotFix',units='deg',radius=.15, pos=apply_global_offset((0,0), global_offset))
 def update_fixation_color(current_TR):
     if current_TR in white_fix_TRs:
         color = FIXATION_TARGET_COLOR
@@ -297,22 +257,17 @@ def update_fixation_color(current_TR):
 # Keep the dot the same with lower resolution e.g. vanderbilt 7T screen
 #if expInfo['display'] == 'Vanderbilt7T':
 #    dotFix.radius = int(10/(1920/1024))
-
-Square = visual.GratingStim(myWin,autoLog=False,name='Square',tex=None,units='deg',
-                            size=(SquareSize, SquareSize),color= squareColor)
-    
+Square = visual.GratingStim(myWin,autoLog=False,name='Square',tex=None,units='deg', size=(SquareSize, SquareSize),color= squareColor)
 triggerText = visual.TextStim(
     win=myWin,color='white',height=0.5,
     pos=apply_global_offset(base_pos=(0,0), global_offset=global_offset),
     text='Experiment will start soon. Waiting for scanner'
     )
-
 instructText = visual.TextStim(
     win=myWin,color='white',height=0.5,
     pos=apply_global_offset(base_pos=(0, 0), global_offset=global_offset),
     text="Press 1 when the fixation dot turns white.\n\nPress '1' to start the experiment."
 )
-
 # %% TIME AND TIMING PARAMeTERS
 # get screen refresh rate
 refr_rate = myWin.getActualFrameRate()  # get screen refresh rate
@@ -322,11 +277,9 @@ else:
     frameDur = 1.0/60.0  # couldn't get a reliable measure so guess
 logFile.write('RefreshRate=' + str(refr_rate) + '\n')
 logFile.write('FrameDuration=' + str(frameDur) + '\n')
-
 # define clock
 clock = core.Clock()
 logging.setDefaultClock(clock)
-
 # %% FUNCTIONS
 # create necessary functions for quartet and flicker
 NumSquareFrames = int(round(SquareDur/frameDur))  # num of square frames
@@ -346,7 +299,6 @@ def HMotion_update(Hori, Verti):
     dotFix.draw()
     myWin.flip()
     return mHori
-
 def VMotion_update(Hori, Verti):
     x = next(VertiTimeCycle)
     mVerti = np.cos((2*np.pi)*x)*Verti
@@ -357,19 +309,16 @@ def VMotion_update(Hori, Verti):
     dotFix.draw()
     myWin.flip()
     return mVerti
-
 # %% RENDER_LOOP
 # create array to log key pressed events
 KeyPressedArray = np.array(['KeyPressedt', 't'])
 ButtonPressTimes = []
-
 # give the system time to settle
 core.wait(1)
 # instructions for the participant
 instructText.draw()
 myWin.flip()
 event.waitKeys(keyList=['1','num_1'], timeStamped=False)
-
 # wait for scanner trigger
 triggerText.draw()
 myWin.flip()
@@ -383,23 +332,20 @@ clock.reset()
 # Create Counters
 i = 0           # counter for blocks
 trigCount = 0   # counter triggers
-
-# reset clocks
-# clock.reset()
 print(totalTrigger)
 logging.data('StartOfRun' + str(expInfo['run']))
 logging.data(msg='Scanner trigger %i' % (trigCount))
 
-while trigCount < totalTrigger:    # 
-
-    logging.data('StartOfCondition'+ str(Conditions[i]))
-
+last_trigger_time = None
+while trigCount < totalTrigger:
+    logging.data('StartOfCondition' + str(Conditions[i]))
     while trigCount < np.sum(Durations[0:i+1]):
         t = clock.getTime()
-        
-        # update fixation color based on the current trigger count
+        # Update fixation color
         update_fixation_color(trigCount)
-        
+        # ====================================================
+        # DRAW CONDITION
+        # ====================================================
         if Conditions[i] == 0:
             dotFix.draw()
             myWin.flip()
@@ -410,8 +356,45 @@ while trigCount < totalTrigger:    #
         elif Conditions[i] == 4:
             dotFix.draw()
             myWin.flip()
-
+        # ====================================================
+        # KEYBOARD
+        # ====================================================
         for key in event.getKeys():
+            if key in ['escape', 'q']:
+                logging.data(msg='User pressed quit')
+                myWin.close()
+                core.quit()
+            elif key in ['1', 'num_1']:
+                t = clock.getTime()
+                KeyPressed = '1'
+                KeyPressedNew = np.array([KeyPressed, t])
+                KeyPressedArray = np.vstack((KeyPressedArray,KeyPressedNew))
+                ButtonPressTimes.append(t)
+                logging.data(msg=f'Fixation detection button pressed at {t:.3f} s')
+
+            elif key == TRIGGERKEY:
+                # Exact time of this scanner trigger
+                last_trigger_time = clock.getTime()
+                trigCount += 1
+                logging.data(msg='Scanner trigger %i' % trigCount)
+    # ========================================================
+    # CONDITION FINISHED
+    # ========================================================
+    i += 1
+    print('Block counter: %i' % i)
+    # ========================================================
+    # FINAL TR
+    # If the trigger that just ended the inner loop was the
+    # FINAL scanner trigger, that trigger STARTED the last TR.
+    # Keep displaying fixation until that TR has elapsed.
+    # ========================================================
+    if trigCount >= totalTrigger:
+        while clock.getTime() - last_trigger_time < TR:
+            update_fixation_color(trigCount)
+            dotFix.draw()
+            myWin.flip()
+            # Still collect responses / quit
+            for key in event.getKeys():
                 if key in ['escape', 'q']:
                     logging.data(msg='User pressed quit')
                     myWin.close()
@@ -423,13 +406,11 @@ while trigCount < totalTrigger:    #
                     KeyPressedArray = np.vstack((KeyPressedArray,KeyPressedNew))
                     ButtonPressTimes.append(t)
                     logging.data(msg=f'Fixation detection button pressed at {t:.3f} s')
-                                   
-                elif key == TRIGGERKEY:
-                    t = clock.getTime()
-                    trigCount = trigCount + 1
-                    logging.data(msg='Scanner trigger %i' % (trigCount))
-    i = i+1
-    print('Block counter: %i' % i)
+        # Last TR has now actually elapsed
+        break
+# ============================================================
+# END RUN
+# ============================================================
 logging.data('EndOfRun' + str(expInfo['run']) + '\n')
 
 # %% SAVE DATA

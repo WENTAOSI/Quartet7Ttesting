@@ -1,0 +1,5 @@
+onset	duration	trial_type	success
+0.000	12.000	precue_vertical	
+12.000	8.000	delay_vertical	
+26.000	8.000	precue_horizontal	
+34.000	12.000	delay_horizontal	
