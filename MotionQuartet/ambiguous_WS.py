@@ -456,12 +456,6 @@ while trigCount < totalTrigger - 1:
                 KeyPressedNew = np.array([KeyPressed, t])
                 KeyPressedArray = np.vstack((KeyPressedArray, KeyPressedNew))
                 logging.data(msg='Key3 pressed')
-            elif key in ['4', 'num_4']:
-                t = clock.getTime()
-                KeyPressed = '4'
-                KeyPressedNew = np.array([KeyPressed, t])
-                KeyPressedArray = np.vstack((KeyPressedArray, KeyPressedNew))
-                logging.data(msg='Key4 pressed')
             elif key == TRIGGERKEY:
                 # Exact time of scanner trigger
                 last_trigger_time = clock.getTime()
@@ -531,9 +525,7 @@ np.savetxt(
     comments=''                   # Prevent '#' before the header
 )
 ################################### SAVE BIDS event files ########################################
-
 os.chdir(parentDir)
-
 # Rename behavioral labels
 condition_mapping = {
     "fixation": "fixation",
@@ -541,265 +533,140 @@ condition_mapping = {
     "horiM": "horizontal_motion",
     "flickerSl": "flicker_static",
 }
-
 # ============================================================
 # 1. BUILD BEHAVIORAL EVENTS FROM BUTTON PRESSES
 # ============================================================
-
 amb_events = (
-    keyPressed_df[["KeyPressedt", "Label"]]
-    .copy()
+    keyPressed_df[["KeyPressedt", "Label"]].copy()
     .rename(columns={
         "KeyPressedt": "onset",
         "Label": "trial_type"
     })
 )
-
 amb_events["onset"] = pd.to_numeric(
     amb_events["onset"],
     errors="raise"
 )
-
 amb_events["trial_type"] = (
     amb_events["trial_type"]
     .astype(str)
     .str.strip()
     .replace(condition_mapping)
 )
-
 amb_events = (
     amb_events
     .sort_values("onset")
     .reset_index(drop=True)
 )
 
-
 # ============================================================
 # 2. GET FIXATION AND AMBIGUOUS BLOCKS FROM PROTOCOL
 # ============================================================
-
 fixation_rows = []
 ambiguous_blocks = []
-
 current_onset = 0.0
 
 for condition, duration_TR in zip(Conditions, Durations):
-
     condition = int(condition)
     duration_sec = float(duration_TR * TR)
-
     block_start = current_onset
     block_end = current_onset + duration_sec
-
     # ----------------------------
     # Fixation block
     # ----------------------------
     if condition == 0:
-
         fixation_rows.append({
             "onset": block_start,
             "duration": duration_sec,
             "trial_type": "fixation"
         })
-
     # ----------------------------
     # Ambiguous quartet block
     # ----------------------------
     elif condition == 2:
-
-        ambiguous_blocks.append(
-            (block_start, block_end)
-        )
-
+        ambiguous_blocks.append((block_start, block_end))
     current_onset = block_end
 
-
-fixation_events = pd.DataFrame(
-    fixation_rows,
-    columns=["onset", "duration", "trial_type"]
-)
-
+fixation_events = pd.DataFrame(fixation_rows,columns=["onset", "duration", "trial_type"])
 print("\nFixation blocks:")
 print(fixation_events)
-
 print("\nAmbiguous blocks:")
 print(ambiguous_blocks)
 
-
 # ============================================================
-# 3. CALCULATE H/V PERCEPT DURATIONS WITHIN EACH AMB BLOCK
+# 3. CALCULATE H/V PERCEPT DURATIONS WITHIN EACH AMB BLOCK 
+# it cuts duration bled into fixation but not move event backward to the previous fixation
 # ============================================================
-
 behavioral_blocks = []
-
 for block_start, block_end in ambiguous_blocks:
-
     # Only button presses occurring during this ambiguous block
-    block_events = amb_events[
-        (amb_events["onset"] >= block_start) &
-        (amb_events["onset"] < block_end)
-    ].copy()
-
+    block_events = amb_events[(amb_events["onset"] >= block_start) & (amb_events["onset"] < block_end)].copy()
     if len(block_events) == 0:
         print(
             f"WARNING: No perceptual reports between "
             f"{block_start:.3f} and {block_end:.3f} s"
         )
         continue
-
-    block_events = (
-        block_events
-        .sort_values("onset")
-        .reset_index(drop=True)
-    )
-
+    block_events = (block_events.sort_values("onset").reset_index(drop=True))
     # Each reported percept lasts until the next report
-    block_events["duration"] = (
-        block_events["onset"].shift(-1)
-        - block_events["onset"]
-    )
-
+    block_events["duration"] = (block_events["onset"].shift(-1) - block_events["onset"])
     # Last percept cannot continue into fixation.
     # End it exactly when this ambiguous block ends.
-    block_events.loc[
-        block_events.index[-1],
-        "duration"
-    ] = (
-        block_end
-        - block_events.loc[
-            block_events.index[-1],
-            "onset"
-        ]
-    )
-
+    block_events.loc[block_events.index[-1], "duration"] = (block_end - block_events.loc[block_events.index[-1],"onset"])
     behavioral_blocks.append(block_events)
-
-
 # ============================================================
 # 4. COMBINE ALL BEHAVIORAL BLOCKS
 # ============================================================
-
 if len(behavioral_blocks) > 0:
-
-    behavioral_events = pd.concat(
-        behavioral_blocks,
-        ignore_index=True
-    )
-
+    behavioral_events = pd.concat(behavioral_blocks,ignore_index=True)
 else:
-
-    behavioral_events = pd.DataFrame(
-        columns=["onset", "duration", "trial_type"]
-    )
-
-
+    behavioral_events = pd.DataFrame(columns=["onset", "duration", "trial_type"])
 # ============================================================
 # 5. COMBINE H/V EVENTS + ALL FIXATION BLOCKS
 # ============================================================
-
 amb_events = pd.concat(
     [
-        behavioral_events[
-            ["onset", "duration", "trial_type"]
-        ],
-        fixation_events[
-            ["onset", "duration", "trial_type"]
-        ]
+        behavioral_events[["onset", "duration", "trial_type"]],
+        fixation_events[["onset", "duration", "trial_type"]]
     ],
     ignore_index=True
 )
-
-amb_events = (
-    amb_events
-    .sort_values("onset")
-    .reset_index(drop=True)
-)
-
-
+amb_events = (amb_events.sort_values("onset").reset_index(drop=True))
 # ============================================================
 # 6. VALIDATE
 # ============================================================
-
 # Make sure numeric columns really are numeric
-amb_events["onset"] = pd.to_numeric(
-    amb_events["onset"],
-    errors="raise"
-)
-
-amb_events["duration"] = pd.to_numeric(
-    amb_events["duration"],
-    errors="raise"
-)
-
-
+amb_events["onset"] = pd.to_numeric(amb_events["onset"],errors="raise")
+amb_events["duration"] = pd.to_numeric(amb_events["duration"],errors="raise")
 # No zero or negative durations
 if (amb_events["duration"] <= 0).any():
-
-    bad_rows = amb_events.loc[
-        amb_events["duration"] <= 0
-    ]
-
-    raise ValueError(
-        f"Negative/zero durations found:\n{bad_rows}"
-    )
-
+    bad_rows = amb_events.loc[amb_events["duration"] <= 0]
+    raise ValueError(f"Negative/zero durations found:\n{bad_rows}")
 
 # No event should extend past the protocol duration
 protocol_duration = float(np.sum(Durations) * TR)
-
-event_ends = (
-    amb_events["onset"]
-    + amb_events["duration"]
-)
+event_ends = ( amb_events["onset"]+ amb_events["duration"])
 
 if (event_ends > protocol_duration + 1e-6).any():
-
-    bad_rows = amb_events.loc[
-        event_ends > protocol_duration + 1e-6
-    ]
-
+    bad_rows = amb_events.loc[event_ends > protocol_duration + 1e-6]
     raise ValueError(
         f"Events extend beyond run duration "
         f"({protocol_duration:.3f} s):\n{bad_rows}"
     )
-
-
 print("\nFinal BIDS events:")
 print(amb_events)
-
-print(
-    f"\nProtocol duration: {protocol_duration:.3f} s"
-)
-
+print(f"\nProtocol duration: {protocol_duration:.3f} s")
 
 # ============================================================
 # 7. SAVE BIDS EVENTS
 # ============================================================
-
-BIDS_dir = os.path.join(
-    "BIDS_events",
-    expInfo["participant"],
-    "func"
-)
-
-os.makedirs(
-    BIDS_dir,
-    exist_ok=True
-)
-
-amb_output_file = os.path.join(
-    BIDS_dir,
+BIDS_dir = os.path.join("BIDS_events",expInfo["participant"], "func")
+os.makedirs(BIDS_dir,exist_ok=True)
+amb_output_file = os.path.join(BIDS_dir,
     f"{expInfo['participant']}_task-ambiguous_"
     f"run-{int(expInfo['run']):02d}_events.tsv"
 )
-
-amb_events.to_csv(
-    amb_output_file,
-    sep="\t",
-    index=False,
-    float_format="%.3f"
-)
-
+amb_events.to_csv(amb_output_file,sep="\t",index=False,float_format="%.3f")
 print(f"\nSaved {amb_output_file}")
 '''
 # Change into protocol folder
