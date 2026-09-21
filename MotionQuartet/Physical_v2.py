@@ -388,7 +388,7 @@ while trigCount < totalTrigger:
     # FINAL scanner trigger, that trigger STARTED the last TR.
     # Keep displaying fixation until that TR has elapsed.
     # ========================================================
-    if trigCount >= totalTrigger:
+    if trigCount >= totalTrigger-1:
         while clock.getTime() - last_trigger_time < TR:
             update_fixation_color(trigCount)
             dotFix.draw()
