@@ -430,7 +430,6 @@ while trigCount < totalTrigger - 1:
             fixation()
         elif Conditions[i] == 2:
             quartet(HoriDist, VertiDist)
-
         # ====================================================
         # CHECK KEYS
         # ====================================================
@@ -469,7 +468,6 @@ while trigCount < totalTrigger - 1:
                 trigCount += 1
                 logging.data(msg='Scanner trigger %i' % trigCount)
                 print(f'Trigger {trigCount}/{totalTrigger - 1}')
-
     # ========================================================
     # CONDITION FINISHED
     # ========================================================
@@ -484,42 +482,12 @@ while trigCount < totalTrigger - 1:
 # another scanner trigger. Simply continue presenting fixation
 # until one full TR has elapsed from that trigger.
 # ============================================================
-print(
-    f'Last scanner trigger received: {trigCount}. '
-    f'Allowing final TR ({TR} s) to elapse.'
-)
-
+print(f'Last scanner trigger received: {trigCount}.' f'Allowing final TR ({TR} s) to elapse.')
 while clock.getTime() - last_trigger_time < TR:
     fixation()
-    # Still collect responses / quit during final TR
-    for key in event.getKeys():
-        if key in ['escape', 'q']:
-            logging.data(msg='User pressed quit')
-            myWin.close()
-            core.quit()
-        elif key in ['1', 'num_1']:
-            t = clock.getTime()
-            KeyPressedNew = np.array(['1', t])
-            KeyPressedArray = np.vstack((KeyPressedArray, KeyPressedNew))
-            logging.data(msg='Key1 pressed')
-        elif key in ['2', 'num_2']:
-            t = clock.getTime()
-            KeyPressedNew = np.array(['2', t])
-            KeyPressedArray = np.vstack((KeyPressedArray, KeyPressedNew))
-            logging.data(msg='Key2 pressed')
-        elif key in ['3', 'num_3']:
-            t = clock.getTime()
-            KeyPressedNew = np.array(['3', t])
-            KeyPressedArray = np.vstack((KeyPressedArray, KeyPressedNew))
-            logging.data(msg='Key3 pressed')
-        elif key in ['4', 'num_4']:
-            t = clock.getTime()
-            KeyPressedNew = np.array(['4', t])
-            KeyPressedArray = np.vstack((KeyPressedArray, KeyPressedNew))
-            logging.data(msg='Key4 pressed')
-
 print('Final TR finished.')
 print(f'Experiment duration: {clock.getTime():.3f} s')
+
 # END RUN
 logging.data('EndOfRun' + str(expInfo['run']) + '\n')
 # %% SAVE DATA
@@ -605,7 +573,6 @@ print(f"Saved {amb_output_file}")
 os.chdir(parentDir)
 os.chdir(prtFolderName)
 ## construct protocol file for AMB
-
 # set key KeyPressedArray to pd.DataFrame
 KeyPressed_df = pd.DataFrame(KeyPressedArray[1:], columns=KeyPressedArray[0])
 # create timestamp as stop time for events 
@@ -631,7 +598,6 @@ if TR == 2:
     'Label': ['fixation'],
     'Timestamp': [12.0]
     })
-
     fixation_end = pd.DataFrame({
     'KeyPressed': [0],
     'KeyPressedt': [596.0],
@@ -645,7 +611,6 @@ elif TR == 4.217:
         'Label': ['fixation'],
         'Timestamp': [16.868]
     })
-
     fixation_end = pd.DataFrame({
     'KeyPressed': [0],
     'KeyPressedt': [0],
@@ -654,14 +619,12 @@ elif TR == 4.217:
     })
 # Concat start row + main dataframe + end row
 KeyPressed_df = pd.concat([fixation_start, KeyPressed_df, fixation_end], ignore_index=True)
-
 # add Duration, Onset change Label to Stim
 KeyPressed_df['Timestamp'] = KeyPressed_df['Timestamp'].astype(float)
 KeyPressed_df['Duration'] = KeyPressed_df['Timestamp'].diff().fillna(KeyPressed_df['Timestamp'])
 KeyPressed_df['Stim'] = KeyPressed_df['Label']
 KeyPressed_df['Duration'] = KeyPressed_df['Duration'].astype(float)
 KeyPressed_df['Onset'] = KeyPressed_df['Timestamp'] - KeyPressed_df['Duration']
-
 KeyPressed_df.to_csv(f"{expInfo['participant']}_amb_run{expInfo['run']}_protocol.csv", index=False)
 '''
 os.chdir(parentDir)
