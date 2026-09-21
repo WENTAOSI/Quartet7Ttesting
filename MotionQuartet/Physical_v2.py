@@ -337,51 +337,97 @@ logging.data('StartOfRun' + str(expInfo['run']))
 logging.data(msg='Scanner trigger %i' % (trigCount))
 
 last_trigger_time = None
-while trigCount < totalTrigger-1: # last TR is handled separately with time based solution at the very end to ensure it elapses automatically
+
+while trigCount < totalTrigger - 1:
     logging.data('StartOfCondition' + str(Conditions[i]))
-    while trigCount < np.sum(Durations[0:i+1]):
-        t = clock.getTime()
-        # Update fixation color
+    condition_end_trigger = min(
+        np.sum(Durations[0:i+1]),
+        totalTrigger - 1
+    )
+
+    while trigCount < condition_end_trigger:
+
         update_fixation_color(trigCount)
-        # ====================================================
-        # DRAW CONDITION
-        # ====================================================
+
+        # DRAW
         if Conditions[i] == 0:
             dotFix.draw()
             myWin.flip()
+
         elif Conditions[i] == 2:
             mHori = HMotion_update(HoriDist, VertiDist)
+
         elif Conditions[i] == 1:
             mVerti = VMotion_update(HoriDist, VertiDist)
+
         elif Conditions[i] == 4:
             dotFix.draw()
             myWin.flip()
-        # ====================================================
+
         # KEYBOARD
-        # ====================================================
         for key in event.getKeys():
+
             if key in ['escape', 'q']:
                 logging.data(msg='User pressed quit')
                 myWin.close()
                 core.quit()
+
             elif key in ['1', 'num_1']:
                 t = clock.getTime()
                 KeyPressed = '1'
                 KeyPressedNew = np.array([KeyPressed, t])
-                KeyPressedArray = np.vstack((KeyPressedArray,KeyPressedNew))
+                KeyPressedArray = np.vstack(
+                    (KeyPressedArray, KeyPressedNew)
+                )
                 ButtonPressTimes.append(t)
-                logging.data(msg=f'Fixation detection button pressed at {t:.3f} s')
 
             elif key == TRIGGERKEY:
-                # Exact time of this scanner trigger
+
                 last_trigger_time = clock.getTime()
                 trigCount += 1
-                logging.data(msg='Scanner trigger %i' % trigCount)
-    # ========================================================
+
+                logging.data(
+                    msg='Scanner trigger %i' % trigCount
+                )
+
+                print(
+                    f'Trigger {trigCount}/{totalTrigger}'
+                )
+
     # CONDITION FINISHED
-    # ========================================================
     i += 1
     print('Block counter: %i' % i)
+# ============================================================
+# FINAL TR -- NO ADDITIONAL TRIGGER REQUIRED
+# ============================================================
+print(
+    f'Last received trigger = {trigCount}. '
+    f'Running final TR for {TR} seconds.'
+)
+
+while clock.getTime() - last_trigger_time < TR:
+
+    update_fixation_color(trigCount)
+
+    dotFix.draw()
+    myWin.flip()
+
+    for key in event.getKeys():
+
+        if key in ['escape', 'q']:
+            logging.data(msg='User pressed quit')
+            myWin.close()
+            core.quit()
+
+        elif key in ['1', 'num_1']:
+            t = clock.getTime()
+            KeyPressed = '1'
+            KeyPressedNew = np.array([KeyPressed, t])
+            KeyPressedArray = np.vstack(
+                (KeyPressedArray, KeyPressedNew)
+            )
+            ButtonPressTimes.append(t)
+print('Experiment finished')
 # ========================================================
 # FINAL TR
 # If the trigger that just ended the inner loop was the
