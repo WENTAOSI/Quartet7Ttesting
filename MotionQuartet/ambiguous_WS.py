@@ -1,19 +1,14 @@
 """
-Created on Sat May 07 2022
 It presents ambiguous motion quartet stimulus.
-MotQuart lastes for 80s, FlickQuart lastes for 16s.
+MotQuart lastes for 80s, fixation lastes for 12s
 n repetitions depends on TRs
 The stimulus begins and ends with a fixation condition of 12s.
-
 Total triggers: depends on TR
 Total time: depends on TR
-
 Psychopy3 (v2020.2.4)
 Based on https://github.com/MSchnei/motion_quartet_scripts (@author: Marian.Schneider)
-
 adopted from @author: Alessandra Pizzuti adopted from @author Marian.Schneider
-
-@author: siwentao 
+@author: siwentao to modify the design 
 """
 from psychopy import visual, event, core, monitors, logging, gui, data, misc, sound
 import numpy as np

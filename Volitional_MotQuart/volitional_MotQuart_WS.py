@@ -508,18 +508,35 @@ for trial in conditions:
             elif trial["QuartetOrder"] == "quartetPart2, quartetPart1":
                 quartetPart1(HoriDist, VertiDist)
             myWin.flip()
-    #========================================================
-    #REPORT
-    ReportDur = trial["ReportTime"]; V_buttom = trial["V_buttom"]; H_buttom = trial["H_buttom"]
-    response_recorded = False; response_key = None; response_time = None
-    # Report starts exactly when SWITCH reaches its target TR.
+    # ========================================================
+    # REPORT
+    ReportDur = trial["ReportTime"]
+    V_buttom = trial["V_buttom"]
+    H_buttom = trial["H_buttom"]
+    response_recorded = False
+    response_key = None
+    response_time = None
+    # Record report onset
     report_start_TR = tr_count
     report_start_time = clock.getTime()
-    logFile.write(f"Trial {num_trial} REPORT started at " f"TR {report_start_TR}, time {report_start_time:.6f} sec\n")
-    # Run until the target scanner TR is reached
-    while tr_count < report_end_TR:
+    logFile.write(
+        f"Trial {num_trial} REPORT started at "
+        f"TR {report_start_TR}, time {report_start_time:.6f} sec\n"
+    )
+    # ========================================================
+    # SET REPORT TR BOUNDARY
+    # For all normal trials, use report_end_TR normally.
+    # For the LAST trial, stop the trigger-based loop one TR
+    # earlier. The final TR will then be displayed using time.
+    if num_trial == len(conditions):
+        report_trigger_end_TR = report_end_TR - 1
+    else:
+        report_trigger_end_TR = report_end_TR
+    # ========================================================
+    # NORMAL TR-BASED REPORT
+    while tr_count < report_trigger_end_TR:
         check_for_escape()
-        # Check scanner TR trigger
+        # Check scanner trigger
         check_TR_trigger()
         # Draw report instruction
         buttom_instruct(V_buttom, H_buttom)
@@ -530,34 +547,63 @@ for trial in conditions:
             response_recorded = True
             trial["ResponseKey"] = response_key
             trial["ResponseTime"] = response_time
-            # Optional: RT relative to report onset
             trial["ResponseRT"] = response_time - report_start_time
-        # Keep confirmation on screen after response
+        # Keep confirmation on screen
         if response_recorded:
             if response_key == V_buttom:
                 confirm_report_V.draw()
             elif response_key == H_buttom:
                 confirm_report_H.draw()
-        # Display frame
         myWin.flip()
-        # ====================================================
-        # END CONDITION
-        # We have received the trigger starting the LAST report TR. Now let that TR actually elapse.
-        if tr_count >= total_TRs:
-            if clock.getTime() - last_trigger_time >= TR:
-                break
-            
+    # ========================================================
+    # FINAL TR OF THE FINAL TRIAL
+    # ========================================================
+    # The trigger that caused the loop above to finish marks
+    # the beginning of the final TR.
+    # Do not wait for another trigger. Instead, display the
+    # report for one full TR measured from that trigger.
+    # ========================================================
+    if num_trial == len(conditions):
+        final_TR_start_time = last_trigger_time
+        logFile.write(
+            f"Final clock-timed TR started at "
+            f"TR {tr_count}, time {final_TR_start_time:.6f} sec\n"
+        )
+        while clock.getTime() - final_TR_start_time < TR:
+            check_for_escape()
+            # Draw report instruction
+            buttom_instruct(V_buttom, H_buttom)
+            # Check participant response
+            keys = event.getKeys(keyList=['1', '2', '3', '4'],timeStamped=clock)
+            if keys and not response_recorded:
+                response_key, response_time = keys[0]
+                response_recorded = True
+                trial["ResponseKey"] = response_key
+                trial["ResponseTime"] = response_time
+                trial["ResponseRT"] = response_time - report_start_time
+            # Keep confirmation on screen
+            if response_recorded:
+                if response_key == V_buttom:
+                    confirm_report_V.draw()
+                elif response_key == H_buttom:
+                    confirm_report_H.draw()
+            myWin.flip()
+    # ========================================================
     # REPORT FINISHED
+    # =======================================================
     report_end_time = clock.getTime()
     logFile.write(f"Trial {num_trial} REPORT ended at " f"TR {tr_count}, time {report_end_time:.6f} sec\n")
-    logFile.write(f"Time at the end of trial {num_trial} is " f"{report_end_time:.6f}\n")
-    # Handle timeout
-    if not response_recorded:
-        trial["ResponseKey"] = "None"; trial["ResponseTime"] = "None"; trial["ResponseRT"] = "None"
-    # Log responses
-    logFile.write(f"Trial {trial['Trial']} INVALID Response: " f"{trial['invalid_ResponseKey']} at "f"{trial['invalid_ResponseTime']} sec\n")
-    logFile.write(f"Trial {trial['Trial']} Response: " f"{trial['ResponseKey']} at " f"{trial['ResponseTime']} sec\n")
-print(f"Total time for the run is {test_clock.getTime()} sec")
+    logFile.write(f"Time at the end of trial {num_trial} is " f"{report_end_time:.6f} sec\n")
+    logFile.write(
+        f"Trial {trial['Trial']} INVALID Response: "
+        f"{trial['invalid_ResponseKey']} at "
+        f"{trial['invalid_ResponseTime']} sec\n"
+    )
+    logFile.write(
+        f"Trial {trial['Trial']} Response: "
+        f"{trial['ResponseKey']} at "
+        f"{trial['ResponseTime']} sec\n"
+    )
 #========================================================    
 # Convert conditions to a DataFrame
 conditions_df = pd.DataFrame(conditions)
