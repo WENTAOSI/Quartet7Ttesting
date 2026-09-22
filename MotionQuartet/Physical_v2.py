@@ -124,7 +124,7 @@ FIXATION_TARGET_COLOR = 'white'
 # Number of white-fixation events in one run
 N_WHITE_FIXATIONS = 10
 # Minimum distance between white events, in TRs
-MIN_WHITE_GAP = 6
+MIN_WHITE_GAP = 7
 # Subject must respond within one TR of target onset
 DETECTION_WINDOW = TR
 rng_fix = np.random.default_rng()
@@ -537,11 +537,8 @@ BIDS_df["response_time"] = "n/a"
 # This prevents one button press from being counted for multiple targets.
 used_button_presses = set()
 for target_TR in white_fix_TRs:
-    # white_fix_TRs is 1-indexed:
-    # TR 1 -> 0 sec
-    # TR 2 -> TR sec
-    # TR 3 -> 2*TR sec
-    target_onset = (target_TR - 1) * TR
+
+    target_onset = target_TR * TR
     # -------------------------------------------------------------------------
     # Find the condition that was active when the white fixation appeared
     condition_mask = ((BIDS_df["onset"] <= target_onset) & (target_onset < BIDS_df["onset"] + BIDS_df["duration"]))
