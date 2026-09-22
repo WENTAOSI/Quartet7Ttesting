@@ -641,7 +641,7 @@ protocol_df.to_csv(prtFileName + '.csv', index=False)
 
 #========================================================
 # converts protocol file into BIDS csv 
-vol_BIDS_output_file = (Path(BIDSoutput_dir) / f"{expInfo['participant']}_task-volitional_run-{int(expInfo['run']):02d}_events.tsv")
+vol_BIDS_output_file = (Path(BIDSoutput_dir) / f"sub-{expInfo['participant']}_task-volitional_run-{int(expInfo['run']):02d}_events.tsv")
 
 vol_events = protocol_df.loc[protocol_df["Stim"].isin(["PrecueTime", "DelayTime",])].copy()
 if vol_events.empty:
