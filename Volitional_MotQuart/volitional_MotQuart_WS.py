@@ -75,7 +75,7 @@ subjFolderName = '%s_SubjData' % (expInfo['participant'])
 if not os.path.isdir(subjFolderName):
     os.makedirs(subjFolderName)
 # BIDS output directory
-BIDSoutput_dir = os.path.join('BIDS_events', expInfo['participant'], 'func')
+BIDSoutput_dir = os.path.join('BIDS_events', f"sub-{expInfo['participant']}", 'func')
 if not os.path.isdir(BIDSoutput_dir):
     os.makedirs(BIDSoutput_dir)
 # Name and create data folder for the experiment
@@ -131,8 +131,8 @@ num_trials = 12
 # Initialize parameters these are time as seconds () 
 total_time = 13
 report = 2
-precue = [4, 6]
-delay = [4, 6]
+precue = [4,5,6]
+delay = [4,5,6]
 switch = [1]
 total_TRs = int(total_time * num_trials)
 # valid combinations of precue, delay, switch that sum to total_time - report 
@@ -483,8 +483,8 @@ for trial in conditions:
     while tr_count < delay_end_TR:
         check_for_escape()
         check_TR_trigger()
-        # Instruction cue for first 2 seconds
-        show_instruction = (clock.getTime() - delay_start_clock < 2)
+        # Instruction cue for first 1 seconds
+        show_instruction = (clock.getTime() - delay_start_clock < 1)
         if show_instruction:
             color_mapping[trial["Instruct_V_H"]].draw()
         if trial["QuartetOrder"] == "quartetPart1, quartetPart2":
@@ -643,7 +643,7 @@ protocol_df.to_csv(prtFileName + '.csv', index=False)
 # converts protocol file into BIDS csv 
 vol_BIDS_output_file = (Path(BIDSoutput_dir) / f"sub-{expInfo['participant']}_task-volitional_run-{int(expInfo['run']):02d}_events.tsv")
 
-vol_events = protocol_df.loc[protocol_df["Stim"].isin(["PrecueTime", "DelayTime",])].copy()
+vol_events = protocol_df.loc[protocol_df["Stim"].isin(["PrecueTime", "DelayTime", "SwitchTime", "ReportTime"])].copy()
 if vol_events.empty:
     raise ValueError(f"No PrecueTime or DelayTime rows found in ")
 
@@ -654,7 +654,7 @@ vol_events["onset"] = vol_events["Onset"] * TR
 vol_events["duration"] = vol_events["Duration"] * TR
 
  # Clean phase and instruction labels
-stim_mapping = {"PrecueTime": "precue", "DelayTime": "delay",}
+stim_mapping = {"PrecueTime": "precue", "DelayTime": "delay", "SwitchTime": "switch", "ReportTime": "report"}
 vol_events["phase"] = (vol_events["Stim"].astype(str).str.strip().replace(stim_mapping))
 vol_events["instructed_axis"] = (vol_events["Instruct_V_H"].astype(str).str.strip().str.lower())
 

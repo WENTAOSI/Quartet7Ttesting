@@ -1,0 +1,25 @@
+onset	duration	trial_type	success
+0.000	12.000	precue_horizontal	
+12.000	8.000	delay_horizontal	
+26.000	12.000	precue_vertical	
+38.000	8.000	delay_vertical	
+52.000	8.000	precue_vertical	
+60.000	12.000	delay_vertical	
+78.000	8.000	precue_horizontal	
+86.000	12.000	delay_horizontal	
+104.000	8.000	precue_horizontal	
+112.000	12.000	delay_horizontal	
+130.000	8.000	precue_horizontal	
+138.000	12.000	delay_horizontal	
+156.000	8.000	precue_horizontal	
+164.000	12.000	delay_horizontal	
+182.000	8.000	precue_vertical	
+190.000	12.000	delay_vertical	
+208.000	12.000	precue_vertical	
+220.000	8.000	delay_vertical	
+234.000	12.000	precue_vertical	
+246.000	8.000	delay_vertical	
+260.000	12.000	precue_horizontal	
+272.000	8.000	delay_horizontal	
+286.000	12.000	precue_vertical	
+298.000	8.000	delay_vertical	
