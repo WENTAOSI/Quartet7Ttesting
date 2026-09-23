@@ -129,10 +129,10 @@ myWin = visual.Window(size=(PixW, PixH), screen = screen, winType='pyglet', allo
 # %% TRIAL DURATIONS SETUP
 num_trials = 12
 # Initialize parameters these are time as seconds () 
-total_time = 13
+total_time = 10
 report = 2
-precue = [4,5,6]
-delay = [4,5,6]
+precue = [3]
+delay = [3,4,5]
 switch = [1]
 total_TRs = int(total_time * num_trials)
 # valid combinations of precue, delay, switch that sum to total_time - report 
@@ -213,7 +213,13 @@ print(f'Trial {trial}: Precue {precue_choice}, Delay {delay_choice}, Switch {swi
 # INITIALISE SOME STIMULI
 SquareSize = 1.0  # 1.1 #1.8
 logFile.write('SquareSize=' + str(SquareSize) + '\n')
-dotFix = visual.Circle(myWin, autoLog=False, name='dotFix', units='deg',radius=0.1, pos=apply_global_offset((0,0), global_offset), fillColor='red', lineColor='red' )
+dotFix = visual.Circle(myWin, autoLog=False, name='dotFix', units='deg',radius=0.1, pos=apply_global_offset((0,0), global_offset), fillColor='white', lineColor='white' )
+# fixation changes color to blue or red to indicate cue (initialize it here )
+dotFix_blue = visual.Circle(myWin, autoLog=False, name='dotFix_blue', units='deg',radius=0.1, pos=apply_global_offset((0,0), global_offset), fillColor='blue', lineColor='blue' )
+dotFix_blue.name = "BLUE"
+dotFix_red = visual.Circle(myWin, autoLog=False, name='dotFix_red', units='deg',radius=0.1, pos=apply_global_offset((0,0), global_offset), fillColor='red', lineColor='red' )
+dotFix_red.name = "RED"
+# quartet square 
 Square = visual.GratingStim(myWin, autoLog=False, name='Square', tex=None, units='deg', size=(SquareSize, SquareSize), color= squareColor)
 # Four Circles
 circle_size = 1  # width of each circle
@@ -221,8 +227,8 @@ if expInfo["display"] == 'dbic':
     positions = [apply_global_offset((-3.5, 4), global_offset), apply_global_offset((-2, 4), global_offset),\
                  apply_global_offset((2, 4), global_offset), apply_global_offset((3.5, 4), global_offset)]  # Anchored positions 1, 2, 3, 4
 elif expInfo["display"] == 'Vanderbilt7T':
-    positions = [apply_global_offset((-3.5, 4), global_offset), apply_global_offset((-1.25, 4.5), global_offset),\
-                 apply_global_offset((1.25, 4.5), global_offset), apply_global_offset((3.5, 4), global_offset)]  # Anchored positions 1, 2, 3, 4
+    positions = [apply_global_offset((-3.5, 1.5), global_offset), apply_global_offset((-1.25, 2), global_offset),\
+                 apply_global_offset((1.25, 2), global_offset), apply_global_offset((3.5, 1.5), global_offset)]  # Anchored positions 1, 2, 3, 4
 # Generate circle objects at the specified positions
 circles = []
 for pos in positions:
@@ -235,10 +241,7 @@ for pos in positions:
     H = visual.TextStim(win=myWin, color='white', height=circle_size-0.2,text='H', pos=pos)
     V = visual.TextStim(win=myWin, color='white', height=circle_size-0.2,text='V', pos=pos)
     Hs.append(H); Vs.append(V)
-blue_Square = visual.GratingStim(myWin,autoLog=False,name='Square',tex=None,units='deg',size=(SquareSize*1.5, SquareSize*1.5),color='blue',pos=apply_global_offset((0,4), global_offset))
-blue_Square.name = "BLUE"
-red_Square = visual.GratingStim(myWin,autoLog=False,name='Square',tex=None,units='deg',size=(SquareSize*1.5, SquareSize*1.5), color='red',pos=apply_global_offset((0,4), global_offset))
-red_Square.name = "RED"
+# generate text
 triggerText = visual.TextStim(
     win=myWin, color='white', height=0.5,
     pos=apply_global_offset(base_pos=(0,0), global_offset=global_offset),
@@ -268,25 +271,25 @@ endText = visual.TextStim(
 # Define the blue and red mappings as functions
 run_number = int(''.join(filter(str.isdigit, expInfo['run'])))
 print(run_number)
-if run_number <= 6:
-    color_mapping = {"vertical": blue_Square, "horizontal": red_Square}
+if run_number == 1 or run_number == 2 or run_number == 5 or run_number == 6 or run_number == 9 or run_number == 10:
+    color_mapping = {"vertical": dotFix_blue, "horizontal": dotFix_red}
     for condition in conditions:
-        condition["vertical"] = "blue_Square"
-        condition["horizontal"] = "red_Square"
-else:
-    color_mapping = { "vertical": red_Square, "horizontal": blue_Square}
+        condition["vertical"] = "dotFix_blue"
+        condition["horizontal"] = "dotFix_red"
+elif run_number == 3 or run_number == 4 or run_number == 7 or run_number == 8 or run_number == 11 or run_number == 12:
+    color_mapping = { "vertical": dotFix_red, "horizontal": dotFix_blue}
     for condition in conditions:
-        condition["vertical"] = "red_Square"
-        condition["horizontal"] = "blue_Square" 
+        condition["vertical"] = "dotFix_red"
+        condition["horizontal"] = "dotFix_blue" 
         
 mapping_instruct_v = visual.TextStim(
     win=myWin,color='white', height=0.5,
-    pos=apply_global_offset(base_pos=(0,0), global_offset=global_offset),
+    pos=apply_global_offset(base_pos=(0,-1), global_offset=global_offset),
     text=(f'In this run, be prepared to see VERTICAL motion\n' f'after {color_mapping["vertical"].name} onset')
     )
 mapping_instruct_h = visual.TextStim(
     win=myWin, color="white", height=0.5,
-    pos=apply_global_offset(base_pos=(0,0), global_offset=global_offset),
+    pos=apply_global_offset(base_pos=(0,-1), global_offset=global_offset),
     text=(f'In this run, be prepared to see HORIZONTAL motion\n' f'after {color_mapping["horizontal"].name} onset')
     )
 # %% TIME AND TIMING PARAMeTERS
@@ -401,6 +404,8 @@ def buttom_instruct(vertical_buttom, horizontal_buttom):
         circle.draw()
     Vs[int(vertical_buttom)-1].draw()   # Because python start counting from 0, draw the first one in the 0th on the list 
     Hs[int(horizontal_buttom)-1].draw()  
+    dotFix.draw()
+    
 def check_for_escape():
     keys = event.getKeys(keyList=['escape'])
     if 'escape' in keys:
@@ -419,6 +424,7 @@ def check_TR_trigger():
         last_trigger_time = timestamp
         logFile.write(f"TR {tr_count}: {timestamp:.6f} sec\n")
     return tr_count
+
 # %% RENDER_LOOp
 # Mapping instruction 
 mapping_instruct_v.draw()
@@ -483,14 +489,14 @@ for trial in conditions:
     while tr_count < delay_end_TR:
         check_for_escape()
         check_TR_trigger()
-        # Instruction cue for first 1 seconds
-        show_instruction = (clock.getTime() - delay_start_clock < 1)
-        if show_instruction:
-            color_mapping[trial["Instruct_V_H"]].draw()
         if trial["QuartetOrder"] == "quartetPart1, quartetPart2":
             quartetPart1(HoriDist, VertiDist)
         elif trial["QuartetOrder"] == "quartetPart2, quartetPart1":
             quartetPart2(HoriDist, VertiDist)
+        # Instruction cue for first 1 seconds
+        show_instruction = (clock.getTime() - delay_start_clock < 1)
+        if show_instruction:
+            color_mapping[trial["Instruct_V_H"]].draw()
         myWin.flip()
     #========================================================
     #SWITCH

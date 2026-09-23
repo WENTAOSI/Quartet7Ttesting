@@ -1,0 +1,94 @@
+Conditions=[0 2 1 2 1 2 1 2 1 4 2 2 2 1 1 2 1 1 4 2 1 1 2 2 1 2 1 0]
+Durations (Triggers) =[6 5 5 5 5 5 5 5 5 6 5 5 5 5 5 5 5 5 6 5 5 5 5 5 5 5 5 6]
+MonitorDistance=48cm
+MonitorWidth=17cm
+PixelWidth=1024
+PixelHeight=768
+SquareSize=1.0
+SquareDur=0.15
+BlankDur=0.067
+Durations: [6 5 5 5 5 5 5 5 5 6 5 5 5 5 5 5 5 5 6 5 5 5 5 5 5 5 5 6] 
+RefreshRate=None
+FrameDuration=0.016666666666666666
+4.5546 	INFO 	Loaded monitor calibration from ['2023_03_19 22:45']
+4.5641 	WARNING 	Requested an unavailable screen number - using first available.
+4.5655 	WARNING 	User requested fullscreen with size [1024  768], but screen is actually [1512, 982]. Using actual size
+5.8726 	WARNING 	Couldn't measure a consistent frame rate!
+  - Is your graphics card set to sync to vertical blank?
+  - Are you running other processes on your computer?
+
+5.8732 	EXP 	Created window1 = Window(allowGUI=False, allowStencil=False, autoLog=True, backendConf=UNKNOWN, backgroundFit=<method-wrapper '__getattribute__' of attributeSetter object at 0x7ff04a20e070>, backgroundImage=<method-wrapper '__getattribute__' of attributeSetter object at 0x7ff04a20cf40>, bitsMode=UNKNOWN, blendMode='avg', bpc=(8, 8, 8), color=array([-0.5, -0.5, -0.5]), colorSpace='rgb', depthBits=8, fullscr=True, gamma=None, gammaErrorPolicy='raise', infoMsg=UNKNOWN, lms=UNKNOWN, monitor=<psychopy.monitors.calibTools.Monitor object at 0x7ff04a259c40>, multiSample=False, name='window1', numSamples=2, pos=[0.0, 0.0], screen=1, size=array([3024, 1964]), stencilBits=0, stereo=False, title='PsychoPy', units='deg', useFBO=False, useRetina=True, viewOri=0.0, viewPos=None, viewScale=None, waitBlanking=True, winType='pyglet')
+5.8733 	EXP 	window1: backgroundImage = None
+5.8733 	EXP 	window1: backgroundFit = 'cover'
+5.9087 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, draggable=False, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=1.0, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([-16.0981,  -9.7652]), rgb=UNKNOWN, text='Condition', units='deg', win=Window(...), wrapWidth=15.0)
+5.9323 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, draggable=False, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=0.5, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([-0.0981, -1.7652]), rgb=UNKNOWN, text=str(...), units='deg', win=Window(...), wrapWidth=15.0)
+5.9406 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, draggable=False, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=0.5, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([-0.0981, -1.7652]), rgb=UNKNOWN, text=str(...), units='deg', win=Window(...), wrapWidth=15.0)
+5.9425 	EXP 	window1: Attempting to measure frame rate of screen (1) ...
+5.9425 	EXP 	window1: recordFrameIntervals = False
+6.0022 	EXP 	window1: recordFrameIntervals = True
+6.0365 	WARNING 	t of last frame was 20.54ms (=1/48)
+6.1153 	WARNING 	t of last frame was 20.13ms (=1/49)
+6.1738 	WARNING 	t of last frame was 20.53ms (=1/48)
+6.3355 	WARNING 	t of last frame was 20.37ms (=1/49)
+6.5342 	WARNING 	Multiple dropped frames have occurred - I'll stop bothering you about them!
+6.9289 	WARNING 	Couldn't measure a consistent frame rate!
+  - Is your graphics card set to sync to vertical blank?
+  - Are you running other processes on your computer?
+
+3.0506 	DATA 	Keypress: 1
+4.4666 	DATA 	Keypress: quoteleft
+0.0001 	DATA 	StartOfRun1
+0.0001 	DATA 	Scanner trigger 0
+0.0001 	DATA 	StartOfCondition0
+0.3695 	DATA 	Keypress: quoteleft
+0.3717 	DATA 	Scanner trigger 1
+0.7003 	DATA 	Keypress: quoteleft
+0.7009 	DATA 	Scanner trigger 2
+1.0039 	DATA 	Keypress: quoteleft
+1.0149 	DATA 	Scanner trigger 3
+1.2990 	DATA 	Keypress: quoteleft
+1.2998 	DATA 	Scanner trigger 4
+1.5618 	DATA 	Keypress: quoteleft
+1.5624 	DATA 	Scanner trigger 5
+1.8085 	DATA 	Keypress: quoteleft
+1.8109 	DATA 	Scanner trigger 6
+1.8109 	DATA 	StartOfCondition2
+2.0374 	DATA 	Keypress: quoteleft
+2.0380 	DATA 	Scanner trigger 7
+2.2833 	DATA 	Keypress: quoteleft
+2.2838 	DATA 	Scanner trigger 8
+2.5501 	DATA 	Keypress: quoteleft
+2.5612 	DATA 	Scanner trigger 9
+2.8190 	DATA 	Keypress: quoteleft
+2.8195 	DATA 	Scanner trigger 10
+3.0906 	DATA 	Keypress: quoteleft
+3.0911 	DATA 	Scanner trigger 11
+3.0912 	DATA 	StartOfCondition1
+3.3580 	DATA 	Keypress: quoteleft
+3.3585 	DATA 	Scanner trigger 12
+3.6246 	DATA 	Keypress: quoteleft
+3.6252 	DATA 	Scanner trigger 13
+3.8597 	DATA 	Keypress: quoteleft
+3.8702 	DATA 	Scanner trigger 14
+4.1172 	DATA 	Keypress: quoteleft
+4.1177 	DATA 	Scanner trigger 15
+4.6914 	DATA 	Keypress: quoteleft
+4.7025 	DATA 	Scanner trigger 16
+4.7025 	DATA 	StartOfCondition2
+4.9573 	DATA 	Keypress: quoteleft
+4.9577 	DATA 	Scanner trigger 17
+5.1840 	DATA 	Keypress: quoteleft
+5.1930 	DATA 	Scanner trigger 18
+5.4381 	DATA 	Keypress: quoteleft
+5.4563 	DATA 	Scanner trigger 19
+5.6578 	DATA 	Keypress: quoteleft
+5.6583 	DATA 	Scanner trigger 20
+5.8576 	DATA 	Keypress: quoteleft
+5.8580 	DATA 	Scanner trigger 21
+5.8581 	DATA 	StartOfCondition1
+6.0579 	DATA 	Keypress: quoteleft
+6.0679 	DATA 	Scanner trigger 22
+6.2314 	DATA 	Keypress: quoteleft
+6.2318 	DATA 	Scanner trigger 23
+6.8592 	DATA 	Keypress: escape
+6.8601 	DATA 	User pressed quit

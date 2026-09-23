@@ -118,9 +118,9 @@ print("Total TRs:", totalTrigger)
 # ============================================================
 # FIXATION COLOR-CHANGE TIMELINE
 # ============================================================
-# Red fixation normally; occasionally turns white for exactly 1 TR.
-FIXATION_NORMAL_COLOR = 'red'
-FIXATION_TARGET_COLOR = 'white'
+# White fixation normally; occasionally turns red for exactly 1 TR.
+FIXATION_NORMAL_COLOR = 'white'
+FIXATION_TARGET_COLOR = 'red'
 # Number of white-fixation events in one run
 N_WHITE_FIXATIONS = 10
 # Minimum distance between white events, in TRs
@@ -266,7 +266,7 @@ triggerText = visual.TextStim(
 instructText = visual.TextStim(
     win=myWin,color='white',height=0.5,
     pos=apply_global_offset(base_pos=(0, 0), global_offset=global_offset),
-    text="Press 1 when the fixation dot turns white.\n\nPress '1' to start the experiment."
+    text="Press 1 when the fixation dot turns red.\n\nPress '1' to start the experiment."
 )
 # %% TIME AND TIMING PARAMeTERS
 # get screen refresh rate

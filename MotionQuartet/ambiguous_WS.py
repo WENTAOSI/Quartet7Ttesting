@@ -187,7 +187,7 @@ logFile.write('BlankDur=' + str(BlankDur) + '\n')
 message = visual.TextStim(myWin,text='Condition',pos=(-16, -8))
 dotFix = visual.Circle(
     myWin,autoLog=False,name='dotFix',units='deg',radius=.15,
-    pos=apply_global_offset((0,0), global_offset),fillColor='red', lineColor='red'
+    pos=apply_global_offset((0,0), global_offset),fillColor='white', lineColor='white'
     )
 Square = visual.GratingStim(
     myWin,autoLog=False,name='Square',tex=None,units='deg',
