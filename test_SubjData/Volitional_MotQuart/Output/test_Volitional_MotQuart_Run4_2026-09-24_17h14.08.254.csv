@@ -1,0 +1,14 @@
+Trial,PrecueTime,DelayTime,SwitchTime,ReportTime,QuartetOrder,Instruct_V_H,illusory_physical,V_buttom,H_buttom,vertical,horizontal,invalid_ResponseKey,invalid_ResponseTime,ResponseKey,ResponseTime,ResponseRT,expected_key,success
+1,3,3,1,2,"quartetPart1, quartetPart2",vertical,illusory,1,4,dotFix_red,dotFix_blue,None,None,1,11.546176700001524,1.270004300000437,1,True
+2,3,4,1,2,"quartetPart1, quartetPart2",horizontal,illusory,4,2,dotFix_red,dotFix_blue,None,None,2,23.14879690000089,1.0510315999999875,2,True
+3,3,5,1,2,"quartetPart1, quartetPart2",horizontal,illusory,3,4,dotFix_red,dotFix_blue,None,None,4,34.7878653000007,1.202860099998361,4,True
+4,3,5,1,2,"quartetPart1, quartetPart2",vertical,illusory,1,3,dotFix_red,dotFix_blue,None,None,1,45.64202220000152,1.153350299995509,1,True
+5,3,4,1,2,"quartetPart1, quartetPart2",vertical,illusory,4,3,dotFix_red,dotFix_blue,None,None,4,55.74324880000495,1.3369326000029105,4,True
+6,3,3,1,2,"quartetPart1, quartetPart2",vertical,illusory,2,4,dotFix_red,dotFix_blue,None,None,4,66.81287630000588,2.805501800001366,2,False
+7,3,3,1,2,"quartetPart1, quartetPart2",vertical,physical,1,3,dotFix_red,dotFix_blue,None,None,1,76.8978414000012,2.0713313999949605,3,False
+8,3,5,1,2,"quartetPart1, quartetPart2",horizontal,illusory,3,2,dotFix_red,dotFix_blue,None,None,2,86.73084300000482,1.0014322999995784,2,True
+9,3,4,1,2,"quartetPart1, quartetPart2",vertical,illusory,3,1,dotFix_red,dotFix_blue,None,None,1,95.86589200000162,2.906160099999397,3,False
+10,3,5,1,2,"quartetPart1, quartetPart2",vertical,illusory,4,1,dotFix_red,dotFix_blue,None,None,1,103.1793159000008,1.4528337999945506,4,False
+11,3,3,1,2,"quartetPart1, quartetPart2",horizontal,illusory,2,1,dotFix_red,dotFix_blue,None,None,1,111.1428520000045,2.00474419999955,1,True
+12,3,4,1,2,"quartetPart1, quartetPart2",horizontal,illusory,1,2,dotFix_red,dotFix_blue,None,None,2,118.10437620000448,1.1169089000031818,2,True
+13,3,3,1,2,"quartetPart1, quartetPart2",horizontal,illusory,2,3,dotFix_red,dotFix_blue,None,None,3,124.60036080000282,1.92044739999983,3,True

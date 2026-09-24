@@ -1,49 +1,55 @@
-onset	duration	trial_type	success
-0.000	12.000	precue_vertical	1
-12.000	8.000	delay_vertical	1
-20.000	2.000	switch_vertical	1
-22.000	4.000	report_vertical	1
-26.000	12.000	precue_vertical	
-38.000	8.000	delay_vertical	
-46.000	2.000	switch_vertical	
-48.000	4.000	report_vertical	
-52.000	8.000	precue_horizontal	
-60.000	12.000	delay_horizontal	
-72.000	2.000	switch_horizontal	
-74.000	4.000	report_horizontal	
-78.000	8.000	precue_horizontal	
-86.000	12.000	delay_horizontal	
-98.000	2.000	switch_horizontal	
-100.000	4.000	report_horizontal	
-104.000	10.000	precue_horizontal	
-114.000	10.000	delay_horizontal	
-124.000	2.000	switch_horizontal	
-126.000	4.000	report_horizontal	
-130.000	8.000	precue_horizontal	
-138.000	12.000	delay_horizontal	
-150.000	2.000	switch_horizontal	
-152.000	4.000	report_horizontal	
-156.000	8.000	precue_horizontal	
-164.000	12.000	delay_horizontal	
-176.000	2.000	switch_horizontal	
-178.000	4.000	report_horizontal	
-182.000	10.000	precue_vertical	
-192.000	10.000	delay_vertical	
-202.000	2.000	switch_vertical	
-204.000	4.000	report_vertical	
-208.000	8.000	precue_vertical	
-216.000	12.000	delay_vertical	
-228.000	2.000	switch_vertical	
-230.000	4.000	report_vertical	
-234.000	10.000	precue_vertical	
-244.000	10.000	delay_vertical	
-254.000	2.000	switch_vertical	
-256.000	4.000	report_vertical	
-260.000	8.000	precue_vertical	
-268.000	12.000	delay_vertical	
-280.000	2.000	switch_vertical	
-282.000	4.000	report_vertical	
-286.000	12.000	precue_horizontal	
-298.000	8.000	delay_horizontal	
-306.000	2.000	switch_horizontal	
-308.000	4.000	report_horizontal	
+onset	duration	trial_type	stimulus_type	success
+0.000	8.000	fixation	n/a	n/a
+8.000	6.000	precue_horizontal	illusory	0
+14.000	8.000	delay_horizontal	illusory	0
+22.000	2.000	switch_horizontal	illusory	0
+24.000	4.000	report_horizontal	illusory	0
+28.000	6.000	precue_vertical	physical	0
+34.000	6.000	delay_vertical	physical	0
+40.000	2.000	switch_vertical	physical	0
+42.000	4.000	report_vertical	physical	0
+46.000	6.000	precue_horizontal	illusory	0
+52.000	10.000	delay_horizontal	illusory	0
+62.000	2.000	switch_horizontal	illusory	0
+64.000	4.000	report_horizontal	illusory	0
+68.000	6.000	precue_horizontal	illusory	0
+74.000	10.000	delay_horizontal	illusory	0
+84.000	2.000	switch_horizontal	illusory	0
+86.000	4.000	report_horizontal	illusory	0
+90.000	6.000	precue_vertical	illusory	0
+96.000	8.000	delay_vertical	illusory	0
+104.000	2.000	switch_vertical	illusory	0
+106.000	4.000	report_vertical	illusory	0
+110.000	6.000	precue_horizontal	illusory	0
+116.000	8.000	delay_horizontal	illusory	0
+124.000	2.000	switch_horizontal	illusory	0
+126.000	4.000	report_horizontal	illusory	0
+130.000	6.000	precue_horizontal	illusory	0
+136.000	6.000	delay_horizontal	illusory	0
+142.000	2.000	switch_horizontal	illusory	0
+144.000	4.000	report_horizontal	illusory	0
+148.000	6.000	precue_vertical	illusory	0
+154.000	10.000	delay_vertical	illusory	0
+164.000	2.000	switch_vertical	illusory	0
+166.000	4.000	report_vertical	illusory	0
+170.000	6.000	precue_vertical	illusory	0
+176.000	6.000	delay_vertical	illusory	0
+182.000	2.000	switch_vertical	illusory	0
+184.000	4.000	report_vertical	illusory	0
+188.000	6.000	precue_vertical	illusory	0
+194.000	8.000	delay_vertical	illusory	0
+202.000	2.000	switch_vertical	illusory	0
+204.000	4.000	report_vertical	illusory	0
+208.000	6.000	precue_vertical	illusory	0
+214.000	6.000	delay_vertical	illusory	0
+220.000	2.000	switch_vertical	illusory	0
+222.000	4.000	report_vertical	illusory	0
+226.000	6.000	precue_vertical	illusory	0
+232.000	10.000	delay_vertical	illusory	0
+242.000	2.000	switch_vertical	illusory	0
+244.000	4.000	report_vertical	illusory	0
+248.000	6.000	precue_horizontal	illusory	0
+254.000	6.000	delay_horizontal	illusory	0
+260.000	2.000	switch_horizontal	illusory	0
+262.000	4.000	report_horizontal	illusory	0
+266.000	8.000	fixation	n/a	n/a

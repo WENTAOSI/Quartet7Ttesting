@@ -127,89 +127,73 @@ elif expInfo['display'] == 'dbic':
 myWin = visual.Window(size=(PixW, PixH), screen = screen, winType='pyglet', allowGUI=False, allowStencil=False,fullscr=True, 
                       monitor=moni, color=backColor, colorSpace='rgb', units='deg', blendMode='avg', waitBlanking=True)
 # %% TRIAL DURATIONS SETUP
+use_catch_trials = True
+# %% TRIAL DURATIONS SETUP
 num_trials = 12
-# Initialize parameters these are time as seconds () 
-total_time = 10
 report = 2
-precue = [3]
+precue = 3
 delay = [3,4,5]
-switch = [1]
-total_TRs = int(total_time * num_trials)
-# valid combinations of precue, delay, switch that sum to total_time - report 
-# is a list of dictionaries
-valid_combinations = [
-    {"precue": p, "delay": d, "switch": s}
-    for p in precue
-    for d in delay
-    for s in switch
-    if p + d + s == total_time - report
+switch = 1
+use_catch_trials = True
+
+# Counterbalanced REAL trials: 2 V + 2 H at each delay
+timing_instruct = [
+    (3,"vertical"),(3,"vertical"),(3,"horizontal"),(3,"horizontal"),
+    (4,"vertical"),(4,"vertical"),(4,"horizontal"),(4,"horizontal"),
+    (5,"vertical"),(5,"vertical"),(5,"horizontal"),(5,"horizontal")
 ]
-# Create a balanced list of QuartetOrder 
-quartet_orders = ["quartetPart1, quartetPart2"] * num_trials # to avoid complication we only do one order for now 
-# Create balanced list of tone V OR H
-instruct_V_H = ["vertical"] * (num_trials // 2) + ["horizontal"] * (num_trials // 2)
-#############################################################################################################
-# For the current stage all illusory trial NO catch trials are used
-'''
-# Load the pickle file containing catch trial distribution
-with open(os.path.join("Volitional_MotQuart","catch_trials_distribution.pkl"), "rb") as file:
-    catch_trials_distribution = pickle.load(file)
-current_run_catch_trials = catch_trials_distribution[int(expInfo['run']) - 1]
-# Handle catch trials
-physical_catch_trials = [trial for trial in current_run_catch_trials if trial in ["V", "H"]]
-# Pair one "physical" trial with "vertical" and one with "horizontal"
-physical_pairs = [("vertical", "physical") if trial == "V" else ("horizontal", "physical") for trial in physical_catch_trials]
-# Remove "vertical" and "horizontal" trials from instruct_V_H to pair with physical trials
-for pair in physical_pairs:
-    instruct_V_H.remove(pair[0])
-# Create the remaining illusory trials
-#illusory_physical = ["illusory"] * (num_trials - len(physical_pairs))
-#combined_trials = physical_pairs + list(zip(instruct_V_H, illusory_physical))
-'''
-#####################################################################################################################
-combined_trials =  list(zip(instruct_V_H, ['illusory']*num_trials))
-# Shuffle the combined list to randomize positions
-random.shuffle(combined_trials)
-# Shuffle other lists
-random.shuffle(quartet_orders)
-instruct_V_H = [trial[0] for trial in combined_trials]
-illusory_physical = [trial[1] for trial in combined_trials]
-# Initialize button press instructions
-button_seq = [(1, 2), (1, 3), (1, 4), (2, 1), (2, 3), (2, 4), (3, 1), (3, 2), (3, 4), (4, 1), (4, 2), (4, 3)]
+
+button_seq = [(1,2),(1,3),(1,4),(2,1),(2,3),(2,4),(3,1),(3,2),(3,4),(4,1),(4,2),(4,3)]
 random.shuffle(button_seq)
-# Generate conditions and timing
+
+# Generate 12 counterbalanced real trials
 conditions = []
-for trial in range(1, num_trials + 1):
-    # Assign values for the current trial
-    this_quartet_order = quartet_orders.pop()
-    this_instruct_V_H = instruct_V_H.pop()
-    this_illusory_physical = illusory_physical.pop()
-    this_button_seq = button_seq.pop()
-    # Get V/H key for the trial
-    this_V = str(this_button_seq[0])
-    this_H = str(this_button_seq[1])
-    # choose a valid combination randomly from the pre-defined valid combinations
-    chosen_combo = random.choice(valid_combinations)
-    precue_choice = chosen_combo["precue"]
-    delay_choice = chosen_combo["delay"]
-    switch_choice = chosen_combo["switch"]
-    # Store the trial data
+for this_delay,this_instruct in timing_instruct:
+    this_button = button_seq.pop()
     conditions.append({
-        "Trial": trial,
-        "PrecueTime": precue_choice,
-        "DelayTime": delay_choice,
-        "SwitchTime": switch_choice,
-        "ReportTime": report,
-        "QuartetOrder": this_quartet_order,
-        "Instruct_V_H": this_instruct_V_H,
-        "illusory_physical": this_illusory_physical,
-        "V_buttom": this_V,
-        "H_buttom": this_H
+        "PrecueTime":precue,
+        "DelayTime":this_delay,
+        "SwitchTime":switch,
+        "ReportTime":report,
+        "QuartetOrder":"quartetPart1, quartetPart2",
+        "Instruct_V_H":this_instruct,
+        "illusory_physical":"illusory",
+        "V_buttom":str(this_button[0]),
+        "H_buttom":str(this_button[1])
     })
-# Convert to a DataFrame for visualization or saving
+
+# Add ONE additional catch trial
+if use_catch_trials:
+    catch_instruct = random.choice(["vertical","horizontal"])
+    catch_button = random.choice([(1,2),(1,3),(1,4),(2,1),(2,3),(2,4),(3,1),(3,2),(3,4),(4,1),(4,2),(4,3)])
+
+    conditions.append({
+        "PrecueTime":precue,
+        "DelayTime":3,
+        "SwitchTime":switch,
+        "ReportTime":report,
+        "QuartetOrder":"quartetPart1, quartetPart2",
+        "Instruct_V_H":catch_instruct,
+        "illusory_physical":"physical",
+        "V_buttom":str(catch_button[0]),
+        "H_buttom":str(catch_button[1])
+    })
+
+# Shuffle real + catch trials together
+random.shuffle(conditions)
+
+# Assign trial numbers AFTER shuffling
+for trial,c in enumerate(conditions,start=1):
+    c["Trial"] = trial
+
+conditions = [{"Trial":c.pop("Trial"),**c} for c in conditions]
 conditions_df = pd.DataFrame(conditions)
-print(f'Trial {trial}: Precue {precue_choice}, Delay {delay_choice}, Switch {switch_choice}, Report {report}, Total {precue_choice + delay_choice + switch_choice + report}')
-# %% STIMULI
+
+# Print
+for c in conditions:
+    print(f'Trial {c["Trial"]}: Instruct {c["Instruct_V_H"]}, Type {c["illusory_physical"]}, Delay {c["DelayTime"]}')
+
+# %% STIMULI# %% STIMULI
 # INITIALISE SOME STIMULI
 SquareSize = 1.0  # 1.1 #1.8
 logFile.write('SquareSize=' + str(SquareSize) + '\n')
@@ -227,8 +211,8 @@ if expInfo["display"] == 'dbic':
     positions = [apply_global_offset((-3.5, 4), global_offset), apply_global_offset((-2, 4), global_offset),\
                  apply_global_offset((2, 4), global_offset), apply_global_offset((3.5, 4), global_offset)]  # Anchored positions 1, 2, 3, 4
 elif expInfo["display"] == 'Vanderbilt7T':
-    positions = [apply_global_offset((-3.5, 1.5), global_offset), apply_global_offset((-1.25, 2), global_offset),\
-                 apply_global_offset((1.25, 2), global_offset), apply_global_offset((3.5, 1.5), global_offset)]  # Anchored positions 1, 2, 3, 4
+    positions = [apply_global_offset((-2.5, 0), global_offset), apply_global_offset((-1, 0.5), global_offset),\
+                 apply_global_offset((1, 0.5), global_offset), apply_global_offset((2.5, 0), global_offset)]  # Anchored positions 1, 2, 3, 4
 # Generate circle objects at the specified positions
 circles = []
 for pos in positions:
@@ -255,12 +239,12 @@ anykeyText = visual.TextStim(
 confirm_report_V = visual.TextStim(
     win=myWin, color='white', height=0.5,
     text='You have pressed VERTICAL',
-    pos=apply_global_offset(base_pos=(0,-4), global_offset=global_offset)
+    pos=apply_global_offset(base_pos=(0,-1), global_offset=global_offset)
     )
 confirm_report_H = visual.TextStim(
     win=myWin, color='white', height=0.5,
     text='You have pressed HORIZONTAL',
-    pos=apply_global_offset(base_pos=(0,-4), global_offset=global_offset)
+    pos=apply_global_offset(base_pos=(0,-1), global_offset=global_offset)
     )
 endText = visual.TextStim(
     win=myWin, color="white", height=0.5,
@@ -297,7 +281,7 @@ mapping_instruct_h = visual.TextStim(
 refr_rate = myWin.getActualFrameRate()  # get screen refresh rate
 print(f"refr_rate{refr_rate}")
 if refr_rate is None:
-    refr_rate = 120.0 # if could not get reliable refresh rate
+    refr_rate = 60.0 # if could not get reliable refresh rate
 if refr_rate is not None:
     frameDur = 1.0/round(refr_rate)
 else:
@@ -448,6 +432,13 @@ test_clock = core.Clock()
 # reset clocks
 clock.reset()
 logFile.write('StartOfRun' + str(expInfo['run']))
+#=============================================================
+# initial fixation
+initial_fix_TRs = final_fix_TR =  4
+while tr_count < initial_fix_TRs:
+    check_TR_trigger()
+    dotFix.draw()
+    myWin.flip()
 
 num_trial = 0
 print(conditions)
@@ -469,7 +460,6 @@ for trial in conditions:
         f"switch end={switch_end_TR}, "
         f"report end={report_end_TR}\n"
     )
-    #========================================================
     #INITIALIZE TRIAL RESPONSE VARIABLES
     trial["invalid_ResponseKey"] = "None"; trial["invalid_ResponseTime"] = "None"; trial["ResponseKey"] = "None"
     trial["ResponseTime"] = "None"; trial["ResponseRT"] = "None"
@@ -502,18 +492,24 @@ for trial in conditions:
     #SWITCH
     invalid_key = None
     invalid_timestamp = None
-    if trial["illusory_physical"] == "illusory":
-        while tr_count < switch_end_TR:
-            check_for_escape()
-            check_TR_trigger()
-            keys = event.getKeys(keyList=['1', '2', '3', '4'],timeStamped=clock)
-            if keys and invalid_key is None:
-                invalid_key, invalid_timestamp = keys[0]
-            if trial["QuartetOrder"] == "quartetPart1, quartetPart2":
-                quartetPart2(HoriDist, VertiDist)
-            elif trial["QuartetOrder"] == "quartetPart2, quartetPart1":
-                quartetPart1(HoriDist, VertiDist)
-            myWin.flip()
+
+    if trial["illusory_physical"]=="physical":
+        quartetIntermedian(HoriDist,VertiDist, trial["Instruct_V_H"])
+        myWin.flip()
+
+    while tr_count < switch_end_TR:
+        check_for_escape()
+        check_TR_trigger()
+        keys = event.getKeys(keyList=['1','2','3','4'],timeStamped=clock)
+        if keys and invalid_key is None:
+            invalid_key,invalid_timestamp = keys[0]
+
+        if trial["QuartetOrder"]=="quartetPart1, quartetPart2":
+            quartetPart2(HoriDist,VertiDist)
+        elif trial["QuartetOrder"]=="quartetPart2, quartetPart1":
+            quartetPart1(HoriDist,VertiDist)
+
+        myWin.flip()
     # ========================================================
     # REPORT
     ReportDur = trial["ReportTime"]
@@ -529,17 +525,8 @@ for trial in conditions:
         f"Trial {num_trial} REPORT started at "
         f"TR {report_start_TR}, time {report_start_time:.6f} sec\n"
     )
-    # ========================================================
-    # SET REPORT TR BOUNDARY
-    # For all normal trials, use report_end_TR normally.
-    # For the LAST trial, stop the trigger-based loop one TR
-    # earlier. The final TR will then be displayed using time.
-    if num_trial == len(conditions):
-        report_trigger_end_TR = report_end_TR - 1
-    else:
-        report_trigger_end_TR = report_end_TR
-    # ========================================================
-    # NORMAL TR-BASED REPORT
+    report_trigger_end_TR = report_end_TR
+
     while tr_count < report_trigger_end_TR:
         check_for_escape()
         # Check scanner trigger
@@ -562,41 +549,7 @@ for trial in conditions:
                 confirm_report_H.draw()
         myWin.flip()
     # ========================================================
-    # FINAL TR OF THE FINAL TRIAL
-    # ========================================================
-    # The trigger that caused the loop above to finish marks
-    # the beginning of the final TR.
-    # Do not wait for another trigger. Instead, display the
-    # report for one full TR measured from that trigger.
-    # ========================================================
-    if num_trial == len(conditions):
-        final_TR_start_time = last_trigger_time
-        logFile.write(
-            f"Final clock-timed TR started at "
-            f"TR {tr_count}, time {final_TR_start_time:.6f} sec\n"
-        )
-        while clock.getTime() - final_TR_start_time < TR:
-            check_for_escape()
-            # Draw report instruction
-            buttom_instruct(V_buttom, H_buttom)
-            # Check participant response
-            keys = event.getKeys(keyList=['1', '2', '3', '4'],timeStamped=clock)
-            if keys and not response_recorded:
-                response_key, response_time = keys[0]
-                response_recorded = True
-                trial["ResponseKey"] = response_key
-                trial["ResponseTime"] = response_time
-                trial["ResponseRT"] = response_time - report_start_time
-            # Keep confirmation on screen
-            if response_recorded:
-                if response_key == V_buttom:
-                    confirm_report_V.draw()
-                elif response_key == H_buttom:
-                    confirm_report_H.draw()
-            myWin.flip()
-    # ========================================================
     # REPORT FINISHED
-    # =======================================================
     report_end_time = clock.getTime()
     logFile.write(f"Trial {num_trial} REPORT ended at " f"TR {tr_count}, time {report_end_time:.6f} sec\n")
     logFile.write(f"Time at the end of trial {num_trial} is " f"{report_end_time:.6f} sec\n")
@@ -610,133 +563,142 @@ for trial in conditions:
         f"{trial['ResponseKey']} at "
         f"{trial['ResponseTime']} sec\n"
     )
-#========================================================    
-# Convert conditions to a DataFrame
+# ============================================================
+# final 3 TR fixation using TR counting 
+final_fix_duration_TR = 3
+final_fix_TR = tr_count + final_fix_duration_TR
+# First 2 TRs using scanner triggers
+while tr_count < final_fix_TR - 1:
+    check_for_escape()
+    check_TR_trigger()
+    dotFix.draw()
+    myWin.flip()
+# ============================================================
+# FINAL TR: time-based
+# The trigger that ended the loop above marks the beginning of the final fixation TR.
+final_TR_start_time = last_trigger_time
+while clock.getTime() - final_TR_start_time < TR:
+    check_for_escape()
+    dotFix.draw()
+    myWin.flip()
+#========================================================
+# Convert conditions to DataFrame
 conditions_df = pd.DataFrame(conditions)
+
 # Adding expected press and success True/False
 conditions_df['expected_key'] = conditions_df.apply(
-    lambda row: row['H_buttom'] if (row['Instruct_V_H'] == 'horizontal' and row['illusory_physical'] == 'illusory') else
-                row['V_buttom'] if (row['Instruct_V_H'] == 'vertical' and row['illusory_physical'] == 'illusory') else
-                row['V_buttom'] if (row['Instruct_V_H'] == 'horizontal' and row['illusory_physical'] == 'physical') else
-                row['H_buttom'], axis=1
-)
-conditions_df['success'] = conditions_df.apply(lambda row: True if (row['illusory_physical'] == 'illusory' and row['ResponseKey'] == row['expected_key']) else '', axis=1)
-# Save responses DataFrame to the Output folder as a CSV file
-conditions_df.to_csv(outFileName + '.csv', index=False)
-# Log the saving process 
+    lambda row: row['H_buttom'] if (row['Instruct_V_H']=='horizontal' and row['illusory_physical']=='illusory') else
+                row['V_buttom'] if (row['Instruct_V_H']=='vertical' and row['illusory_physical']=='illusory') else
+                row['V_buttom'] if (row['Instruct_V_H']=='horizontal' and row['illusory_physical']=='physical') else
+                row['H_buttom'],axis=1)
+
+conditions_df['success'] = conditions_df['ResponseKey']==conditions_df['expected_key']
+
+# Save responses
+conditions_df.to_csv(outFileName+'.csv',index=False)
 logFile.write(f"Responses saved to {outFileName}.csv")
-# Construct protocol file save into protocol folder 
-protocol_df = conditions_df.set_index([col for col in conditions_df.columns if col not in ['PrecueTime', 'DelayTime', 'SwitchTime', 'ReportTime']])
-protocol_df = protocol_df.stack().reset_index()
-protocol_df.columns = [*protocol_df.columns[:-2], 'Condition', 'Duration']
-# Reorder columns to place Condition and Duration as the second and third columns
-cols = list(protocol_df.columns)
-cols.insert(1, cols.pop(cols.index('Condition')))
-cols.insert(2, cols.pop(cols.index('Duration')))
-protocol_df = protocol_df[cols]
-# Duration should be modifed as TRs by dividing the time/TR
-protocol_df['Duration'] = protocol_df['Duration'] 
-# Create Timestamp column with cumulative time per Trial
-protocol_df['Timestamp'] = protocol_df['Duration'].cumsum()
-# Create Onset time column
-protocol_df['Onset'] = protocol_df['Timestamp'] - protocol_df['Duration']
-# change 'Condition' column label to 'Stim'
-protocol_df.rename(columns={'Condition': 'Stim'}, inplace=True)
-# Save protocol DataFrame to the protocol folder as a CSV file
-protocol_df.to_csv(prtFileName + '.csv', index=False)
 
 #========================================================
-# converts protocol file into BIDS csv 
-vol_BIDS_output_file = (Path(BIDSoutput_dir) / f"sub-{expInfo['participant']}_task-volitional_run-{int(expInfo['run']):02d}_events.tsv")
+# Construct protocol file
+protocol_df = conditions_df.set_index([col for col in conditions_df.columns if col not in ['PrecueTime','DelayTime','SwitchTime','ReportTime']])
+protocol_df = protocol_df.stack().reset_index()
+protocol_df.columns = [*protocol_df.columns[:-2],'Condition','Duration']
 
-vol_events = protocol_df.loc[protocol_df["Stim"].isin(["PrecueTime", "DelayTime", "SwitchTime", "ReportTime"])].copy()
+cols = list(protocol_df.columns)
+cols.insert(1,cols.pop(cols.index('Condition')))
+cols.insert(2,cols.pop(cols.index('Duration')))
+protocol_df = protocol_df[cols]
+
+# Add initial and final 4-TR fixation
+initial_fix = {col:'n/a' for col in protocol_df.columns}
+initial_fix.update({'Trial':'n/a','Condition':'Fixation','Duration':4})
+
+final_fix = {col:'n/a' for col in protocol_df.columns}
+final_fix.update({'Trial':'n/a','Condition':'Fixation','Duration':4})
+
+protocol_df = pd.concat([pd.DataFrame([initial_fix]),protocol_df,pd.DataFrame([final_fix])],ignore_index=True)
+
+# Timing in TRs
+protocol_df['Duration'] = pd.to_numeric(protocol_df['Duration'],errors='raise')
+protocol_df['Timestamp'] = protocol_df['Duration'].cumsum()
+protocol_df['Onset'] = protocol_df['Timestamp']-protocol_df['Duration']
+protocol_df.rename(columns={'Condition':'Stim'},inplace=True)
+
+# Save protocol
+protocol_df.to_csv(prtFileName+'.csv',index=False)
+
+#========================================================
+# Convert protocol into BIDS events.tsv
+vol_BIDS_output_file = Path(BIDSoutput_dir)/f"sub-{expInfo['participant']}_task-volitional_run-{int(expInfo['run']):02d}_events.tsv"
+
+# Select BIDS events
+vol_events = protocol_df.loc[protocol_df['Stim'].isin(['Fixation','PrecueTime','DelayTime','SwitchTime','ReportTime'])].copy()
 if vol_events.empty:
-    raise ValueError(f"No PrecueTime or DelayTime rows found in ")
+    raise ValueError('No task events found')
 
 # Convert timing from TRs to seconds
-vol_events["Onset"] = pd.to_numeric(vol_events["Onset"], errors="raise",)
-vol_events["Duration"] = pd.to_numeric(vol_events["Duration"],errors="raise",)
-vol_events["onset"] = vol_events["Onset"] * TR
-vol_events["duration"] = vol_events["Duration"] * TR
+vol_events['Onset'] = pd.to_numeric(vol_events['Onset'],errors='raise')
+vol_events['Duration'] = pd.to_numeric(vol_events['Duration'],errors='raise')
+vol_events['onset'] = vol_events['Onset']*TR
+vol_events['duration'] = vol_events['Duration']*TR
 
- # Clean phase and instruction labels
-stim_mapping = {"PrecueTime": "precue", "DelayTime": "delay", "SwitchTime": "switch", "ReportTime": "report"}
-vol_events["phase"] = (vol_events["Stim"].astype(str).str.strip().replace(stim_mapping))
-vol_events["instructed_axis"] = (vol_events["Instruct_V_H"].astype(str).str.strip().str.lower())
+# Event labels
+stim_mapping = {'Fixation':'fixation','PrecueTime':'precue','DelayTime':'delay','SwitchTime':'switch','ReportTime':'report'}
+vol_events['phase'] = vol_events['Stim'].astype(str).str.strip().replace(stim_mapping)
+vol_events['instructed_axis'] = vol_events['Instruct_V_H'].astype(str).str.strip().str.lower()
+vol_events['trial_type'] = np.where(vol_events['phase']=='fixation','fixation',vol_events['phase']+'_'+vol_events['instructed_axis'])
 
-# trial_type examples: # precue_horizontal # delay_horizontal # precue_vertical   # delay_vertical
-vol_events["trial_type"] = (vol_events["phase"]+ "_" + vol_events["instructed_axis"])
+# Trial metadata
+vol_events['trial'] = pd.to_numeric(vol_events['Trial'],errors='coerce').astype('Int64')
+vol_events['quartet_order'] = vol_events['QuartetOrder'].astype(str).str.strip()
+vol_events['stimulus_type'] = vol_events['illusory_physical'].astype(str).str.strip().str.lower()
+vol_events.loc[vol_events['phase']=='fixation','stimulus_type'] = 'n/a'
 
-# Preserve trial metadata
-vol_events["trial"] = pd.to_numeric(vol_events["Trial"], errors="raise",).astype(int)
-vol_events["quartet_order"] = (vol_events["QuartetOrder"].astype(str).str.strip())
-vol_events["stimulus_type"] = (vol_events["illusory_physical"].astype(str).str.strip().str.lower())
-# Convert success to consistent lowercase text BIDS permits extra columns containing strings.
-vol_events["success"] = (vol_events["success"].astype(str).str.strip().str.lower().replace({ "true": "1","false": "0"}))
-# Preserve response information
-vol_events["response_key"] = (vol_events["ResponseKey"].astype(str).str.strip())
-vol_events["expected_key"] = (vol_events["expected_key"].astype(str).str.strip())
-vol_events["response_time"] = pd.to_numeric(vol_events["ResponseTime"],errors="coerce",)
-# The logged ResponseTime appears to be measured from the beginning of the run. Keep it as response_onset rather than calling it reaction time.
-vol_events["response_onset"] = vol_events["response_time"]
-# Optional additional metadata
+# Success
+vol_events['success'] = vol_events['success'].astype(str).str.strip().str.lower().replace({'true':'1','false':'0','':'n/a'})
+vol_events.loc[vol_events['phase']=='fixation','success'] = 'n/a'
+
+# Response information
+vol_events['response_key'] = vol_events['ResponseKey'].astype(str).str.strip()
+vol_events['expected_key'] = vol_events['expected_key'].astype(str).str.strip()
+vol_events['response_time'] = pd.to_numeric(vol_events['ResponseTime'],errors='coerce')
+vol_events['response_onset'] = vol_events['response_time']
+
+# Optional metadata
 optional_column_mapping = {
-            "V_buttom": "vertical_button",
-            "H_buttom": "horizontal_button",
-            "vertical": "vertical_cue",
-            "horizontal": "horizontal_cue",
-            "invalid_ResponseKey": "invalid_response_key",
-            "invalid_ResponseTime": "invalid_response_time",
-        }
-for original_column, bids_column in optional_column_mapping.items():
+    'V_buttom':'vertical_button',
+    'H_buttom':'horizontal_button',
+    'vertical':'vertical_cue',
+    'horizontal':'horizontal_cue',
+    'invalid_ResponseKey':'invalid_response_key',
+    'invalid_ResponseTime':'invalid_response_time'
+}
+
+for original_column,bids_column in optional_column_mapping.items():
     if original_column in vol_events.columns:
         vol_events[bids_column] = vol_events[original_column]
-    # Select and order output columns
-    output_columns = ["onset","duration","trial_type","success"]
-    '''
-    # Add optional columns if needed
-    optional_output_columns = [
-            "vertical_button",
-            "horizontal_button",
-            "vertical_cue",
-            "horizontal_cue",
-            "invalid_response_key",
-            "invalid_response_time",
-            "trial",
-            "phase",
-            "instructed_axis",
-            "quartet_order",
-            "stimulus_type",
-            "response_key",
-            "response_onset",
-            "expected_key"
-        ]
-    output_columns.extend(
-            column
-            for column in optional_output_columns
-            if column in vol_events.columns
-        )
-    '''
-    vol_events = vol_events[output_columns]
-    # Sort and validate
-    vol_events = (vol_events.sort_values(["onset","trial_type"]).reset_index(drop=True))
-    if vol_events["onset"].isna().any():
-        raise ValueError(f"Missing onset values in df")
-    if vol_events["duration"].isna().any():
-        raise ValueError(f"Missing duration values in df")
-    if (vol_events["onset"] < 0).any():
-            raise ValueError(f"Negative onset found in df")
 
-event_ends = (vol_events["onset"] + vol_events["duration"])
+# Final BIDS columns
+output_columns = ['onset','duration','trial_type','stimulus_type','success']
+vol_events = vol_events[output_columns].sort_values(['onset','trial_type']).reset_index(drop=True)
+
+# Validate
+if vol_events['onset'].isna().any():
+    raise ValueError('Missing onset values')
+if vol_events['duration'].isna().any():
+    raise ValueError('Missing duration values')
+if (vol_events['onset']<0).any():
+    raise ValueError('Negative onset found')
+
 # Save BIDS events.tsv
-vol_events.to_csv(vol_BIDS_output_file,sep="\t",index=False,na_rep="n/a",float_format="%.3f")
-print(f"Saved {vol_BIDS_output_file}")
+vol_events.to_csv(vol_BIDS_output_file,sep='\t',index=False,na_rep='n/a',float_format='%.3f')
+print(f'Saved {vol_BIDS_output_file}')
 
-# End of experiment 
+#========================================================
+# End experiment
 endText.draw()
 myWin.flip()
-core.wait(2) # wait for 2 sec
-
+core.wait(2)
 os.chdir(parentDir)
 myWin.close()
-core.quit()    
+core.quit()
